@@ -1,0 +1,37 @@
+.carousel {
+    display: flex;
+    flex-direction: column;
+
+    :global(.mantine-Carousel-indicator) {
+        background-color: var(--indicator-color);
+        width: 6px;
+        height: 6px;
+        transition: width 250ms ease;
+
+        &[data-active] {
+            background-color: var(--indicator-active-color);
+            width: 24px;
+        }
+    }
+
+    :global(.mantine-Carousel-viewport) {
+        margin-bottom: var(--mantine-spacing-5xl);
+
+        @media screen and ($mantine-breakpoint-sm) {
+            margin-bottom: 0;
+        }
+    }
+
+    :global(.mantine-Carousel-indicators) {
+        position: static;
+        padding: var(--mantine-spacing-2xs) 0;
+    }
+
+    :global(.mantine-Carousel-viewport) {
+        overflow: visible;
+    }
+}
+
+.image {
+    border-radius: var(--mantine-radius-md);
+}

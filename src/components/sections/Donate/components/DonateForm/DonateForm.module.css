@@ -1,0 +1,84 @@
+.root {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.title {
+    font-family: 'SBSansDisplay', sans-serif;
+    font-weight: 600;
+    font-size: var(--mantine-font-size-3xl);
+    margin-bottom: var(--mantine-spacing-4xl);
+
+    @media screen and ($mantine-breakpoint-md) {
+        font-size: var(--mantine-font-size-lg);
+        margin-bottom: var(--mantine-spacing-xl);
+    }
+}
+
+.input {
+    padding: var(--mantine-spacing-xs) var(--mantine-spacing-3xl);
+    height: auto;
+    font-size: var(--mantine-font-size-lg);
+    line-height: 1;
+    padding-bottom: 9px;
+    border-radius: var(--mantine-radius-md);
+    margin-bottom: var(--mantine-spacing-4xl);
+    border-color: var(--input-border-color);
+
+    @media screen and ($mantine-breakpoint-md) {
+        font-size: var(--mantine-font-size-xs);
+        margin-bottom: var(--mantine-spacing-xl);
+        line-height: 2.1;
+    }
+}
+
+.radioButtonsWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-bottom: var(--mantine-spacing-4xl);
+
+    @media screen and ($mantine-breakpoint-md) {
+        margin-bottom: var(--mantine-spacing-xl);
+    }
+}
+
+.radioButton {
+    width: calc(50% - calc(var(--mantine-spacing-md) / 2));
+    margin-right: var(--mantine-spacing-md);
+    margin-bottom: var(--mantine-spacing-lg);
+
+    &:nth-child(even) {
+        margin-right: 0;
+    }
+
+    &:nth-last-child(-n + 2) {
+        margin-bottom: 0;
+    }
+}
+
+.submitButton {
+    width: 100%;
+    padding: var(--mantine-spacing-md) var(--mantine-spacing-xl);
+    border-radius: var(--mantine-radius-xl);
+    margin-bottom: var(--mantine-spacing-4xl);
+
+    @media screen and ($mantine-breakpoint-md) {
+        border-radius: var(--mantine-radius-md);
+        margin-bottom: var(--mantine-spacing-xl);
+    }
+}
+
+.checkboxInput {
+    border-radius: 2px;
+    cursor: pointer;
+
+    &:not(:checked) {
+        border-color: var(--input-border-color);
+    }
+}
+
+.checkboxLabel {
+    font-family: 'SBSansText', sans-serif;
+    font-weight: 400;
+    font-size: var(--mantine-font-size-2xs);
+}

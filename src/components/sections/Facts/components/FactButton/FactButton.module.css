@@ -1,0 +1,19 @@
+.root {
+    width: 72px;
+    height: 72px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+
+    &:active {
+        transform: translate(-50%, -50%);
+    }
+}
+
+.icon {
+    width: 32px;
+    height: 32px;
+}

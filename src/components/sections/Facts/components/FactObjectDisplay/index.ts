@@ -1,0 +1,1 @@
+export { FactObjectDisplay } from './FactObjectDisplay';

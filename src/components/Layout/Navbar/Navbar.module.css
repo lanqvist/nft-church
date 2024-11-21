@@ -1,0 +1,30 @@
+.root {
+    padding: var(--mantine-spacing-3xl) 0;
+
+    @media screen and ($mantine-breakpoint-xs) {
+        padding: var(--mantine-spacing-2xl);
+    }
+}
+
+.list {
+    display: flex;
+    justify-content: center;
+}
+
+.listItem {
+    margin-right: var(--mantine-spacing-xs);
+}
+
+.listItem:last-child {
+    margin-right: 0;
+}
+
+.button {
+    text-transform: uppercase;
+    padding: 0 var(--mantine-spacing-md);
+
+    @media screen and ($mantine-breakpoint-xs) {
+        padding: 0 var(--mantine-spacing-2xs);
+        font-size: var(--mantine-font-size-2xs);
+    }
+}

@@ -1,0 +1,65 @@
+.paper {
+    position: relative;
+    height: 100%;
+    border-radius: var(--mantine-radius-lg);
+    overflow: hidden;
+    background-color: var(--mantine-color-gray-1);
+    display: flex;
+    flex-direction: column;
+}
+
+.image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+
+.flipTarget {
+    height: 100%;
+    cursor: pointer;
+}
+
+.content {
+    height: 100%;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    padding: var(--mantine-spacing-2xl);
+}
+
+.text {
+    font-size: var(--mantine-font-size-sm);
+}
+
+.title {
+    font-weight: 400;
+
+    @media screen and ($mantine-breakpoint-md) {
+        font-size: var(--mantine-font-size-lg);
+    }
+}
+
+.invertedTitle {
+    color: var(--mantine-color-white);
+}
+
+.openButton {
+    --button-bg: var(--card-open-button-color);
+    --button-color: var(--card-open-button-color);
+}
+
+.closeButton {
+    --button-bg: var(--card-close-button-color);
+    --button-color: var(--card-close-button-color);
+}
+
+.button {
+    padding: var(--mantine-spacing-xs) 0;
+    border-radius: var(--mantine-radius-md);
+    margin-top: auto;
+}

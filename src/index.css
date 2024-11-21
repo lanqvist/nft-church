@@ -1,0 +1,152 @@
+@font-face {
+    font-family: 'SBSansDisplay';
+    font-weight: 300;
+    src: url('@assets/fonts/SBSansDisplay-Light.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'SBSansDisplay';
+    font-weight: 300;
+    src: url('@assets/fonts/SBSansDisplay-Light.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'SBSansDisplay';
+    font-weight: 300;
+    src: url('@assets/fonts/SBSansDisplay-Light.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'SBSansDisplay';
+    font-weight: 400;
+    src: url('@assets/fonts/SBSansDisplay-Regular.otf') format('opentype');
+    src: url('@assets/fonts/SBSansDisplay-Regular.otf') format('opentype');
+    src: url('@assets/fonts/SBSansDisplay-Regular.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'SBSansDisplay';
+    font-weight: 600;
+    src: url('@assets/fonts/SBSansDisplay-Semibold.otf') format('opentype');
+    src: url('@assets/fonts/SBSansDisplay-Semibold.otf') format('opentype');
+    src: url('@assets/fonts/SBSansDisplay-Semibold.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'SBSansDisplay';
+    font-weight: 800;
+    src: url('@assets/fonts/SBSansDisplay-Bold.otf') format('opentype');
+    font-family: 'SBSansDisplay';
+    font-weight: 800;
+    src: url('@assets/fonts/SBSansDisplay-Bold.otf') format('opentype');
+    font-family: 'SBSansDisplay';
+    font-weight: 800;
+    src: url('@assets/fonts/SBSansDisplay-Bold.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'SBSansText';
+    font-weight: 300;
+    src: url('@assets/fonts/SBSansText-Light.otf') format('opentype');
+    font-weight: 300;
+    src: url('@assets/fonts/SBSansText-Light.otf') format('opentype');
+    font-weight: 300;
+    src: url('@assets/fonts/SBSansText-Light.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'SBSansText';
+    font-family: 'SBSansText';
+    font-family: 'SBSansText';
+    font-weight: 400;
+    src: url('@assets/fonts/SBSansText-Regular.otf') format('opentype');
+    src: url('@assets/fonts/SBSansText-Regular.otf') format('opentype');
+    src: url('@assets/fonts/SBSansText-Regular.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'SBSansText';
+    font-weight: 500;
+    src: url('@assets/fonts/SBSansText-Medium.ttf') format('truetype');
+    font-weight: 500;
+    src: url('@assets/fonts/SBSansText-Medium.ttf') format('truetype');
+    font-weight: 500;
+    src: url('@assets/fonts/SBSansText-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SBSansText';
+    font-weight: 600;
+    src: url('@assets/fonts/SBSansText-Semibold.otf') format('opentype');
+    src: url('@assets/fonts/SBSansText-Semibold.otf') format('opentype');
+    src: url('@assets/fonts/SBSansText-Semibold.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'SBSansText';
+    font-weight: 800;
+    src: url('@assets/fonts/SBSansText-Bold.otf') format('opentype');
+    font-family: 'SBSansText';
+    font-weight: 800;
+    src: url('@assets/fonts/SBSansText-Bold.otf') format('opentype');
+    font-family: 'SBSansText';
+    font-weight: 800;
+    src: url('@assets/fonts/SBSansText-Bold.otf') format('opentype');
+}
+
+:root {
+    --footer-bg-color: #f5f5f5;
+    --footer-divider-color: #e8e8e8;
+    --indicator-color: rgba(8, 8, 8, 0.12);
+    --indicator-active-color: rgba(8, 8, 8, 0.56);
+    --input-border-color: #ced4da;
+    --input-border-color: #ced4da;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    color: var(--mantine-color-gray-9);
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.button {
+    height: auto;
+    font-weight: 600;
+
+    &:hover {
+        &[data-variant='filled'] {
+            border-color: var(--button-hover);
+        }
+
+        &[data-variant='outline'] {
+            border-color: var(--button-hover);
+            background-color: var(--button-bg);
+        }
+    }
+
+    &:active {
+        transform: none;
+
+        &[data-variant='filled'] {
+            background-color: var(--button-active);
+            border-color: var(--button-active);
+        }
+
+        &[data-variant='outline'] {
+            border-color: var(--button-active);
+            color: var(--button-active-color);
+        }
+    }
+}

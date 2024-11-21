@@ -1,0 +1,110 @@
+.container {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    border-radius: 32px;
+    background: url('./assets/banner-md.jpeg') no-repeat bottom / cover;
+    padding: 0;
+    width: 100%;
+
+    @media screen and ($mantine-breakpoint-xs) {
+        display: block;
+        background: url('./assets/banner-sm.jpeg') no-repeat bottom / cover;
+    }
+}
+
+.infoWrapper {
+    padding: 102px 282px 426px;
+
+    @media screen and ($mantine-breakpoint-xl) {
+        padding: 102px 282px 426px;
+    }
+
+    @media screen and ($mantine-breakpoint-lg) {
+        padding: 102px 92px 458px;
+    }
+
+    @media screen and ($mantine-breakpoint-md) {
+        padding: 70px 56px 274px;
+    }
+
+    @media screen and ($mantine-breakpoint-xs) {
+        padding: 32px;
+    }
+}
+
+.info {
+    padding: var(--mantine-spacing-5xl);
+    padding-bottom: 60px;
+    border-radius: var(--mantine-radius-lg);
+    background-color: rgba(245, 247, 250, 0.7);
+    backdrop-filter: blur(10px);
+
+    @media screen and ($mantine-breakpoint-md) {
+        padding: var(--mantine-spacing-4xl);
+        max-width: 375px;
+    }
+
+    @media screen and ($mantine-breakpoint-sm) {
+        padding: 0;
+        backdrop-filter: none;
+        background: none;
+    }
+}
+
+.title {
+    white-space: pre;
+    margin-bottom: var(--mantine-spacing-4xl);
+
+    @media screen and ($mantine-breakpoint-lg) {
+        font-size: var(--mantine-font-size-4xl);
+        margin-bottom: var(--mantine-spacing-3xl);
+    }
+
+    @media screen and ($mantine-breakpoint-md) {
+        font-size: var(--mantine-font-size-2xl);
+        margin-bottom: var(--mantine-spacing-xl);
+    }
+
+    @media screen and ($mantine-breakpoint-xs) {
+        font-size: var(--mantine-font-size-2xl);
+        margin-bottom: var(--mantine-spacing-md);
+    }
+
+    @media screen and ($mantine-breakpoint-2xs) {
+        font-size: var(--mantine-font-size-md);
+        margin-bottom: var(--mantine-spacing-md);
+    }
+}
+
+.text {
+    width: 90%;
+    margin-bottom: var(--mantine-spacing-4xl);
+    line-height: var(--mantine-line-height-xl);
+
+    @media screen and ($mantine-breakpoint-lg) {
+        max-width: 250px;
+        font-size: var(--mantine-font-size-md);
+    }
+
+    @media screen and ($mantine-breakpoint-xs) {
+        margin-bottom: 188px;
+        font-size: var(--mantine-font-size-md);
+    }
+
+    @media screen and ($mantine-breakpoint-2xs) {
+        font-size: var(--mantine-font-size-sm);
+    }
+}
+
+.button {
+    width: auto;
+    padding: var(--mantine-spacing-lg) var(--mantine-spacing-3xl);
+    font-size: var(--mantine-spacing-lg);
+    font-family: 'Open Sans', sans-serif;
+    border-radius: var(--mantine-radius-lg);
+
+    @media screen and ($mantine-breakpoint-xs) {
+        width: 100%;
+    }
+}

@@ -1,0 +1,30 @@
+.content {
+    display: flex;
+}
+
+.left {
+    width: 100%;
+    margin-right: var(--mantine-spacing-xl);
+
+    @media screen and ($mantine-breakpoint-md) {
+        display: none;
+    }
+}
+
+.right {
+    width: 100%;
+    background-color: var(--mantine-color-gray-1);
+    border-radius: var(--mantine-radius-lg);
+    padding: var(--mantine-spacing-3xl);
+
+    @media screen and ($mantine-breakpoint-md) {
+        padding: var(--mantine-spacing-xl);
+    }
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--mantine-radius-lg);
+}

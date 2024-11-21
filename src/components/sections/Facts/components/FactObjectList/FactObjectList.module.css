@@ -1,0 +1,21 @@
+.root {
+    padding: var(--mantine-spacing-3xl);
+    background-color: var(--mantine-color-gray-1);
+    border-radius: var(--mantine-radius-lg);
+
+    @media screen and ($mantine-breakpoint-sm) {
+        padding: var(--mantine-spacing-md);
+    }
+}
+
+.list {
+    display: flex;
+}
+
+.listItem {
+    margin-right: var(--mantine-spacing-md);
+
+    &:last-child {
+        margin-right: 0;
+    }
+}

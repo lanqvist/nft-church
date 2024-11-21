@@ -1,0 +1,1 @@
+export { FactButton } from './FactButton';

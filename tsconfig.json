@@ -1,0 +1,38 @@
+{
+    "compilerOptions": {
+        "target": "ES2020",
+        "useDefineForClassFields": true,
+        "lib": ["ES2020", "DOM", "DOM.Iterable"],
+        "module": "ESNext",
+        "skipLibCheck": true,
+        "types": ["yandex-maps"],
+        "typeRoots": ["./node_modules/@types"],
+        // other compiler options...
+        "baseUrl": ".",
+        "paths": {
+            "@components/*": ["./src/components/*"],
+            "@assets/*": ["./src/assets/*"],
+            "@consts/*": ["./src/consts/*"],
+            "@utils/*": ["./src/helpers/utils/*"],
+            "@hooks/*": ["./src/helpers/hooks/*"],
+            "@services/*": ["./src/services/*"],
+            "@lib/*": ["./src/lib/*"],
+            "@/*": ["./src/*"]
+        },
+
+        /* Bundler mode */
+        "moduleResolution": "bundler",
+        "allowImportingTsExtensions": true,
+        "isolatedModules": true,
+        "moduleDetection": "force",
+        "noEmit": true,
+        "jsx": "react-jsx",
+
+        /* Linting */
+        "strict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noFallthroughCasesInSwitch": true
+    },
+    "include": ["src", "./src/global.d.ts", ".eslintrc.cjs", "postcss.config.cjs"]
+}
