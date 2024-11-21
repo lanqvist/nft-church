@@ -1,7 +1,7 @@
 import { Text, Title } from '@mantine/core';
 import { useCallback, useMemo, useState } from 'react';
 
-import { Section } from '@components/layout/Section';
+import { Section } from '@components/LayoutComponents/Section';
 import { useBreakpoint } from '@hooks/useBreakpoint';
 
 import HandClickIcon from './assets/icons/handClick.svg?react';

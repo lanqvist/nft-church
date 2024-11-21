@@ -1,6 +1,6 @@
 import { Text, Title } from '@mantine/core';
 
-import { Section } from '@components/layout/Section';
+import { Section } from '@components/LayoutComponents/Section';
 
 import styles from './Contacts.module.css';
 import { Map } from './Map';

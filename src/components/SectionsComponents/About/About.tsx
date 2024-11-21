@@ -2,7 +2,7 @@ import { Carousel } from '@mantine/carousel';
 import { Button, Image } from '@mantine/core';
 import clsx from 'clsx';
 
-import { Section } from '@components/layout/Section';
+import { Section } from '@components/LayoutComponents/Section';
 import { useBreakpoint } from '@hooks/useBreakpoint';
 
 import styles from './About.module.css';

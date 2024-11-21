@@ -1,4 +1,4 @@
-import { Section } from '@components/layout/Section';
+import { Section } from '@components/LayoutComponents/Section';
 
 import churchImage from './assets/church.jpeg';
 import { DonateForm } from './components/DonateForm';

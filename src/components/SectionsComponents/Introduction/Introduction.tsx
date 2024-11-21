@@ -1,7 +1,7 @@
 import { Text } from '@mantine/core';
 import clsx from 'clsx';
 
-import { Section } from '@components/layout/Section';
+import { Section } from '@components/LayoutComponents/Section';
 
 import cardImg1 from './assets/card1.jpeg';
 import cardImg2 from './assets/card2.jpeg';

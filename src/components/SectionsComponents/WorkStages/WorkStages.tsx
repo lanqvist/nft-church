@@ -1,7 +1,7 @@
 import { Carousel } from '@mantine/carousel';
 import { Image } from '@mantine/core';
 
-import { Section } from '@components/layout/Section';
+import { Section } from '@components/LayoutComponents/Section';
 import { useBreakpoint } from '@hooks/useBreakpoint';
 
 import slideImg1 from './assets/slide-1.jpeg';
