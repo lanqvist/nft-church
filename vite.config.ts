@@ -2,9 +2,9 @@
 import path from 'path';
 
 import react from '@vitejs/plugin-react';
+import dotenv from 'dotenv';
 import { defineConfig } from 'vite';
 import { createHtmlPlugin } from 'vite-plugin-html';
-import dotenv from 'dotenv';
 import svgr from 'vite-plugin-svgr';
 
 dotenv.config();
