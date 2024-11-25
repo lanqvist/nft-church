@@ -1,2 +1,2 @@
-export * from './LayoutComponents';
-export * from './SectionsComponents';
+export * from './layout';
+export * from './sections';

@@ -1,4 +1,4 @@
 export { Header } from './Header';
-export { Layout } from './Layout';
+export { MainLayout } from './MainLayout';
 export { Navbar } from './Navbar';
 export { Footer } from './Footer';

@@ -3,6 +3,10 @@
     padding: 0 var(--mantine-spacing-5xl);
     overflow: hidden;
 
+    @media screen and ($mantine-breakpoint-xl) {
+        padding: 0 var(--mantine-spacing-6xl);
+    }
+
     @media screen and ($mantine-breakpoint-md) {
         padding: 0 var(--mantine-spacing-3xl);
     }
@@ -25,15 +29,5 @@
     @media screen and ($mantine-breakpoint-xs) {
         margin-bottom: var(--mantine-spacing-xl);
         font-size: var(--mantine-font-size-xl);
-    }
-}
-
-.container {
-    max-width: 1568px;
-    padding: 0 184px;
-    margin: 0 auto;
-
-    @media screen and ($mantine-breakpoint-xl) {
-        padding: 0;
     }
 }

@@ -1,4 +1,4 @@
-import { FactObject } from '@components/SectionsComponents/Facts/models/facts';
+import { FactObject } from '@components/sections/Facts/models/facts';
 
 export type ListItemProps = {
     factObject: FactObject;

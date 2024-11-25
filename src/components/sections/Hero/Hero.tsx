@@ -1,6 +1,6 @@
 import { Button, Text, Title } from '@mantine/core';
 
-import { Section } from '@components/LayoutComponents/Section';
+import { Section } from '@components/layout/Section';
 
 import styles from './Hero.module.css';
 
