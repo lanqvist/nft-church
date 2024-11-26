@@ -122,13 +122,8 @@ a {
 }
 
 .container {
-    max-width: 1920px;
-    padding: 0 184px;
+    max-width: 1440px;
     margin: 0 auto;
-
-    @media screen and ($mantine-breakpoint-xl) {
-        padding: 0;
-    }
 }
 
 .button {

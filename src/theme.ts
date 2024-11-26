@@ -175,7 +175,7 @@ export const theme = createTheme({
         '2xs': '360px',
         xs: '430px',
         sm: '560px',
-        md: '960px',
+        md: '959px',
         lg: '1328px',
         xl: '1568px',
         '2xl': '1920px',
