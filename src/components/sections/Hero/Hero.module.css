@@ -1,3 +1,7 @@
+.root {
+    padding: 0;
+}
+
 .content {
     overflow: hidden;
     display: flex;

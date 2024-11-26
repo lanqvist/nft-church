@@ -5,7 +5,7 @@ import { Section } from '@components/layout/Section';
 import styles from './Hero.module.css';
 
 export const Hero = () => (
-    <Section>
+    <Section className={styles.root}>
         <div className={styles.content}>
             <div className={styles.infoWrapper}>
                 <div className={styles.info}>
