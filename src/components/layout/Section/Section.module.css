@@ -1,19 +1,14 @@
 .root {
     margin-bottom: 124px;
-    padding: 0 var(--mantine-spacing-5xl);
+    padding: 0 176px;
     overflow: hidden;
 
     @media screen and ($mantine-breakpoint-xl) {
-        padding: 0 var(--mantine-spacing-6xl);
-    }
-
-    @media screen and ($mantine-breakpoint-md) {
-        padding: 0 var(--mantine-spacing-3xl);
+        padding: 0;
     }
 
     @media screen and ($mantine-breakpoint-sm) {
         margin-bottom: var(--mantine-spacing-5xl);
-        padding: 0 var(--mantine-spacing-sm);
     }
 
     @media screen and ($mantine-breakpoint-xs) {

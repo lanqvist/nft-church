@@ -1,10 +1,9 @@
-.container {
+.content {
     overflow: hidden;
     display: flex;
     align-items: center;
     border-radius: 32px;
     background: url('./assets/banner-md.jpeg') no-repeat bottom / cover;
-    padding: 0;
     width: 100%;
 
     @media screen and ($mantine-breakpoint-xs) {
