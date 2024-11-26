@@ -34,5 +34,5 @@
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true
     },
-    "include": ["src", "./src/global.d.ts", ".eslintrc.cjs", "postcss.config.cjs"]
+    "include": ["src", "./src/global.d.ts", "eslint.config.js", "postcss.config.js"]
 }

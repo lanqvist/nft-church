@@ -1,7 +1,7 @@
-import { About, Facts, Hero, Introduction, Layout, WorkStages, Donate, Contacts } from './components';
+import { About, Facts, Hero, Introduction, MainLayout, WorkStages, Donate, Contacts } from './components';
 
 const App = () => (
-    <Layout>
+    <MainLayout>
         <Hero />
         <Introduction />
         <About />
@@ -9,7 +9,7 @@ const App = () => (
         <Facts />
         <Donate />
         <Contacts />
-    </Layout>
+    </MainLayout>
 );
 
 export default App;

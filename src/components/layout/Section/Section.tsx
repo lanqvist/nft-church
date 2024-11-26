@@ -7,7 +7,7 @@ import { SectionProps } from './Section.types';
 
 export const Section: FC<SectionProps> = ({ title, className, containerClassName, titleClassName, children }) => (
     <section className={clsx(styles.root, className)}>
-        <div className={clsx(styles.container, containerClassName)}>
+        <div className={clsx('container', containerClassName)}>
             {title && (
                 <Title order={2} className={clsx(styles.title, titleClassName)}>
                     {title}
