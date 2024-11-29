@@ -5,13 +5,23 @@ import { FC } from 'react';
 import styles from './Section.module.css';
 import { SectionProps } from './Section.types';
 
-export const Section: FC<SectionProps> = ({ title, className, containerClassName, titleClassName, children }) => (
+export const Section: FC<SectionProps> = ({
+    title,
+    className,
+    containerClassName,
+    titleClassName,
+    titleAddons,
+    children,
+}) => (
     <section className={clsx(styles.root, className)}>
         <div className={clsx('container', containerClassName)}>
-            {title && (
-                <Title order={2} className={clsx(styles.title, titleClassName)}>
-                    {title}
-                </Title>
+            {(title || titleAddons) && (
+                <div className={styles.titleWrapper}>
+                    <Title order={2} className={clsx(styles.title, titleClassName)}>
+                        {title}
+                    </Title>
+                    {titleAddons}
+                </div>
             )}
             {children}
         </div>

@@ -1,3 +1,9 @@
+.root {
+    @media screen and ($mantine-breakpoint-sm) {
+        padding: 0;
+    }
+}
+
 .container {
     max-width: 1920px;
 
@@ -11,96 +17,122 @@
     display: flex;
     align-items: center;
     border-radius: 32px;
-    background: url('./assets/banner-md.jpeg') no-repeat bottom / cover;
+    background: url('./assets/banner-large.jpeg') no-repeat top / cover;
     width: 100%;
 
-    @media screen and ($mantine-breakpoint-xs) {
+    @media screen and ($mantine-breakpoint-md) {
         display: block;
-        background: url('./assets/banner-sm.jpeg') no-repeat bottom / cover;
+        background: url('./assets/banner-medium.jpeg') no-repeat top / cover;
+    }
+
+    @media screen and ($mantine-breakpoint-sm) {
+        border-radius: 0;
+        background-size: contain;
     }
 }
 
 .infoWrapper {
-    padding: 102px 282px 426px;
-
-    @media screen and ($mantine-breakpoint-xl) {
-        padding: 102px 282px 426px;
-    }
-
-    @media screen and ($mantine-breakpoint-lg) {
-        padding: 102px 92px 458px;
-    }
+    padding: 84px;
+    padding-bottom: 108px;
 
     @media screen and ($mantine-breakpoint-md) {
-        padding: 70px 56px 274px;
-    }
-
-    @media screen and ($mantine-breakpoint-xs) {
-        padding: 32px;
-    }
-}
-
-.info {
-    padding: var(--mantine-spacing-5xl);
-    padding-bottom: 60px;
-    border-radius: var(--mantine-radius-lg);
-    background-color: rgba(245, 247, 250, 0.7);
-    backdrop-filter: blur(10px);
-
-    @media screen and ($mantine-breakpoint-md) {
-        padding: var(--mantine-spacing-4xl);
-        max-width: 375px;
+        padding: 36px;
+        padding-bottom: 75px;
     }
 
     @media screen and ($mantine-breakpoint-sm) {
         padding: 0;
-        backdrop-filter: none;
+        padding-top: 281px;
+    }
+
+    @media screen and ($mantine-breakpoint-xs) {
+        padding-top: 322px;
+    }
+
+    @media screen and ($mantine-breakpoint-2xs) {
+        padding-top: 269px;
+    }
+}
+
+.infoContent {
+    width: 692px;
+
+    @media screen and ($mantine-breakpoint-md) {
+        width: 376px;
+    }
+
+    @media screen and ($mantine-breakpoint-md) {
+        width: 100%;
+    }
+
+    @media screen and ($mantine-breakpoint-sm) {
+        border-radius: var(--mantine-radius-lg);
+        background-color: rgba(73, 80, 87, 0.45);
+        backdrop-filter: blur(20px);
+        padding: var(--mantine-spacing-xl);
+    }
+}
+
+.infoBackground {
+    border-radius: var(--mantine-radius-lg);
+    background-color: rgba(73, 80, 87, 0.45);
+    backdrop-filter: blur(20px);
+}
+
+.info {
+    padding: var(--mantine-spacing-3xl);
+    margin-bottom: var(--mantine-spacing-md);
+
+    @media screen and ($mantine-breakpoint-sm) {
+        padding: 0;
+    }
+}
+
+.info.infoBackground {
+    @media screen and ($mantine-breakpoint-sm) {
         background: none;
+        backdrop-filter: none;
     }
 }
 
 .title {
     white-space: pre;
-    margin-bottom: var(--mantine-spacing-4xl);
-
-    @media screen and ($mantine-breakpoint-lg) {
-        font-size: var(--mantine-font-size-4xl);
-        margin-bottom: var(--mantine-spacing-3xl);
-    }
+    margin-bottom: var(--mantine-spacing-xl);
+    color: var(--mantine-color-gray-1);
+    font-weight: 400;
+    line-height: var(--mantine-line-height-xs);
 
     @media screen and ($mantine-breakpoint-md) {
-        font-size: var(--mantine-font-size-2xl);
-        margin-bottom: var(--mantine-spacing-xl);
-    }
-
-    @media screen and ($mantine-breakpoint-xs) {
-        font-size: var(--mantine-font-size-2xl);
+        font-size: var(--mantine-font-size-3xl);
         margin-bottom: var(--mantine-spacing-md);
     }
 
-    @media screen and ($mantine-breakpoint-2xs) {
-        font-size: var(--mantine-font-size-md);
+    @media screen and ($mantine-breakpoint-sm) {
+        font-size: var(--mantine-font-size-xl);
         margin-bottom: var(--mantine-spacing-md);
     }
 }
 
 .text {
-    width: 90%;
-    margin-bottom: var(--mantine-spacing-4xl);
-    line-height: var(--mantine-line-height-xl);
+    margin-bottom: var(--mantine-spacing-3xl);
+    line-height: var(--mantine-line-height-xs);
+    color: var(--mantine-color-gray-1);
+    font-size: var(--mantine-font-size-xl);
+    font-weight: 500;
 
-    @media screen and ($mantine-breakpoint-lg) {
-        max-width: 250px;
-        font-size: var(--mantine-font-size-md);
+    @media screen and ($mantine-breakpoint-md) {
+        width: 70%;
+        font-size: var(--mantine-font-size-xs);
+        line-height: var(--mantine-line-height-lg);
+        margin-bottom: var(--mantine-spacing-md);
+    }
+
+    @media screen and ($mantine-breakpoint-sm) {
+        width: 100%;
     }
 
     @media screen and ($mantine-breakpoint-xs) {
-        margin-bottom: 188px;
-        font-size: var(--mantine-font-size-md);
-    }
-
-    @media screen and ($mantine-breakpoint-2xs) {
-        font-size: var(--mantine-font-size-sm);
+        width: 200px;
     }
 }
 
@@ -109,9 +141,125 @@
     padding: var(--mantine-spacing-lg) var(--mantine-spacing-3xl);
     font-size: var(--mantine-spacing-lg);
     font-family: 'Open Sans', sans-serif;
-    border-radius: var(--mantine-radius-lg);
+    border-radius: var(--mantine-radius-xl);
 
-    @media screen and ($mantine-breakpoint-xs) {
+    @media screen and ($mantine-breakpoint-md) {
+        padding: 10px 22px;
+    }
+
+    @media screen and ($mantine-breakpoint-sm) {
         width: 100%;
+        padding: var(--mantine-spacing-lg) var(--mantine-spacing-3xl);
+    }
+}
+
+.infoBottomBlocks {
+    display: flex;
+    width: 100%;
+
+    @media screen and ($mantine-breakpoint-md) {
+        flex-direction: column;
+    }
+
+    @media screen and ($mantine-breakpoint-sm) {
+        flex-direction: row;
+    }
+}
+
+.infoBlock {
+    padding: var(--mantine-spacing-xl);
+
+    &:first-child {
+        margin-right: var(--mantine-spacing-md);
+
+        @media screen and ($mantine-breakpoint-md) {
+            margin-right: 0;
+            margin-bottom: var(--mantine-spacing-md);
+        }
+
+        @media screen and ($mantine-breakpoint-sm) {
+            margin-right: var(--mantine-spacing-2xs);
+            margin-bottom: 0;
+        }
+    }
+
+    @media screen and ($mantine-breakpoint-sm) {
+        width: 50%;
+    }
+}
+
+.infoBlockTop {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--mantine-spacing-xl);
+
+    @media screen and ($mantine-breakpoint-sm) {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: var(--mantine-spacing-md);
+    }
+}
+
+.infoBlockImage {
+    width: 76px;
+    height: 56px;
+    margin-right: var(--mantine-spacing-md);
+
+    @media screen and ($mantine-breakpoint-sm) {
+        margin-right: 0;
+        margin-bottom: var(--mantine-spacing-md);
+    }
+}
+
+.infoBlockText {
+    color: var(--mantine-color-gray-1);
+    font-size: var(--mantine-font-size-xs);
+    font-weight: 600;
+
+    @media screen and ($mantine-breakpoint-sm) {
+        font-size: var(--mantine-font-size-3xs);
+    }
+}
+
+.infoBlockBottom {
+    display: flex;
+    align-items: center;
+}
+
+.infoBlockIcon {
+    color: var(--mantine-color-gray-1);
+    margin-right: var(--mantine-spacing-xs);
+    width: 24px;
+    height: 24px;
+
+    @media screen and ($mantine-breakpoint-sm) {
+        width: 18px;
+        height: 18px;
+        margin-right: var(--mantine-spacing-3xs);
+    }
+}
+
+.infoBlockLink {
+    position: relative;
+    color: var(--mantine-color-gray-1);
+    height: 23px;
+
+    &::after {
+        position: absolute;
+        content: '';
+        width: 100%;
+        height: 1px;
+        background-color: var(--mantine-color-gray-1);
+        left: 0;
+        bottom: 0;
+    }
+
+    &:hover::after {
+        background-color: transparent;
+    }
+
+    @media screen and ($mantine-breakpoint-sm) {
+        height: 14px;
+        font-size: var(--mantine-font-size-3xs);
     }
 }

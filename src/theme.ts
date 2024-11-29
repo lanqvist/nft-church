@@ -126,7 +126,7 @@ export const theme = createTheme({
         fontWeight: '700',
         textWrap: 'wrap',
         sizes: {
-            h1: { fontSize: '56px', lineHeight: '1.35' },
+            h1: { fontSize: '64px', lineHeight: '1.35' },
             h2: { fontSize: '46px', lineHeight: '1.35' },
             h3: { fontSize: '36px', lineHeight: '1.375' },
             h4: { fontSize: '30px', lineHeight: '1.45' },
@@ -147,6 +147,7 @@ export const theme = createTheme({
         '4xl': '36px',
         '5xl': '46px',
         '6xl': '56px',
+        '7xl': '64px',
     },
     lineHeights: {
         xs: '1',
@@ -169,13 +170,13 @@ export const theme = createTheme({
         '5xl': '56px',
         '6xl': '64px',
     },
-    // Должны соответствовать тем же значениям что находятся в postcss.config.cjs
+    // Должны соответствовать тем же значениям что находятся в postcss.config.cjs, но нужно учитывать что mantine ui использует mobile first подход
     breakpoints: {
         '3xs': '320px',
         '2xs': '360px',
         xs: '430px',
         sm: '560px',
-        md: '959px',
+        md: '960px',
         lg: '1328px',
         xl: '1568px',
         '2xl': '1920px',
