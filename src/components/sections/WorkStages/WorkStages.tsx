@@ -1,5 +1,5 @@
 import { Carousel, Embla } from '@mantine/carousel';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import { Section } from '@components/layout/Section';
 
