@@ -11,6 +11,15 @@ dotenv.config();
 
 // https://vitejs.dev/config/
 export default defineConfig({
+    server: {
+        proxy: {
+            '/payments': {
+                target: 'https://api.yookassa.ru/v3/payments',
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/payments/, ''),
+            },
+        },
+    },
     resolve: {
         alias: {
             '@assets': path.resolve(__dirname, './src/assets'),
