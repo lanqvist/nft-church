@@ -7,7 +7,7 @@ import { ky } from '@utils/ky';
 
 import { AmountRadioButton } from '../AmountRadioButton';
 
-import { AMOUNTS, PAYMENT_METHODS } from './DonateForm.consts';
+import { AMOUNTS } from './DonateForm.consts';
 import styles from './DonateForm.module.css';
 
 // TODO: Уточнить реальные значения для Select'а
