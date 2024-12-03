@@ -64,8 +64,7 @@ export const DonateForm = () => {
     }, []);
 
     return (
-        // eslint-disable-next-line react/no-unknown-property
-        <form className={styles.root} onSubmit={handleSubmit} netlify>
+        <form className={styles.root} onSubmit={handleSubmit} data-netlify="true">
             <Title order={3} className={styles.title}>
                 Сделать пожертвование Храму преподобного Сергия Радонежского
             </Title>
