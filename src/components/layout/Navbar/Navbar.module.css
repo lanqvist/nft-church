@@ -1,14 +1,25 @@
 .root {
-    padding: var(--mantine-spacing-3xl) 0;
+    padding: 0 var(--mantine-spacing-6xl);
+    display: flex;
+    width: 100%;
 
-    @media screen and ($mantine-breakpoint-xs) {
-        padding: var(--mantine-spacing-2xl);
+    @media screen and ($mantine-breakpoint-md) {
+        padding: 0;
+        justify-content: flex-end;
     }
 }
 
 .list {
+    background-color: var(--mantine-color-gray-1);
+    border-radius: var(--mantine-radius-lg);
+    padding: var(--mantine-spacing-xl) var(--mantine-spacing-2xs);
     display: flex;
     justify-content: center;
+    width: 100%;
+
+    @media screen and ($mantine-breakpoint-md) {
+        display: none;
+    }
 }
 
 .listItem {
@@ -20,11 +31,40 @@
 }
 
 .button {
-    text-transform: uppercase;
-    padding: 0 var(--mantine-spacing-md);
+    font-weight: 500;
+    font-size: var(--mantine-font-size-md);
+    border-radius: var(--mantine-radius-md);
+    padding: var(--mantine-spacing-lg) var(--mantine-spacing-md);
+    border-color: transparent;
+}
 
-    @media screen and ($mantine-breakpoint-xs) {
-        padding: 0 var(--mantine-spacing-2xs);
-        font-size: var(--mantine-font-size-2xs);
+.button,
+.button:hover,
+.button.button:active {
+    color: var(--mantine-color-gray-9);
+}
+
+.root .menuButton {
+    margin: var(--mantine-spacing-xs);
+    color: var(--mantine-color-gray-9);
+    background-color: var(--mantine-color-white);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    margin: var(--mantine-spacing-xs);
+    display: none;
+
+    &:hover {
+        color: var(--mantine-color-gray-9);
+        background-color: var(--mantine-color-gray-1);
+    }
+
+    &:active {
+        color: var(--mantine-color-gray-9);
+        background-color: var(--mantine-color-gray-2);
+    }
+
+    @media screen and ($mantine-breakpoint-md) {
+        display: block;
     }
 }

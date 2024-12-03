@@ -1,0 +1,84 @@
+.root {
+    display: none;
+
+    @media screen and ($mantine-breakpoint-md) {
+        display: block;
+    }
+}
+
+.drawerHeader {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0;
+    border-bottom: 1px solid var(--mantine-color-gray-2);
+}
+
+.drawerBody {
+    padding: 0;
+}
+
+.drawerContent {
+    height: 100%;
+}
+
+.content {
+    padding: var(--mantine-spacing-md);
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+}
+
+.listItem {
+    margin-bottom: var(--mantine-spacing-xs);
+}
+
+.navButton {
+    font-weight: 500;
+    font-size: var(--mantine-font-size-md);
+    border-radius: var(--mantine-radius-md);
+    padding: var(--mantine-spacing-lg) var(--mantine-spacing-md);
+    border-color: transparent;
+}
+
+.navButton,
+.navButton:hover,
+.navButton.navButton:active {
+    color: var(--mantine-color-gray-9);
+}
+
+.navButtonInner {
+    justify-content: flex-start;
+}
+
+.button {
+    padding: var(--mantine-spacing-lg) var(--mantine-spacing-3xl);
+    font-size: var(--mantine-spacing-lg);
+    font-family: 'Open Sans', sans-serif;
+    border-radius: var(--mantine-radius-xl);
+}
+
+:global(.button).drawerCloseButton {
+    color: var(--mantine-color-gray-9);
+    background-color: var(--mantine-color-white);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    margin: var(--mantine-spacing-xs);
+
+    .closeIcon {
+        --cb-icon-size: 32px;
+        padding: 5px;
+    }
+
+    &:hover {
+        color: var(--mantine-color-gray-9);
+        background-color: var(--mantine-color-gray-1);
+    }
+
+    &:active {
+        color: var(--mantine-color-gray-9);
+        background-color: var(--mantine-color-gray-2);
+    }
+}

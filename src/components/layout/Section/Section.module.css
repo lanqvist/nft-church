@@ -17,13 +17,22 @@
     }
 }
 
-.title {
-    font-family: 'SBSansDisplay', sans-serif;
-    font-weight: 600;
+.titleWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: var(--mantine-spacing-5xl);
 
     @media screen and ($mantine-breakpoint-xs) {
         margin-bottom: var(--mantine-spacing-xl);
+    }
+}
+
+.title {
+    font-family: 'SBSansDisplay', sans-serif;
+    font-weight: 600;
+
+    @media screen and ($mantine-breakpoint-sm) {
         font-size: var(--mantine-font-size-xl);
     }
 }
