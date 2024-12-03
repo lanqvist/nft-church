@@ -1,6 +1,9 @@
-import { Button, Checkbox, Input, RadioGroup, Select, Title } from '@mantine/core';
+import { Button, Checkbox, Input, NumberInput, RadioGroup, Title } from '@mantine/core';
 import { ChangeEvent, FormEvent, useCallback, useState } from 'react';
 import { IMaskInput } from 'react-imask';
+import { v4 as uuidv4 } from 'uuid';
+
+import { ky } from '@utils/ky';
 
 import { AmountRadioButton } from '../AmountRadioButton';
 
@@ -14,11 +17,43 @@ export const DonateForm = () => {
     const [isAgreementChecked, setIsAgreementChecked] = useState(false);
     const [phone, setPhone] = useState<string>('');
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         // TODO: Реализовать запрос на сервер
-        console.log(selectedPaymentMethod, amount, phone, isAgreementChecked);
+        // setLoading(true);
+        // setError(null);
+        const key = localStorage.getItem('yooKey') || '';
+
+        const paymentData = {
+            amount: {
+                value: amount,
+                currency: 'RUB',
+            },
+            confirmation: {
+                type: 'redirect',
+                return_url: 'https://nft-church.netlify.app/',
+            },
+            description: `Заказ #${Math.floor(Math.random() * 1000)}`,
+        };
+
+        try {
+            const response: any = await ky
+                .post('https://api.yookassa.ru/v3/payments', {
+                    headers: {
+                        'Idempotence-Key': uuidv4(),
+                        'Content-Type': 'application/json',
+                        Authorization: `Basic ${btoa(key)}`,
+                    },
+                    json: paymentData,
+                })
+                .json();
+            console.log('DonateForm response', response);
+            window.location.href = response?.confirmation?.confirmation_url;
+        } catch (error) {
+            console.error('Ошибка DonateForm', error);
+            // setError(err.message);
+        }
     };
 
     const handlePaymentMethodChange = useCallback((value: string | null) => {
@@ -38,13 +73,13 @@ export const DonateForm = () => {
             <Title order={3} className={styles.title}>
                 Сделать пожертвование Храму преподобного Сергия Радонежского
             </Title>
-            <Select
+            {/* <Select
                 classNames={{ input: styles.input }}
                 data={PAYMENT_METHODS}
                 value={selectedPaymentMethod}
                 onChange={handlePaymentMethodChange}
                 placeholder="Метод оплаты"
-            />
+            /> */}
             <RadioGroup value={amount} onChange={setAmount}>
                 <div className={styles.radioButtonsWrapper}>
                     {AMOUNTS.map((amount) => (
@@ -52,6 +87,13 @@ export const DonateForm = () => {
                     ))}
                 </div>
             </RadioGroup>
+            <NumberInput
+                classNames={{ input: styles.input }}
+                placeholder="Другая сумма"
+                value={amount}
+                onChange={(value) => setAmount(`${value}`)}
+                hideControls
+            />
             <Input
                 component={IMaskInput}
                 classNames={{ input: styles.input }}
