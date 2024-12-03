@@ -38,7 +38,7 @@ export const DonateForm = () => {
 
         try {
             const response: any = await ky
-                .post('https://api.yookassa.ru/v3/payments', {
+                .post('/payments', {
                     headers: {
                         'Idempotence-Key': uuidv4(),
                         'Content-Type': 'application/json',
