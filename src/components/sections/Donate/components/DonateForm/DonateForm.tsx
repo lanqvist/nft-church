@@ -12,7 +12,6 @@ import styles from './DonateForm.module.css';
 
 // TODO: Уточнить реальные значения для Select'а
 export const DonateForm = () => {
-    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string | null>(null);
     const [amount, setAmount] = useState(AMOUNTS[0]);
     const [isAgreementChecked, setIsAgreementChecked] = useState(false);
     const [phone, setPhone] = useState<string>('');
@@ -55,10 +54,6 @@ export const DonateForm = () => {
             // setError(err.message);
         }
     };
-
-    const handlePaymentMethodChange = useCallback((value: string | null) => {
-        setSelectedPaymentMethod(value);
-    }, []);
 
     const handlePhoneAccept = useCallback((value: string) => {
         setPhone(value);
