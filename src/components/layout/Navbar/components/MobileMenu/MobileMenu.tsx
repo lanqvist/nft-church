@@ -7,7 +7,7 @@ import { NAVBAR_ITEMS } from '../../Navbar.consts';
 import styles from './MobileMenu.module.css';
 import { MobileMenuProps } from './MobileMenu.types';
 
-export const MobileMenu: FC<MobileMenuProps> = ({ isOpen, onClose }) => (
+export const MobileMenu: FC<MobileMenuProps> = ({ isOpen, onClose, navigate }) => (
     <Drawer
         className={styles.root}
         classNames={{ content: styles.drawerContent, body: styles.drawerBody }}
@@ -24,11 +24,15 @@ export const MobileMenu: FC<MobileMenuProps> = ({ isOpen, onClose }) => (
         </Drawer.Header>
         <nav className={styles.content}>
             <ul className={styles.list}>
-                {NAVBAR_ITEMS.map(({ name }) => (
+                {NAVBAR_ITEMS.map(({ name, to }) => (
                     <li key={name} className={styles.listItem}>
                         <Button
                             className={styles.navButton}
                             classNames={{ inner: styles.navButtonInner }}
+                            onClick={() => {
+                                onClose();
+                                navigate?.(to);
+                            }}
                             variant="outline"
                             color="green"
                             fullWidth
@@ -38,7 +42,16 @@ export const MobileMenu: FC<MobileMenuProps> = ({ isOpen, onClose }) => (
                     </li>
                 ))}
             </ul>
-            <Button className={clsx(styles.button)} variant="filled" color="green" fullWidth onClick={onClose}>
+            <Button
+                className={clsx(styles.button)}
+                variant="filled"
+                color="green"
+                fullWidth
+                onClick={() => {
+                    onClose();
+                    navigate?.('donate');
+                }}
+            >
                 Пожертвовать
             </Button>
         </nav>

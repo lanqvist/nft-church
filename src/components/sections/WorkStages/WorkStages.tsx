@@ -10,73 +10,67 @@ import styles from './WorkStages.module.css';
 
 const cards: CardProps[] = [
     {
-        date: '25.06.2024',
-        title: 'Lorem Ipsum 1',
+        date: '06.05.2014',
+        title: '',
         description:
-            'Laboris et veniam duis laboris cillum amet qui anim velit ipsum commodo. Nostrud et amet anim sunt in incididunt cupidatat. Aliquip anim consectetur exercitation culpa aliquip. Enim veniam aute anim voluptate incididunt mollit laboris culpa.',
+            'Митрополит Чебоксарский и Чувашский Варнава совершил молебное пение и освятил место строительства Храма в честь преподобного Сергия Радонежского, 700-летие со дня рождения которого отмечалось в том году.',
         imageUrl: CARD_IMAGES[0],
     },
     {
-        date: '25.06.2024',
-        title: 'Lorem Ipsum 2',
-        description:
-            'Laboris et veniam duis laboris cillum amet qui anim velit ipsum commodo. Nostrud et amet anim sunt in incididunt cupidatat. Aliquip anim consectetur exercitation culpa aliquip. Enim veniam aute anim voluptate incididunt mollit laboris culpa.',
+        date: '01.02.2015',
+        title: '',
+        description: 'Начато строительство Храма',
         imageUrl: CARD_IMAGES[1],
     },
     {
-        date: '25.06.2024',
-        title: 'Lorem Ipsum 3',
+        date: ' 02.08.2015',
+        title: '',
         description:
-            'Laboris et veniam duis laboris cillum amet qui anim velit ipsum commodo. Nostrud et amet anim sunt in incididunt cupidatat. Aliquip anim consectetur exercitation culpa aliquip. Enim veniam aute anim voluptate incididunt mollit laboris culpa.',
+            'Готов цокольный этаж, в котором будет предел в честь святых Кирилла и Мефодия. В тот же день в ходе первосвятительского визита Святейший Патриарх Московский и всея Руси Кирилл совершил чин освящения закладного камня в основание Храма в честь преподобного Сергия Радонежского в Чебоксарах. Вместе с митрополитом Чебоксарским и Чувашским Варнавой заложили памятную капсулу.',
         imageUrl: CARD_IMAGES[2],
     },
     {
-        date: '25.06.2024',
-        title: 'Lorem Ipsum 4',
-        description:
-            'Laboris et veniam duis laboris cillum amet qui anim velit ipsum commodo. Nostrud et amet anim sunt in incididunt cupidatat. Aliquip anim consectetur exercitation culpa aliquip. Enim veniam aute anim voluptate incididunt mollit laboris culpa.',
+        date: '16.07.2018',
+        title: '',
+        description: 'Построен монолит 12 метров. Каменщики выполняют работы с северной стороны.',
         imageUrl: CARD_IMAGES[3],
     },
     {
-        date: '25.06.2024',
-        title: 'Lorem Ipsum 5',
-        description:
-            'Laboris et veniam duis laboris cillum amet qui anim velit ipsum commodo. Nostrud et amet anim sunt in incididunt cupidatat. Aliquip anim consectetur exercitation culpa aliquip. Enim veniam aute anim voluptate incididunt mollit laboris culpa.',
+        date: '01.09.2018',
+        title: '',
+        description: 'Выполняется кладка пустотелым керамическим блоком "кетра".',
         imageUrl: CARD_IMAGES[4],
     },
     {
-        date: '25.06.2024',
-        title: 'Lorem Ipsum 6',
-        description:
-            'Laboris et veniam duis laboris cillum amet qui anim velit ipsum commodo. Nostrud et amet anim sunt in incididunt cupidatat. Aliquip anim consectetur exercitation culpa aliquip. Enim veniam aute anim voluptate incididunt mollit laboris culpa.',
+        date: '01.03.2019',
+        title: '',
+        description: 'Возведена арка бокового входа с южной стороны.',
         imageUrl: CARD_IMAGES[5],
     },
     {
-        date: '25.06.2024',
-        title: 'Lorem Ipsum 7',
-        description:
-            'Laboris et veniam duis laboris cillum amet qui anim velit ipsum commodo. Nostrud et amet anim sunt in incididunt cupidatat. Aliquip anim consectetur exercitation culpa aliquip. Enim veniam aute anim voluptate incididunt mollit laboris culpa.',
+        date: '21.02.2019',
+        title: '',
+        description: 'Колоннада обкладывается кирпичом.',
         imageUrl: CARD_IMAGES[6],
     },
     {
-        date: '25.06.2024',
-        title: 'Lorem Ipsum 8',
+        date: '01.12.2019',
+        title: '',
         description:
-            'Laboris et veniam duis laboris cillum amet qui anim velit ipsum commodo. Nostrud et amet anim sunt in incididunt cupidatat. Aliquip anim consectetur exercitation culpa aliquip. Enim veniam aute anim voluptate incididunt mollit laboris culpa.',
+            'Каменщики завершают выкладывать арки входа в нижний храм, который будет освящен в честь Кирилла и Мефодия – учителей словенских.',
         imageUrl: CARD_IMAGES[7],
     },
     {
-        date: '25.06.2024',
-        title: 'Lorem Ipsum 9',
+        date: '08.09.2020',
+        title: '',
         description:
-            'Laboris et veniam duis laboris cillum amet qui anim velit ipsum commodo. Nostrud et amet anim sunt in incididunt cupidatat. Aliquip anim consectetur exercitation culpa aliquip. Enim veniam aute anim voluptate incididunt mollit laboris culpa.',
+            'Куратор стройки – Федор Степанов проводит планерку и рассказывает о движении работ депутату ГД РФ Анатолию Аксакову.',
         imageUrl: CARD_IMAGES[8],
     },
     {
-        date: '25.06.2024',
-        title: 'Lorem Ipsum 10',
-        description:
-            'Laboris et veniam duis laboris cillum amet qui anim velit ipsum commodo. Nostrud et amet anim sunt in incididunt cupidatat. Aliquip anim consectetur exercitation culpa aliquip. Enim veniam aute anim voluptate incididunt mollit laboris culpa.',
+        date: '17.06.2022',
+        title: '',
+        description: 'Возведен монолитный купол звонниц',
         imageUrl: CARD_IMAGES[9],
     },
     {
@@ -115,6 +109,8 @@ export const WorkStages = () => {
                     onPrevClick={handlePrevClick}
                 />
             }
+            key="workStages"
+            id="workStages"
         >
             <div className={styles.content}>
                 <Carousel

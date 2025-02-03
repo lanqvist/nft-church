@@ -32,7 +32,7 @@ export const Card: FC<CardProps> = ({ title, content, imageUrl, invertedTitle, c
                     <Title className={styles.title} size="h3">
                         {title}
                     </Title>
-                    {typeof content === 'string' ? <Text className={styles.text}>{content}</Text> : content}
+                    <Text className={styles.text}>{content}</Text>
                 </div>
             </Flip.Target>
         </Paper>

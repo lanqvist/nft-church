@@ -1,9 +1,9 @@
 .root {
-    padding: 0 var(--mantine-spacing-6xl);
+    /* padding: 0 var(--mantine-spacing-6xl); */
     display: flex;
     width: 100%;
 
-    @media screen and ($mantine-breakpoint-md) {
+    @media screen and (max-width: 1200px) {
         padding: 0;
         justify-content: flex-end;
     }
@@ -17,7 +17,7 @@
     justify-content: center;
     width: 100%;
 
-    @media screen and ($mantine-breakpoint-md) {
+    @media screen and (max-width: 1200px) {
         display: none;
     }
 }
@@ -36,6 +36,10 @@
     border-radius: var(--mantine-radius-md);
     padding: var(--mantine-spacing-lg) var(--mantine-spacing-md);
     border-color: transparent;
+
+    @media screen and (min-width: 1200px) and (max-width: 1328px) {
+      font-size: 14px;
+    }
 }
 
 .button,
@@ -64,7 +68,7 @@
         background-color: var(--mantine-color-gray-2);
     }
 
-    @media screen and ($mantine-breakpoint-md) {
+    @media screen and (max-width: 1200px) {
         display: block;
     }
 }

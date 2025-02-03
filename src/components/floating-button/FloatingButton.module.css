@@ -1,0 +1,44 @@
+.floatingButton {
+  position: fixed;
+  top: 35%;
+  right: 3%;
+  z-index: 100;
+  width: 131px;
+  height: 177.56px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+  padding: 24px;
+  cursor: pointer;
+
+  border-radius: 24px;
+  backdrop-filter: blur(40px);
+  background: rgba(43, 138, 62, 0.7);
+
+  span {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 22px;
+    letter-spacing: 0%;
+    text-align: center;
+    color: rgb(255, 255, 255);
+  }
+
+  @media screen and ($mantine-breakpoint-sm) {
+    top: 35%;
+    right: 3%;
+    width: 99px;
+    height: 134px;
+    gap: 8px;
+    padding: 16px;
+  
+    span {
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 16px;
+    }
+  }
+}

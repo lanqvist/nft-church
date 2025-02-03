@@ -5,7 +5,7 @@ import { Navbar } from '../Navbar';
 import styles from './Header.module.css';
 
 export const Header = () => (
-    <header>
+    <header className={styles.root}>
         <div className={clsx('container', styles.container)}>
             <Navbar />
         </div>

@@ -99,7 +99,7 @@ export const Facts = () => {
     }, []);
 
     return (
-        <Section title="Узнай больше о храме">
+        <Section title="Узнай больше о храме" key="facts" id="facts">
             <div className={styles.content}>
                 <div className={styles.left}>
                     <div className={styles.hint}>

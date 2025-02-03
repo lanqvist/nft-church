@@ -2,6 +2,7 @@ import { Button, Text, Title } from '@mantine/core';
 import clsx from 'clsx';
 
 import { Section } from '@components/layout/Section';
+import { scrollToSection } from '@utils/index';
 
 import WorldIcon from './assets/icons/world.svg?react';
 import nftImage from './assets/nft.png';
@@ -18,7 +19,12 @@ export const Hero = () => (
                             Сбор средств{'\n'}на строительство
                         </Title>
                         <Text className={styles.text}>Храма преподобного Сергия Радонежского</Text>
-                        <Button color="green" variant="filled" className={styles.button}>
+                        <Button
+                            onClick={() => scrollToSection('donate')}
+                            color="green"
+                            variant="filled"
+                            className={styles.button}
+                        >
                             Пожертвовать
                         </Button>
                     </div>
@@ -30,7 +36,7 @@ export const Hero = () => (
                             </div>
                             <div className={styles.infoBlockBottom}>
                                 <WorldIcon className={styles.infoBlockIcon} />
-                                <a className={styles.infoBlockLink} href="voskresfond.ru">
+                                <a className={styles.infoBlockLink} href="https://voskresfond.ru">
                                     voskresfond.ru
                                 </a>
                             </div>
@@ -43,7 +49,7 @@ export const Hero = () => (
                             </div>
                             <div className={styles.infoBlockBottom}>
                                 <WorldIcon className={styles.infoBlockIcon} />
-                                <a className={styles.infoBlockLink} href="dfa.sber.ru/nft">
+                                <a className={styles.infoBlockLink} href="https://dfa.sber.ru/nft">
                                     dfa.sber.ru/nft
                                 </a>
                             </div>

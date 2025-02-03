@@ -1,13 +1,10 @@
-import { Carousel } from '@mantine/carousel';
-import { Button, Image } from '@mantine/core';
-import clsx from 'clsx';
+import { Button, Image, Text, Title } from '@mantine/core';
 
 import { Section } from '@components/layout/Section';
-import { useBreakpoint } from '@hooks/useBreakpoint';
+import { scrollToSection } from '@utils/index';
 
 import styles from './About.module.css';
-import aboutImg from './assets/about.jpeg';
-import aboutMobileImg from './assets/aboutMobile.jpeg';
+import aboutImg from './assets/about.png';
 import DomeHeartIcon from './assets/icons/domeHeart.svg?react';
 import HouseIcon from './assets/icons/house.svg?react';
 import { Card, CardProps } from './components/Card';
@@ -19,93 +16,62 @@ type ImageSlide = {
     mobileImage?: string;
 };
 
+const imageCard = {
+    title: 'Храм преподобного\nСергия Радонежского',
+    description:
+        'В 2014 году исполнилось 700 лет со дня рождения печальника земли Русской – преподобного Сергия Радонежского, и по благословению Патриарха Московского и всея Руси Кирилла к этой дате в городе Чебоксары был заложен Кафедральный собор в его честь.',
+};
+
 const cards: Omit<CardProps, 'className'>[] = [
-    {
-        title: 'Храм преподобного\nСергия Радонежского',
-        description:
-            'Храм в честь преподобного Сергия Радонежского в Чебоксарах был основан в 2014 году. 2 августа 2015 года Патриарх Кирилл освятил закладной камень. В 2021 году митрополит Савватий освятил колокола храма, а в 2022 году – кресты и купола. Храм постепенно развивается, играя важную роль в духовной жизни города.',
-    },
     {
         title: 'О проекте',
         description:
-            'Храм преподобного Сергия Радонежского строится с 2015 года и станет уникальным духовным центром для жителей Чебоксар для проведения богослужений и работы с молодежью',
+            '2 августа 2015 года состоялась торжественная закладка капсулы в стену строящегося храма с участием Святейшего Патриарха Московского и всея Руси Кирилла и митрополита Чебоксарского и Чувашского Варнавы. В конце 2015 года на частные пожертвования жителей Чувашской Республики завершены работы по возведению фундамента и нулевого цикла строительства. Сейчас строительство комплекса Храма и внешней его части практически завершено.',
         icon: <HouseIcon className={styles.icon} />,
     },
     {
         title: 'Цель сбора',
         description:
-            'Денежные средства в размере 50 миллионов рублей собираются на внутреннюю и внешнюю реконструкцию и реставрацию храма',
+            'Сбор средств осуществляется для внутренней отделки Храма, его росписи, а также для строительства просветительского центра на территории Храма, в котором будет находиться и православная гимназия для начальных классов.  Храм рассчитан на 1200 прихожан.',
         icon: <DomeHeartIcon className={styles.icon} />,
         footerAddons: (
-            <Button className={styles.button} color="green" fullWidth>
+            <Button className={styles.button} onClick={() => scrollToSection('donate')} color="green" fullWidth>
                 Пожертвовать
             </Button>
         ),
     },
 ];
 
-const imageSlides: ImageSlide[] = [
-    {
-        name: 'Храм 1',
-        desktopImage: aboutImg,
-        mobileImage: aboutMobileImg,
-    },
-    {
-        name: 'Храм 2',
-        desktopImage: aboutImg,
-        mobileImage: aboutMobileImg,
-    },
-    {
-        name: 'Храм 3',
-        desktopImage: aboutImg,
-        mobileImage: aboutMobileImg,
-    },
-];
+const image: ImageSlide = {
+    name: 'Храм 1',
+    desktopImage: aboutImg,
+    // mobileImage: aboutMobileImg,
+};
 
-export const About = () => {
-    const isTablet = useBreakpoint('lg');
-    const isMobile = useBreakpoint('sm');
-
-    return (
-        <Section title="О храме">
-            <div className={styles.content}>
-                <Card className={clsx(styles.card, styles.mobileCard)} {...cards[0]} />
-                <div className={styles.innerContent}>
-                    <div className={styles.cards}>
-                        {cards.map((props) => {
-                            const { title } = props;
-                            return <Card key={title} className={styles.card} {...props} />;
-                        })}
+export const About = () => (
+    <Section title="О храме" key="about" id="about">
+        <div className={styles.content}>
+            <div className={styles.innerContent}>
+                <div className={styles.contentWrapper}>
+                    <div className={styles.imageWrapper}>
+                        <Image className={styles.image} src={image.desktopImage} alt={image.name} />
                     </div>
-                    <Carousel
-                        className={styles.carousel}
-                        slideGap="md"
-                        align="start"
-                        withControls={false}
-                        withIndicators
-                        classNames={{
-                            indicators: styles.indicators,
-                            indicator: styles.indicator,
-                        }}
-                    >
-                        {imageSlides.map(({ name, desktopImage, tabletImage, mobileImage }) => {
-                            const imageSrc = [
-                                isMobile ? mobileImage : null,
-                                isTablet ? tabletImage : null,
-                                desktopImage,
-                            ].find(Boolean);
 
-                            return (
-                                <Carousel.Slide key={name} className={styles.slide}>
-                                    <div className={styles.imageWrapper}>
-                                        <Image className={styles.image} src={imageSrc} alt={name} />
-                                    </div>
-                                </Carousel.Slide>
-                            );
-                        })}
-                    </Carousel>
+                    <div className={styles.textWrapper}>
+                        <Title className={styles.title} order={4}>
+                            {imageCard.title}
+                        </Title>
+
+                        <Text className={styles.description}>{imageCard.description}</Text>
+                    </div>
+                </div>
+                <div className={styles.cards}>
+                    {cards.map((props) => {
+                        const { title } = props;
+                        return <Card key={title} className={styles.card} {...props} />;
+                    })}
                 </div>
             </div>
-        </Section>
-    );
-};
+        </div>
+    </Section>
+);

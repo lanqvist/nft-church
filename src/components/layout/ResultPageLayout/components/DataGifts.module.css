@@ -1,0 +1,124 @@
+.container {
+  display: flex;
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  z-index: 10;
+
+  @media screen and (max-width: 960px) {
+    flex-direction: column;
+  }
+
+  .infoWrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 49%;
+    gap: 32px;
+
+
+    .infoTtile {
+      font-size: 56px;
+      font-weight: 500;
+      line-height: 64px;
+    }
+
+    .infoDesc {
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 32px;
+    }
+  }
+
+  .giftsWrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 49%;
+    background: rgb(255, 255, 255);
+    border-radius: 16px;
+    position: relative;
+    z-index: 10;
+
+    .input {
+      padding: var(--mantine-spacing-xs) var(--mantine-spacing-3xl);
+      height: auto;
+      font-size: var(--mantine-font-size-lg);
+      line-height: 1;
+      padding-bottom: 9px;
+      border-radius: var(--mantine-radius-md);
+  
+      @media screen and ($mantine-breakpoint-md) {
+          font-size: var(--mantine-font-size-xs);
+          line-height: 2.1;
+      }
+    }
+
+    .label {
+      .required {
+        color: #FF6B6B;
+      }
+    }
+
+    .giftTitle {
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 30px;
+      letter-spacing: 0px;
+    }
+
+    .giftDescription {
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 26px;
+      letter-spacing: 0%;
+    }
+
+    .gift, .tokensWrapper {
+      display: flex;
+      flex-direction: column;
+      padding: 32px;
+      gap: 32px
+    }
+
+    .tokens {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+
+      .tokenWrapper {
+        display: flex;
+        padding: 12px;
+        cursor: pointer;
+        box-sizing: border-box;
+        aspect-ratio: 1/1;
+        flex: 1 0 49%;
+  
+        .token {
+          aspect-ratio: 1/1;
+          width: 100%;
+        }
+  
+        &.selected {
+          border: 2px solid rgb(43, 138, 62);
+          border-radius: 24px;
+        }
+      }
+    }
+
+    .buttonsWrapper {
+      display: flex;
+      padding: 32px;
+      gap: 24px;
+
+      @media screen and (max-width: 960px) {
+        flex-direction: column;
+        gap: 20px
+      }
+
+      .button {
+        flex: 1 0 49%;
+        border-radius: 32px;
+        padding: 16.5px 32px 16.5px 32px;
+      }
+    }
+  }
+}

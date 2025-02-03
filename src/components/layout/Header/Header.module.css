@@ -1,7 +1,21 @@
 .container {
+    max-width: 1920px;
     padding: var(--mantine-spacing-6xl) 0 var(--mantine-spacing-sm);
 
     @media screen and ($mantine-breakpoint-md) {
         padding: 0;
     }
+}
+
+.root {
+  padding: 0 var(--mantine-spacing-6xl);
+  overflow: hidden;
+
+  @media screen and ($mantine-breakpoint-md) {
+      padding: 0 var(--mantine-spacing-5xl);
+  }
+
+  @media screen and ($mantine-breakpoint-xs) {
+      padding: 0 var(--mantine-spacing-md);
+  }
 }

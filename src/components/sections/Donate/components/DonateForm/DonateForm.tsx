@@ -1,6 +1,6 @@
-import { Button, Checkbox, Input, NumberInput, RadioGroup, Title } from '@mantine/core';
-import { ChangeEvent, FormEvent, useCallback, useState } from 'react';
-import { IMaskInput } from 'react-imask';
+import { Button, TextInput, NumberInput, RadioGroup, Title } from '@mantine/core';
+import { useInputState } from '@mantine/hooks';
+import { ChangeEvent, FC, FormEvent, useCallback, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { ky } from '@utils/ky';
@@ -10,14 +10,22 @@ import { AmountRadioButton } from '../AmountRadioButton';
 import { AMOUNTS } from './DonateForm.consts';
 import styles from './DonateForm.module.css';
 
-// TODO: Уточнить реальные значения для Select'а
-export const DonateForm = () => {
+interface IProps {
+    openPaymentModal: () => void;
+    setPaymentFormData: (response: unknown) => void;
+}
+export const DonateForm: FC<IProps> = ({ openPaymentModal, setPaymentFormData }) => {
     const [amount, setAmount] = useState(AMOUNTS[0]);
-    const [isAgreementChecked, setIsAgreementChecked] = useState(false);
-    const [phone, setPhone] = useState<string>('');
+    const [mail, setMail] = useInputState<string>('');
+    const [mailError, setMailError] = useState<string>('');
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        if (!mail) {
+            setMailError('Поле обязательно для заполнения');
+            return;
+        }
 
         // TODO: Реализовать запрос на сервер
         // setLoading(true);
@@ -30,9 +38,13 @@ export const DonateForm = () => {
                 currency: 'RUB',
             },
             confirmation: {
-                type: 'redirect',
+                type: 'embedded',
                 return_url: 'https://nft-church.netlify.app/',
             },
+            // confirmation: {
+            //     type: 'redirect',
+            //     return_url: 'https://nft-church.netlify.app/',
+            // },
             description: `Заказ #${Math.floor(Math.random() * 1000)}`,
         };
 
@@ -48,19 +60,21 @@ export const DonateForm = () => {
                 })
                 .json();
             console.log('DonateForm response', response);
-            window.location.href = response?.confirmation?.confirmation_url;
+            setPaymentFormData(response);
+            openPaymentModal();
+            // window.location.href = response?.confirmation?.confirmation_url;
         } catch (error) {
             console.error('Ошибка DonateForm', error);
             // setError(err.message);
         }
     };
 
-    const handlePhoneAccept = useCallback((value: string) => {
-        setPhone(value);
-    }, []);
+    const handlePhoneAccept = useCallback((e: ChangeEvent<HTMLInputElement>, error: string) => {
+        if (error) {
+            setMailError('');
+        }
 
-    const handleAgreementChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        setIsAgreementChecked(e.target.checked);
+        setMail(e.target.value);
     }, []);
 
     return (
@@ -68,13 +82,7 @@ export const DonateForm = () => {
             <Title order={3} className={styles.title}>
                 Сделать пожертвование Храму преподобного Сергия Радонежского
             </Title>
-            {/* <Select
-                classNames={{ input: styles.input }}
-                data={PAYMENT_METHODS}
-                value={selectedPaymentMethod}
-                onChange={handlePaymentMethodChange}
-                placeholder="Метод оплаты"
-            /> */}
+
             <RadioGroup value={amount} onChange={setAmount}>
                 <div className={styles.radioButtonsWrapper}>
                     {AMOUNTS.map((amount) => (
@@ -83,32 +91,26 @@ export const DonateForm = () => {
                 </div>
             </RadioGroup>
             <NumberInput
+                className={styles.numberInput}
                 classNames={{ input: styles.input }}
                 placeholder="Другая сумма"
                 value={amount}
                 onChange={(value) => setAmount(`${value}`)}
                 hideControls
             />
-            <Input
-                component={IMaskInput}
+            <div className={styles.label}>
+                Почта<span className={styles.required}>*</span>
+            </div>
+            <TextInput
                 classNames={{ input: styles.input }}
-                placeholder="Ваш телефон"
-                value={phone}
-                onAccept={handlePhoneAccept}
-                mask="+{7} (000) 000-00-00"
-                unmask
+                placeholder="Ваша почта"
+                value={mail}
+                onChange={(e) => handlePhoneAccept(e, mailError)}
+                error={mailError}
             />
             <Button color="green" variant="filled" className={styles.submitButton} type="submit">
                 Пожертвовать
             </Button>
-
-            <Checkbox
-                classNames={{ input: styles.checkboxInput, label: styles.checkboxLabel }}
-                color="green"
-                label="Мне есть 18 лет и я принимаю условия Пользовательского соглашения и Публичной оферты"
-                checked={isAgreementChecked}
-                onChange={handleAgreementChange}
-            />
         </form>
     );
 };

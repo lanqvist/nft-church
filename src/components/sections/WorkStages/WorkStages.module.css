@@ -26,6 +26,10 @@
     @media screen and ($mantine-breakpoint-sm) {
         height: 475px;
     }
+
+    @media screen and ($mantine-breakpoint-xs) {
+        height: 338px;
+    }
 }
 
 .titlePagination {

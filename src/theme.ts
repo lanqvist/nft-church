@@ -81,8 +81,8 @@ const createButtonStylesResolver =
         if (colors && variant !== 'transparent') {
             return {
                 root: {
-                    '--button-active': colors[7],
-                    '--button-active-color': colors[7],
+                    '--button-active': colors[8],
+                    '--button-active-color': colors[8],
                 },
             };
         }
@@ -108,6 +108,9 @@ export const theme = createTheme({
             styles: createButtonStylesResolver<ActionIconProps>(),
         }),
         Checkbox: Checkbox.extend({
+            classNames: {
+                root: 'checkbox',
+            },
             vars: (theme, props) => {
                 const { color } = props;
                 if (color === 'green') {

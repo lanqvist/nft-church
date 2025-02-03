@@ -12,8 +12,9 @@ export const Section: FC<SectionProps> = ({
     titleClassName,
     titleAddons,
     children,
+    id,
 }) => (
-    <section className={clsx(styles.root, className)}>
+    <section className={clsx(styles.root, className)} id={id}>
         <div className={clsx('container', containerClassName)}>
             {(title || titleAddons) && (
                 <div className={styles.titleWrapper}>
