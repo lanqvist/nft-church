@@ -1,6 +1,3 @@
-import { Text } from '@mantine/core';
-import clsx from 'clsx';
-
 import { Section } from '@components/layout/Section';
 
 import cardImg1 from './assets/card1.png';

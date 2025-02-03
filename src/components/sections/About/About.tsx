@@ -1,7 +1,6 @@
 import { Button, Image, Text, Title } from '@mantine/core';
 
 import { Section } from '@components/layout/Section';
-import { useBreakpoint } from '@hooks/useBreakpoint';
 import { scrollToSection } from '@utils/index';
 
 import styles from './About.module.css';
@@ -49,35 +48,30 @@ const image: ImageSlide = {
     // mobileImage: aboutMobileImg,
 };
 
-export const About = () => {
-    const isTablet = useBreakpoint('lg');
-    const isMobile = useBreakpoint('sm');
-
-    return (
-        <Section title="О храме" key="about" id="about">
-            <div className={styles.content}>
-                <div className={styles.innerContent}>
-                    <div className={styles.contentWrapper}>
-                        <div className={styles.imageWrapper}>
-                            <Image className={styles.image} src={image.desktopImage} alt={image.name} />
-                        </div>
-
-                        <div className={styles.textWrapper}>
-                            <Title className={styles.title} order={4}>
-                                {imageCard.title}
-                            </Title>
-
-                            <Text className={styles.description}>{imageCard.description}</Text>
-                        </div>
+export const About = () => (
+    <Section title="О храме" key="about" id="about">
+        <div className={styles.content}>
+            <div className={styles.innerContent}>
+                <div className={styles.contentWrapper}>
+                    <div className={styles.imageWrapper}>
+                        <Image className={styles.image} src={image.desktopImage} alt={image.name} />
                     </div>
-                    <div className={styles.cards}>
-                        {cards.map((props) => {
-                            const { title } = props;
-                            return <Card key={title} className={styles.card} {...props} />;
-                        })}
+
+                    <div className={styles.textWrapper}>
+                        <Title className={styles.title} order={4}>
+                            {imageCard.title}
+                        </Title>
+
+                        <Text className={styles.description}>{imageCard.description}</Text>
                     </div>
                 </div>
+                <div className={styles.cards}>
+                    {cards.map((props) => {
+                        const { title } = props;
+                        return <Card key={title} className={styles.card} {...props} />;
+                    })}
+                </div>
             </div>
-        </Section>
-    );
-};
+        </div>
+    </Section>
+);

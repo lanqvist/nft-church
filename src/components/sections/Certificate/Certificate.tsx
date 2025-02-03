@@ -1,7 +1,6 @@
-import { Button, Image, Text, Title } from '@mantine/core';
+import { Image } from '@mantine/core';
 
 import { Section } from '@components/layout/Section';
-import { useBreakpoint } from '@hooks/useBreakpoint';
 
 import aboutImg from './assets/about.png';
 import HouseIcon from './assets/icons/crown.svg?react';
@@ -41,25 +40,20 @@ const image: ImageSlide = {
     desktopImage: aboutImg,
 };
 
-export const Certificate = () => {
-    const isTablet = useBreakpoint('lg');
-    const isMobile = useBreakpoint('sm');
-
-    return (
-        <Section title="NFT сертификат" key="certificate" id="certificate">
-            <div className={styles.content}>
-                <div className={styles.innerContent}>
-                    <div className={styles.cards}>
-                        {cards.map((props) => {
-                            const { title } = props;
-                            return <Card key={title} className={styles.card} {...props} />;
-                        })}
-                    </div>
-                    <div className={styles.imageWrapper}>
-                        <Image className={styles.image} src={image.desktopImage} alt={image.name} />
-                    </div>
+export const Certificate = () => (
+    <Section title="NFT сертификат" key="certificate" id="certificate">
+        <div className={styles.content}>
+            <div className={styles.innerContent}>
+                <div className={styles.cards}>
+                    {cards.map((props) => {
+                        const { title } = props;
+                        return <Card key={title} className={styles.card} {...props} />;
+                    })}
+                </div>
+                <div className={styles.imageWrapper}>
+                    <Image className={styles.image} src={image.desktopImage} alt={image.name} />
                 </div>
             </div>
-        </Section>
-    );
-};
+        </div>
+    </Section>
+);
