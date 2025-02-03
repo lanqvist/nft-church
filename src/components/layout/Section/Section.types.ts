@@ -6,4 +6,5 @@ export type SectionProps = PropsWithChildren<{
     containerClassName?: string;
     titleClassName?: string;
     titleAddons?: ReactNode;
+    id?: string;
 }>;

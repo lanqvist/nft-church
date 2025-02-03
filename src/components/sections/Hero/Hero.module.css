@@ -62,10 +62,11 @@
     }
 
     @media screen and ($mantine-breakpoint-md) {
-        width: 100%;
+        width: 50%;
     }
 
     @media screen and ($mantine-breakpoint-sm) {
+        width: 100%;
         border-radius: var(--mantine-radius-lg);
         background-color: rgba(73, 80, 87, 0.45);
         backdrop-filter: blur(20px);
@@ -184,7 +185,7 @@
     }
 
     @media screen and ($mantine-breakpoint-sm) {
-        width: 50%;
+        width: 55%;
     }
 }
 

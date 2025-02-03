@@ -1,10 +1,10 @@
 .content {
     display: flex;
+    gap: 24px;
 }
 
 .left {
-    width: 100%;
-    margin-right: var(--mantine-spacing-xl);
+    flex: 1 0 49%;
 
     @media screen and ($mantine-breakpoint-md) {
         display: none;
@@ -12,7 +12,7 @@
 }
 
 .right {
-    width: 100%;
+  flex: 1 0 49%;
     background-color: var(--mantine-color-gray-1);
     border-radius: var(--mantine-radius-lg);
     padding: var(--mantine-spacing-3xl);

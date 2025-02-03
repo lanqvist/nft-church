@@ -1,0 +1,304 @@
+.root {
+  padding: 0 var(--mantine-spacing-6xl);
+  overflow: hidden;
+  min-height: 100vh;
+  background: rgb(242, 244, 248);
+  position: relative;
+
+  padding: 64px;
+
+  @media screen and (max-width: 980px) and (min-width: 960px) {
+    padding: 64px 56px;
+  }
+
+  @media screen and (max-width: 960px) {
+    padding: 64px 48px;
+  }
+
+  @media screen and ($mantine-breakpoint-sm) {
+      padding: 64px 16px;
+  }
+}
+
+.backgroundTop {
+  position: absolute;
+  top: -30%;
+  left: -30%;
+  right: 0;
+  bottom: 0;
+
+  background-image: url('./assets/backUp.png');
+  background-repeat: no-repeat; 
+}
+
+.backgroundDown {
+  position: absolute;
+  bottom: -25%;
+  right: 0;
+  width: 70%;
+  height: 70%;
+  background-image: url('./assets/backDown.png');
+  background-repeat: no-repeat; 
+}
+
+.gridContainer {
+  display: grid;
+  gap: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+
+  @media screen and (max-width: 960px) {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.giftIem {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 40px;
+  border-radius: 32px;
+
+  position: relative;
+  backdrop-filter: blur(20px);
+  background: rgba(254, 254, 254, 0.5);
+
+  .checkbox {
+
+
+
+    .checkboxInput {
+      cursor: pointer;
+    }
+
+    .checkboxInner, .checkboxInput {
+      @media screen and (max-width: 1328px) {
+        width: 56px !important;
+        height: 56px !important;
+        border-radius: 16px;
+      }
+    }
+  
+    .checkboxLabel {
+      @media screen and (max-width: 1328px) {
+        font-size: 16px !important;
+        line-height: 24px !important;
+      }
+    }
+  }
+
+  .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 32px;
+  }
+
+  .background.unchecked {
+    opacity: 0.5;
+  }
+}
+
+.gridContainer {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.gridContainer.fiveItems {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.gridContainer.fiveItems .giftIem:nth-last-child(1) {
+  grid-column: span 2;
+  padding: 32px;
+  background: rgb(255, 255, 255);
+
+  .tokensTitle {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 44px;
+  }
+
+  @media screen and (max-width: 540px) {
+    padding: 16px;
+
+    .tokensTitle {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 24px;
+    }
+  }
+
+  .tokensWrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    margin-top: 16px;
+
+    @media screen and (max-width: 960px) {
+      flex-wrap: wrap;
+      margin-top: 0;
+    }
+
+    .tokenWrapper {
+      display: flex;
+      padding: 12px;
+      cursor: pointer;
+      box-sizing: border-box;
+      aspect-ratio: 1/1;
+
+      .token {
+        aspect-ratio: 1/1;
+        width: 100%;
+      }
+
+      @media screen and (max-width: 960px) {
+        flex: 1 0 49%;
+        padding: 8px;
+      }
+
+      &.selected {
+        border: 2px solid rgb(43, 138, 62);
+        border-radius: 24px;
+      }
+    }
+  }
+}
+
+.gridContainer.fiveItems .giftIem:not(:nth-last-child(1)) {
+  aspect-ratio: 1/1;
+}
+
+@media (min-width: 600px) {
+  .gridContainer.fiveItems {
+      grid-template-rows: repeat(3, auto);
+      grid-template-columns: 1fr 1fr;
+  }
+
+  .gridContainer.fiveItems .giftIem:nth-child(1),
+  .gridContainer.fiveItems .giftIem:nth-child(2) {
+      grid-row: 1 / 2;
+  }
+
+  .gridContainer.fiveItems .giftIem:nth-child(3),
+  .gridContainer.fiveItems .giftIem:nth-child(4) {
+      grid-row: 2 / 3;
+  }
+
+  .gridContainer.fiveItems .giftIem:nth-child(5) {
+      grid-row: 3 / 4;
+      grid-column: 1 / 3;
+  }
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 16px auto 0 auto;
+  position: relative;
+  z-index: 10;
+
+  padding: 32px;
+  border-radius: 32px;
+  background: rgb(255, 255, 255);
+
+  .button {
+    border-radius: 32px;
+    padding: 16.5px 32px 16.5px 32px;
+  }
+
+  @media screen and (max-width: 540px) {
+    padding: 16px;
+
+    .button {
+      width: 100%;
+    }
+  }
+}
+
+.giftIem.giftInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+  z-index: 10;
+
+  .iconWrapper {
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    .icon {
+      width: 133px;
+      height: 144px;
+    }
+  }
+
+  .title {
+    font-size: 56px;
+    font-weight: 500;
+    line-height: 56px;
+  }
+
+  .description {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 32px;
+  }
+
+  @media screen and (max-width: 1328px) {
+    .iconWrapper {
+      width: 96px;
+      height: 96px;
+
+      .icon {
+        width: 64px;
+        height: 69px;
+      }
+    }
+
+    .title {
+      font-size: 32px;
+      font-weight: 400;
+      line-height: 44px;
+    }
+  
+    .description {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+    }
+  }
+
+  @media screen and (max-width: 960px) {
+    gap: 12px;
+    background: none;
+    aspect-ratio: initial !important;
+    padding: 16px;
+
+    .title {
+      font-size: 28px;
+      font-weight: 500;
+      line-height: 32px;
+      letter-spacing: 0%;
+    }
+  
+    .description {
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 24px;
+      letter-spacing: 0%;   
+    }
+  }
+}

@@ -1,5 +1,5 @@
 .root {
-    margin-bottom: 124px;
+    margin-bottom: 96px;
     padding: 0 var(--mantine-spacing-6xl);
     overflow: hidden;
 
@@ -7,12 +7,16 @@
         padding: 0 var(--mantine-spacing-5xl);
     }
 
+    @media screen and (max-width: 480px) {
+      padding: 0 16px;
+    }
+
     @media screen and ($mantine-breakpoint-sm) {
         margin-bottom: var(--mantine-spacing-5xl);
     }
 
-    @media screen and ($mantine-breakpoint-xs) {
-        margin-bottom: var(--mantine-spacing-3xl);
+    @media screen and (max-width: 768px) {
+        margin-bottom: 76px;
         padding: 0 var(--mantine-spacing-md);
     }
 }
@@ -21,7 +25,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: var(--mantine-spacing-5xl);
+    margin-bottom: var(--mantine-spacing-xl);
 
     @media screen and ($mantine-breakpoint-xs) {
         margin-bottom: var(--mantine-spacing-xl);

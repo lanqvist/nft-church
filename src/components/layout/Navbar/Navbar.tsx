@@ -1,6 +1,8 @@
 import { ActionIcon, Button } from '@mantine/core';
 import { useCallback, useState } from 'react';
 
+import { scrollToSection } from '@utils/index';
+
 import MenuIcon from './assets/icons/menu.svg?react';
 import { MobileMenu } from './components/MobileMenu';
 import { NAVBAR_ITEMS } from './Navbar.consts';
@@ -21,9 +23,14 @@ export const Navbar = () => {
         <>
             <nav className={styles.root}>
                 <ul className={styles.list}>
-                    {NAVBAR_ITEMS.map(({ name }) => (
+                    {NAVBAR_ITEMS.map(({ name, to }) => (
                         <li key={name} className={styles.listItem}>
-                            <Button className={styles.button} variant="outline" color="green">
+                            <Button
+                                onClick={() => scrollToSection(to)}
+                                className={styles.button}
+                                variant="outline"
+                                color="green"
+                            >
                                 {name}
                             </Button>
                         </li>
@@ -33,7 +40,7 @@ export const Navbar = () => {
                     <MenuIcon />
                 </ActionIcon>
             </nav>
-            <MobileMenu isOpen={isMobileMenuOpen} onClose={handleClose} />
+            <MobileMenu isOpen={isMobileMenuOpen} onClose={handleClose} navigate={scrollToSection} />
         </>
     );
 };

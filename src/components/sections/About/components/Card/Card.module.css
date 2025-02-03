@@ -1,17 +1,28 @@
 .root {
-    background-color: var(--mantine-color-gray-1);
+    background-color: var(--mantine-color-gray-0);
     border-radius: var(--mantine-radius-lg);
     padding: var(--mantine-spacing-3xl);
 
-    @media screen and ($mantine-breakpoint-sm) {
-        padding: var(--mantine-spacing-xl);
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+      padding: 16px;
     }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mantine-spacing-3xl);
+
+  @media screen and (max-width: 768px) {
+    gap: 24px;
+  }
 }
 
 .titleWrapper {
     display: flex;
     align-items: center;
-    margin-bottom: var(--mantine-spacing-xl);
+    max-height: 54px;
 }
 
 .iconWrapper {
@@ -22,7 +33,7 @@
     white-space: pre;
     font-size: var(--mantine-font-size-3xl);
     font-weight: 600;
-    line-height: var(--mantine-line-height-sm);
+    line-height: var(--mantine-line-height-xs);
 
     @media screen and ($mantine-breakpoint-xs) {
         font-size: var(--mantine-font-size-lg);
@@ -30,5 +41,5 @@
 }
 
 .description {
-    font-size: var(--mantine-font-size-xs);
+    font-size: var(--mantine-font-size-sm);
 }

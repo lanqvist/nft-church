@@ -7,11 +7,11 @@ export const NAVBAR_ITEMS: NavbarItem[] = [
     },
     {
         name: 'NFT',
-        to: 'nft',
+        to: 'certificate',
     },
     {
         name: 'Ход строительства',
-        to: 'work-stages',
+        to: 'workStages',
     },
     {
         name: 'Узнай больше о храме',

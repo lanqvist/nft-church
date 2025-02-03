@@ -15,7 +15,7 @@ export const Card: FC<CardProps> = ({ title, description, className, icon, foote
                 </Title>
             </div>
             <Text className={styles.description}>{description}</Text>
-            <div>{footerAddons}</div>
+            {footerAddons && <div>{footerAddons}</div>}
         </div>
     </div>
 );

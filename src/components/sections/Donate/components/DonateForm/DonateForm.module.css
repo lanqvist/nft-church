@@ -21,14 +21,21 @@
     line-height: 1;
     padding-bottom: 9px;
     border-radius: var(--mantine-radius-md);
-    margin-bottom: var(--mantine-spacing-4xl);
-    border-color: var(--input-border-color);
 
     @media screen and ($mantine-breakpoint-md) {
         font-size: var(--mantine-font-size-xs);
-        margin-bottom: var(--mantine-spacing-xl);
         line-height: 2.1;
     }
+}
+
+.numberInput {
+    margin-bottom: var(--mantine-spacing-xl);
+}
+
+.label {
+  .required {
+    color: #FF6B6B;
+  }
 }
 
 .radioButtonsWrapper {
@@ -60,11 +67,10 @@
     width: 100%;
     padding: var(--mantine-spacing-md) var(--mantine-spacing-xl);
     border-radius: var(--mantine-radius-xl);
-    margin-bottom: var(--mantine-spacing-4xl);
+    margin: var(--mantine-spacing-xl) 0;
 
     @media screen and ($mantine-breakpoint-md) {
         border-radius: var(--mantine-radius-md);
-        margin-bottom: var(--mantine-spacing-xl);
     }
 }
 
