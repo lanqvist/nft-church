@@ -21,21 +21,19 @@ export const MessageModal = ({ opened, close }) => {
         >
             <Modal.Overlay />
             <Modal.Content className={styles.content}>
-                <Modal.Header>
-                    <div className={styles.header}>
-                        <div className={styles.floatingButton}>
-                            <Icon />
-                            <span>Послание Владыки</span>
-                        </div>
+                <Modal.Header className={styles.header}>
+                    <div className={styles.iconWrapper}>
+                        <Icon className={styles.icon} width="100%" height="100%" />
                     </div>
-                    <Modal.CloseButton />
-                </Modal.Header>
 
-                <Modal.Body className={styles.body}>
                     <div className={styles.title}>
                         Обращение митрополита Чебоксарского и Чувашского Варнавы к пастве по поводу строительства в г.
                         Чебоксары храма в честь преподобного Сергия Радонежского
                     </div>
+                    <Modal.CloseButton className={styles.closeIcon} />
+                </Modal.Header>
+
+                <Modal.Body className={styles.body}>
                     <div className={styles.textBody}>
                         <p>Дорогие братья и сестры!</p>
                         <p>
@@ -72,11 +70,10 @@ export const MessageModal = ({ opened, close }) => {
                         </p>
                         <p>
                             Приношу Вам горячие пожелания крепости душевных и телесных сил и помощи Божией на Вашем
-                            жизненном пути.
+                            жизненном пути. Пусть Благодать Спасителя нашего Иисуса Христа сопутствует Вам всегда.
                         </p>
                         <p>
-                            Пусть Благодать Спасителя нашего Иисуса Христа сопутствует Вам всегда. Варнава, митрополит
-                            Чебоксарский и Чувашский, глава чувашской митрополии (2012 – 2020)
+                            Варнава, митрополит Чебоксарский и Чувашский,{'\n'}глава чувашской митрополии (2012 – 2020)
                         </p>
                     </div>
                 </Modal.Body>

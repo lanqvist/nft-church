@@ -17,6 +17,10 @@
     justify-content: center;
     width: 100%;
 
+    @media screen and (max-width: 1328px) {
+      padding: 12px var(--mantine-spacing-2xs);
+    }
+
     @media screen and (max-width: 1200px) {
         display: none;
     }
@@ -36,6 +40,7 @@
     border-radius: var(--mantine-radius-md);
     padding: var(--mantine-spacing-lg) var(--mantine-spacing-md);
     border-color: transparent;
+    line-height: 28px;
 
     @media screen and (min-width: 1200px) and (max-width: 1328px) {
       font-size: 14px;

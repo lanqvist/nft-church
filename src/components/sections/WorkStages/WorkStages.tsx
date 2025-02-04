@@ -74,10 +74,9 @@ const cards: CardProps[] = [
         imageUrl: CARD_IMAGES[9],
     },
     {
-        date: '25.06.2024',
-        title: 'Lorem Ipsum 11',
-        description:
-            'Laboris et veniam duis laboris cillum amet qui anim velit ipsum commodo. Nostrud et amet anim sunt in incididunt cupidatat. Aliquip anim consectetur exercitation culpa aliquip. Enim veniam aute anim voluptate incididunt mollit laboris culpa.',
+        date: '29.09.2023',
+        title: '',
+        description: 'Отделочные работы купола',
         imageUrl: CARD_IMAGES[10],
     },
 ];
