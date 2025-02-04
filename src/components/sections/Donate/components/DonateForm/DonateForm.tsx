@@ -16,6 +16,7 @@ interface IProps {
 }
 export const DonateForm: FC<IProps> = ({ openPaymentModal, setPaymentFormData }) => {
     const [amount, setAmount] = useState(AMOUNTS[0]);
+    const [additionalAmount, setAdditionalAmount] = useState('');
     const [mail, setMail] = useInputState<string>('');
     const [mailError, setMailError] = useState<string>('');
 
@@ -34,7 +35,7 @@ export const DonateForm: FC<IProps> = ({ openPaymentModal, setPaymentFormData })
 
         const paymentData = {
             amount: {
-                value: amount,
+                value: amount || additionalAmount,
                 currency: 'RUB',
             },
             confirmation: {
@@ -94,8 +95,11 @@ export const DonateForm: FC<IProps> = ({ openPaymentModal, setPaymentFormData })
                 className={styles.numberInput}
                 classNames={{ input: styles.input }}
                 placeholder="Другая сумма"
-                value={amount}
-                onChange={(value) => setAmount(`${value}`)}
+                value={additionalAmount}
+                onChange={(value) => {
+                    setAmount('');
+                    setAdditionalAmount(`${value}`);
+                }}
                 hideControls
             />
             <div className={styles.label}>
