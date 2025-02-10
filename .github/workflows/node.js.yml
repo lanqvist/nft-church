@@ -28,6 +28,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: ${{ env.CR_URI }}/evo-restapinodejs:${{ github.sha }}
-          file: ./restapi-nodejs/src/Dockerfile
-          context: ./restapi-nodejs/src
+          tags: ${{ env.CR_URI }}/web-app:${{ github.sha }}
+          file: ./Dockerfile
+          context: ./src
