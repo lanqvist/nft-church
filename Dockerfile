@@ -7,8 +7,18 @@ COPY . .
 RUN npm run build
  
 # Production Stage
-FROM nginx:stable-alpine AS production
-COPY --from=build /app/dist /usr/share/nginx/html
+FROM nginx:alpine
+
+# Создаем директорию и меняем владельца
+RUN mkdir -p /var/cache/nginx/client_temp && \
+    chown -R nginx:nginx /var/cache/nginx
+
+# Копируем конфигурацию и статические файлы
 COPY nginx.conf /etc/nginx/nginx.conf
-EXPOSE 8080
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Запускаем от пользователя nginx
+USER nginx
+
+EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
