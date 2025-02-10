@@ -1,8 +1,10 @@
 FROM node:lts-alpine
 ENV NODE_ENV=production
 WORKDIR /usr/src/app
-COPY ["package.json", "package-lock.json*", "./"]
-RUN npm install --force --production --silent && mv node_modules ../
+COPY ["package.json", "yarn.lock*", "./"]
+
+RUN npm install --global yarn
+RUN yarn install --production --silent && mv node_modules ../
 COPY . .
 EXPOSE 8080
 RUN chown -R node /usr/src/app
