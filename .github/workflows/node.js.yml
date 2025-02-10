@@ -30,4 +30,4 @@ jobs:
           push: true
           tags: ${{ env.CR_URI }}/web-app:${{ github.sha }}
           file: ./Dockerfile
-          context: ./src
+          context: ./
