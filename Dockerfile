@@ -16,6 +16,8 @@ RUN yarn global add serve
 RUN yarn run build
 RUN rm -fr node_modules
 
+
+
 EXPOSE 3000
 
 # Start the app using serve command
