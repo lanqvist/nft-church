@@ -1,24 +1,22 @@
-# Build Stage
-FROM node:18-alpine AS build
+# Start your image with a node base image
+FROM node:18-alpine
+
+# The /app directory should act as the main application directory
 WORKDIR /app
-COPY ["package.json", "yarn.lock*", "./"]
-RUN yarn install
+
+# Copy the app package and package-lock.json file
+COPY package*.json ./
+
+# Copy local directories to the current local directory of our docker image (/app)
 COPY . .
-RUN npm run build
- 
-# Production Stage
-FROM nginx:alpine
 
-# Создаем директорию и меняем владельца
-RUN mkdir -p /var/cache/nginx/client_temp && \
-    chown -R nginx:nginx /var/cache/nginx
+# Install node packages, install serve, build the app, and remove dependencies at the end
+RUN yarn install
+RUN yarn global add serve
+RUN yarn run build
+RUN rm -fr node_modules
 
-# Копируем конфигурацию и статические файлы
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY --from=build /app/dist /usr/share/nginx/html
+EXPOSE 3000
 
-# Запускаем от пользователя nginx
-USER nginx
-
-EXPOSE 8080
-CMD ["nginx", "-g", "daemon off;"]
+# Start the app using serve command
+CMD [ "serve", "-s", "dist" ]
