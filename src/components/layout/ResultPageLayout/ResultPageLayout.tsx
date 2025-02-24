@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 import { ChooseGift, DataGifts } from './components';
 import { TOKENS } from './consts';
@@ -10,6 +11,7 @@ const steps = {
 };
 
 export const ResultPageLayout = () => {
+    const { uuid: paymentId } = useParams();
     const [prayerCheck, setPrayerCheck] = useState(false);
     const [bookCheck, setBookCheck] = useState(false);
     const [stoneCheck, setStoneCheck] = useState(false);

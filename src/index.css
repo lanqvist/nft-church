@@ -130,6 +130,7 @@ a {
 .button {
     height: auto;
     font-weight: 600;
+    line-height: 1.4em;
 
     &:hover {
         &[data-variant='filled'] {
