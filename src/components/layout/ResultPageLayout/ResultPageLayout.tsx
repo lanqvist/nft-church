@@ -11,7 +11,7 @@ const steps = {
 };
 
 export const ResultPageLayout = () => {
-    const { uuid: paymentId } = useParams();
+    // const { uuid: paymentId } = useParams();
     const [prayerCheck, setPrayerCheck] = useState(false);
     const [bookCheck, setBookCheck] = useState(false);
     const [stoneCheck, setStoneCheck] = useState(false);
