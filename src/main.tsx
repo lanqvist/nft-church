@@ -21,7 +21,7 @@ export const router = createBrowserRouter([
         element: <App />,
     },
     {
-        path: '/result',
+        path: '/result/:uuid',
         element: <ResultPageLayout />,
     },
 ]);
