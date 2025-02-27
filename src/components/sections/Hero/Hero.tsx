@@ -1,5 +1,6 @@
 import { Button, Text, Title } from '@mantine/core';
 import clsx from 'clsx';
+import { forwardRef } from 'react';
 
 import { Section } from '@components/layout/Section';
 import { scrollToSection } from '@utils/index';
@@ -9,8 +10,8 @@ import nftImage from './assets/nft.png';
 import voskresfondImg from './assets/voskresfond.png';
 import styles from './Hero.module.css';
 
-export const Hero = () => (
-    <Section className={styles.root} containerClassName={styles.container}>
+export const Hero = forwardRef<HTMLElement, object>((_, ref) => (
+    <Section className={styles.root} containerClassName={styles.container} ref={ref}>
         <div className={styles.content}>
             <div className={styles.infoWrapper}>
                 <div className={styles.infoContent}>
@@ -59,4 +60,6 @@ export const Hero = () => (
             </div>
         </div>
     </Section>
-);
+));
+
+Hero.displayName = 'Hero';

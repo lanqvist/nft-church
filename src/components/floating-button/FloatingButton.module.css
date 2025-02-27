@@ -1,10 +1,9 @@
 .floatingButton {
   position: fixed;
-  top: 35%;
+  top: 10%;
   right: 3%;
   z-index: 100;
   width: 131px;
-  height: 177.56px;
 
   display: flex;
   flex-direction: column;
@@ -28,10 +27,9 @@
   }
 
   @media screen and ($mantine-breakpoint-sm) {
-    top: 35%;
+    top: 10%;
     right: 3%;
     width: 99px;
-    height: 134px;
     gap: 8px;
     padding: 16px;
   

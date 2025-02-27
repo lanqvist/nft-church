@@ -20,12 +20,12 @@
     background: url('./assets/banner-large.jpeg') no-repeat top / cover;
     width: 100%;
 
-    @media screen and ($mantine-breakpoint-md) {
+    @media screen and ($mantine-breakpoint-lg) {
         display: block;
         background: url('./assets/banner-medium.jpeg') no-repeat top / cover;
     }
 
-    @media screen and ($mantine-breakpoint-sm) {
+    @media screen and ($mantine-breakpoint-md) {
         border-radius: 0;
         background-size: contain;
     }
@@ -35,14 +35,14 @@
     padding: 84px;
     padding-bottom: 108px;
 
-    @media screen and ($mantine-breakpoint-md) {
+    @media screen and ($mantine-breakpoint-lg) {
         padding: 36px;
         padding-bottom: 75px;
     }
 
-    @media screen and ($mantine-breakpoint-sm) {
+    @media screen and ($mantine-breakpoint-md) {
         padding: 0;
-        padding-top: 281px;
+        padding-top: 420px;
     }
 
     @media screen and ($mantine-breakpoint-xs) {
@@ -57,15 +57,11 @@
 .infoContent {
     width: 692px;
 
-    @media screen and ($mantine-breakpoint-md) {
+    @media screen and ($mantine-breakpoint-lg) {
         width: 376px;
     }
 
     @media screen and ($mantine-breakpoint-md) {
-        width: 50%;
-    }
-
-    @media screen and ($mantine-breakpoint-sm) {
         width: 100%;
         border-radius: var(--mantine-radius-lg);
         background-color: rgba(73, 80, 87, 0.45);
@@ -103,12 +99,12 @@
     font-weight: 400;
     line-height: var(--mantine-line-height-xs);
 
-    @media screen and ($mantine-breakpoint-md) {
-        font-size: var(--mantine-font-size-3xl);
+    @media screen and ($mantine-breakpoint-lg) {
+        font-size: var(--mantine-font-size-2xl);
         margin-bottom: var(--mantine-spacing-md);
     }
 
-    @media screen and ($mantine-breakpoint-sm) {
+    @media screen and ($mantine-breakpoint-md) {
         font-size: var(--mantine-font-size-xl);
         margin-bottom: var(--mantine-spacing-md);
     }
@@ -121,14 +117,14 @@
     font-size: var(--mantine-font-size-xl);
     font-weight: 500;
 
-    @media screen and ($mantine-breakpoint-md) {
+    @media screen and ($mantine-breakpoint-lg) {
         width: 70%;
         font-size: var(--mantine-font-size-xs);
         line-height: var(--mantine-line-height-lg);
         margin-bottom: var(--mantine-spacing-md);
     }
 
-    @media screen and ($mantine-breakpoint-sm) {
+    @media screen and ($mantine-breakpoint-md) {
         width: 100%;
     }
 
@@ -158,7 +154,7 @@
     display: flex;
     width: 100%;
 
-    @media screen and ($mantine-breakpoint-md) {
+    @media screen and ($mantine-breakpoint-lg) {
         flex-direction: column;
     }
 
@@ -173,7 +169,7 @@
     &:first-child {
         margin-right: var(--mantine-spacing-md);
 
-        @media screen and ($mantine-breakpoint-md) {
+        @media screen and ($mantine-breakpoint-lg) {
             margin-right: 0;
             margin-bottom: var(--mantine-spacing-md);
         }

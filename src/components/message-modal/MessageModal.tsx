@@ -4,6 +4,7 @@ import { Button, Modal } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 
 import Icon from './assets/mail.svg?react';
+import VV from './assets/vv.png';
 import styles from './MessageModal.module.css';
 
 export const MessageModal = ({ opened, close }) => {
@@ -39,7 +40,7 @@ export const MessageModal = ({ opened, close }) => {
                         <p>
                             В 2014 году исполнилось 700 лет со дня рождения печальника земли Русской – преподобного
                             Сергия Радонежского и по благословению Патриарха Московского и всея Руси Кирилла к этой дате
-                            в городе Чебоксары был заложен Кафедральный собор в его честь.
+                            в городе Чебоксары был заложен собор в его честь.
                         </p>
                         <p>
                             Преподобный Сергий Радонежский почитается не только как основатель Свято-Троицкой Сергиевой
@@ -72,9 +73,13 @@ export const MessageModal = ({ opened, close }) => {
                             Приношу Вам горячие пожелания крепости душевных и телесных сил и помощи Божией на Вашем
                             жизненном пути. Пусть Благодать Спасителя нашего Иисуса Христа сопутствует Вам всегда.
                         </p>
-                        <p>
-                            Варнава, митрополит Чебоксарский и Чувашский,{'\n'}глава чувашской митрополии (2012 – 2020)
-                        </p>
+                        <div className={styles.textFooter}>
+                            <img src={VV} alt="Владыка Варнава" />
+                            <p>
+                                Варнава, митрополит Чебоксарский и Чувашский,{'\n'}глава чувашской митрополии (2012 –
+                                2020)
+                            </p>
+                        </div>
                     </div>
                 </Modal.Body>
                 <div className={styles.footer}>
