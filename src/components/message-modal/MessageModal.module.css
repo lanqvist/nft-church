@@ -68,11 +68,30 @@
     margin: 12px 0 8px;
   }
 
-  p:last-child {
-    margin-left: auto;
-    text-align: end;
-    white-space: pre-wrap;
+  .textFooter {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    img, p {
+      flex: 1;
+      max-width: 50%;
+    }
+
+    p {
+      margin-top: auto;
+      font-size: 13px;
+      line-height: 18px;
+      margin-left: auto;
+      text-align: end;
+      white-space: pre-wrap;
+
+      @media screen and (max-width: 800px) {
+        font-size: 11px;
+      }
+    }
   }
+
 }
 
 .content {
