@@ -1,4 +1,3 @@
-/* eslint-disable react/display-name */
 import { Button, Text, Title } from '@mantine/core';
 import clsx from 'clsx';
 import { forwardRef } from 'react';
@@ -11,7 +10,7 @@ import nftImage from './assets/nft.png';
 import voskresfondImg from './assets/voskresfond.png';
 import styles from './Hero.module.css';
 
-export const Hero = forwardRef((_, ref) => (
+export const Hero = forwardRef<HTMLElement, object>((_, ref) => (
     <Section className={styles.root} containerClassName={styles.container} ref={ref}>
         <div className={styles.content}>
             <div className={styles.infoWrapper}>
@@ -62,3 +61,5 @@ export const Hero = forwardRef((_, ref) => (
         </div>
     </Section>
 ));
+
+Hero.displayName = 'Hero';
