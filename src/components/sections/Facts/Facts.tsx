@@ -4,7 +4,9 @@ import { useCallback, useMemo, useState } from 'react';
 import { Section } from '@components/layout/Section';
 import { useBreakpoint } from '@hooks/useBreakpoint';
 
-import factObjectImg1 from './assets/factObject1.jpeg';
+import factObjectImg1 from './assets/factObject1.jpg';
+import factObjectImg2 from './assets/factObject2.jpeg';
+import factObjectImg3 from './assets/factObject3.jpg';
 import HandClickIcon from './assets/icons/handClick.svg?react';
 import { FactModal } from './components/FactModal';
 import { FactObjectDisplay } from './components/FactObjectDisplay';
@@ -15,38 +17,68 @@ import { createFactObjectFactoryBuilder } from './utils/builder';
 
 const factObjects: FactObject[] = createFactObjectFactoryBuilder((builder) => {
     builder
-        .createFactObjectFactory(factObjectImg1, 'Иконы')
+        .createFactObjectFactory(factObjectImg1, 'Благословение Патриарха – особая честь для храма')
         .addFact(
-            'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veritatis odio voluptatum illo nostrum. Rem culpa tenetur reiciendis excepturi? Odio modi ut ipsa a quo quis debitis officiis reprehenderit illum minus!',
-            { top: '20%', left: '33%' }
+            'Строительство храма получило личное благословение Святейшего Патриарха, что является особым знаком духовной значимости. 2 августа 2015 года Святейший Патриарх Кирилл посетил Чебоксары и заложил памятную капсулу в стену уже начавшегося строительства храма.',
+            {
+                top: '10%',
+                left: '15%',
+            }
         )
         .addFact(
-            'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis aliquid culpa temporibus eum voluptates in laborum quaerat, et, illum sint illo eveniet nobis inventore sunt consequatur rem reiciendis officiis veritatis.',
-            { top: '50%', left: '20%' }
+            'В тот день Владыка Варнава обратился к Патриарху с просьбой посетить храм после завершения строительства. И тогда Патриарх пообещал лично приехать и освятить его, когда работы будут окончены.',
+            { top: '30%', left: '35%' }
+        )
+        .addFact(
+            'Этот момент стал знаковым для всех, кто участвует в возведении храма. Теперь наша общая цель – завершить строительство, чтобы исполнить это важное обещание и встретить Святейшего Патриарха на освящении храма.',
+            {
+                top: '20%',
+                left: '80%',
+            }
         );
 
     builder
-        .createFactObjectFactory(factObjectImg1, 'Иконы 2')
-        .addFact('Veniam consectetur et duis nisi exercitation elit irure ipsum cillum ipsum mollit.', {
-            top: '10%',
-            left: '30%',
-        })
-        .addFact('Aute minim fugiat occaecat ex est elit laboris.', { top: '10%', left: '60%' })
-        .addFact('Ea occaecat ad sunt consectetur fugiat adipisicing consectetur esse enim dolore.', {
-            top: '56%',
-            left: '30%',
-        });
-
-    builder
-        .createFactObjectFactory(factObjectImg1, 'Иконы 3')
-        .addFact('Aute occaecat fugiat labore enim minim enim magna enim commodo.', { top: '30%', left: '60%' })
+        .createFactObjectFactory(factObjectImg2, 'Иконостас храма – дар веры и преданности')
         .addFact(
-            'Irure proident pariatur ut culpa deserunt veniam ullamco quis. Sunt irure et aliquip consequat enim aute. Non adipisicing mollit esse veniam nulla eu enim. Et exercitation cillum elit ipsum. Magna adipisicing qui ut qui Lorem veniam ea ut voluptate sint ullamco id qui. Aute ullamco consequat ex officia ipsum esse cillum eiusmod pariatur nisi occaecat ullamco voluptate. Fugiat qui quis exercitation in dolor culpa eu irure fugiat cupidatat laborum.',
-            { top: '80%', left: '60%' }
+            'Наш будущий иконостас – это дар благотворителя из Сибири, который еще при жизни Владыки Варнавы оплатил его изготовление. Этот поступок стал актом глубокой веры и любви к храму, ведь иконостас был заказан задолго до того, как появится возможность его установки.',
+            {
+                top: '10%',
+                left: '30%',
+            }
         )
         .addFact(
-            'Irure magna eiusmod dolor labore tempor fugiat nisi eu incididunt quis. Sunt veniam do in eu veniam dolore cillum id. Nulla minim reprehenderit dolore incididunt eu velit ipsum deserunt occaecat esse nisi esse. Incididunt excepteur minim consequat cillum occaecat minim velit. Ipsum commodo non incididunt ullamco nulla proident sit veniam culpa. Do do officia deserunt amet culpa non consectetur elit dolor labore mollit ipsum ut qui. Commodo cupidatat Lorem laborum id aliqua.',
-            { top: '56%', left: '35%' }
+            'Изготавливать его будут в Щиграх Курской области, городе, где расположена одна из самых известных в России мастерских по созданию иконостасов. На данный момент материалы для иконостаса уже закуплены, но его изготовление пока не начато, поскольку процесс создания займет 3-4 месяца',
+            { top: '10%', left: '60%' }
+        )
+        .addFact(
+            'Этот будущий иконостас – не просто элемент храмового убранства, а символ преданности, духовного наследия и единения верующих, которые внесли свой вклад в его появление.',
+            {
+                top: '56%',
+                left: '30%',
+            }
+        );
+
+    builder
+        .createFactObjectFactory(factObjectImg3, 'Последняя воля Владыки Варнавы – монашеское смирение')
+        .addFact(
+            'Когда в Чебоксарах строился Покровско-Татианинский собор, в нем заранее была подготовлена мраморная усыпальница для Владыки. Однако он видел себя не в почетной усыпальнице, а как простой монах, следуя традициям Свято-Троицкой Сергиевой Лавры, где духовные подвижники погребаются скромно – перед алтарем храма, под восьмиконечным деревянным крестом.',
+            { top: '10%', left: '25%' }
+        )
+        .addFact(
+            'О своем решении он объявил публично, года за два до кончины, во время заседания епархиального совета. В присутствии всего духовенства республики он заявил, что хочет быть похоронен перед алтарем строящегося храма преподобного Сергия Радонежского на улице Калинина.',
+            { top: '15%', left: '55%' }
+        )
+        .addFact(
+            'После его ухода возникла сложность: в месте, которое он избрал, еще велись строительные работы – перед алтарем стоял башенный кран, а подходящей территории просто не было.',
+            { top: '30%', left: '45%' }
+        )
+        .addFact(
+            'Однако буквально за одни сутки произошло настоящее чудо: перед храмом находился старый частный дом, хозяева которого уже давно не жили в нем. Благодаря помощи благотворителя удалось оперативно выкупить участок и расчистить место для захоронения Владыки.',
+            { top: '75%', left: '20%' }
+        )
+        .addFact(
+            'Теперь могила Владыки Варнавы находится на храмовой территории, а вокруг нее планируется создать сквер митрополита Варнавы – место тишины, молитвы и памяти о человеке, посвятившем свою жизнь служению Богу и людям.',
+            { top: '90%', left: '70%' }
         );
 }).toArray();
 
