@@ -57,7 +57,7 @@
 }
 
 .factTitle {
-    font-size: var(--mantine-font-size-lg);
+    font-size: 20px;
     margin-bottom: 10px;
 
     @media screen and ($mantine-breakpoint-md) {
