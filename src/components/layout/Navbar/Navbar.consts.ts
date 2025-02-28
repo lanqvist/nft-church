@@ -21,8 +21,4 @@ export const NAVBAR_ITEMS: NavbarItem[] = [
         name: 'Виды храма',
         to: 'introduction',
     },
-    {
-        name: 'Послание от Владыки',
-        to: 'message',
-    },
 ];

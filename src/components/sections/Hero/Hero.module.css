@@ -32,7 +32,7 @@
 }
 
 .infoWrapper {
-    padding: 84px;
+    padding: 64px;
     padding-bottom: 108px;
 
     @media screen and ($mantine-breakpoint-lg) {
@@ -56,6 +56,10 @@
 
 .infoContent {
     width: 692px;
+
+    @media screen and ($mantine-breakpoint-xl) {
+      width: 556px;
+  }
 
     @media screen and ($mantine-breakpoint-lg) {
         width: 376px;
@@ -98,6 +102,10 @@
     color: var(--mantine-color-gray-1);
     font-weight: 400;
     line-height: var(--mantine-line-height-xs);
+
+    @media screen and ($mantine-breakpoint-xl) {
+      font-size: var(--mantine-font-size-5xl);
+    }
 
     @media screen and ($mantine-breakpoint-lg) {
         font-size: var(--mantine-font-size-2xl);
@@ -212,6 +220,14 @@
     color: var(--mantine-color-gray-1);
     font-size: var(--mantine-font-size-xs);
     font-weight: 600;
+
+    @media screen and ($mantine-breakpoint-xl) {
+      font-size: var(--mantine-font-size-3xs);
+    }
+
+  @media screen and ($mantine-breakpoint-lg) {
+    font-size: var(--mantine-font-size-3xs);
+  }
 
     @media screen and ($mantine-breakpoint-sm) {
         font-size: var(--mantine-font-size-3xs);
