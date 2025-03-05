@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // import { useParams } from 'react-router-dom';
 
 import { ChooseGift, DataGifts } from './components';
@@ -17,6 +17,10 @@ export const ResultPageLayout = () => {
     const [stoneCheck, setStoneCheck] = useState(false);
     const [selectedToken, setSelectedToken] = useState(TOKENS[0].name);
     const [step, setStep] = useState('chooseGifts');
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [step]);
 
     const StepBody = steps[step];
 
