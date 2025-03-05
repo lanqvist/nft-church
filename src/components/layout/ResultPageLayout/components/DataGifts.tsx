@@ -3,7 +3,7 @@
 import { Button, TextInput } from '@mantine/core';
 import { useInputState } from '@mantine/hooks';
 import clsx from 'clsx';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { TOKENS } from '../consts';
 
@@ -23,6 +23,10 @@ export const DataGifts = ({ prayerCheck, bookCheck, stoneCheck, selectedToken, s
     const [bookAddressDataError, setBookAddressDataError] = useState('');
 
     const [isPreview, setIsPreview] = useState(false);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [isPreview]);
 
     const validate = () => {
         let isValid = true;

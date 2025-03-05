@@ -1,5 +1,6 @@
 import { MantineProvider } from '@mantine/core';
 import { StrictMode } from 'react';
+// eslint-disable-next-line import/order
 import { createRoot } from 'react-dom/client';
 
 import '@mantine/core/styles.css';
@@ -11,6 +12,7 @@ import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { ResultPageLayout } from '@components/layout/ResultPageLayout';
+import ScrollToTop from '@utils/ScrollToTop';
 
 import App from './App';
 import { theme } from './theme';
@@ -22,7 +24,12 @@ export const router = createBrowserRouter([
     },
     {
         path: '/result/:uuid',
-        element: <ResultPageLayout />,
+        element: (
+            <>
+                <ScrollToTop />
+                <ResultPageLayout />
+            </>
+        ),
     },
 ]);
 
