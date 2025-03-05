@@ -93,10 +93,11 @@
         box-sizing: border-box;
         aspect-ratio: 1/1;
         flex: 1 0 49%;
-  
+
         .token {
           aspect-ratio: 1/1;
           width: 100%;
+          border-radius: 16px;
         }
   
         &.selected {

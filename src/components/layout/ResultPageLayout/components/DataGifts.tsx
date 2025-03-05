@@ -91,7 +91,7 @@ export const DataGifts = ({ prayerCheck, bookCheck, stoneCheck, selectedToken, s
                             </div>
                             <TextInput
                                 classNames={{ input: styles.input }}
-                                placeholder="Ваша почта"
+                                placeholder="Иванов Иван Иванович"
                                 value={prayerData}
                                 onChange={(e) => handleData(e, prayerDataError, setPrayerDataError, setPrayerData)}
                                 error={prayerDataError}
@@ -113,7 +113,7 @@ export const DataGifts = ({ prayerCheck, bookCheck, stoneCheck, selectedToken, s
                             </div>
                             <TextInput
                                 classNames={{ input: styles.input }}
-                                placeholder="Ваша почта"
+                                placeholder="Иванов Иван Иванович"
                                 value={stoneData}
                                 onChange={(e) => handleData(e, stoneDataError, setStoneDataError, setStoneData)}
                                 error={stoneDataError}
@@ -135,7 +135,7 @@ export const DataGifts = ({ prayerCheck, bookCheck, stoneCheck, selectedToken, s
                             </div>
                             <TextInput
                                 classNames={{ input: styles.input }}
-                                placeholder="Ваша почта"
+                                placeholder="Иванов Иван Иванович"
                                 value={bookData}
                                 onChange={(e) => handleData(e, bookDataError, setBookDataError, setBookData)}
                                 error={bookDataError}
@@ -147,7 +147,7 @@ export const DataGifts = ({ prayerCheck, bookCheck, stoneCheck, selectedToken, s
                             </div>
                             <TextInput
                                 classNames={{ input: styles.input }}
-                                placeholder="Ваша почта"
+                                placeholder="Введите вашу почту"
                                 value={bookAddressData}
                                 onChange={(e) =>
                                     handleData(e, bookAddressDataError, setBookAddressDataError, setBookAddressData)
