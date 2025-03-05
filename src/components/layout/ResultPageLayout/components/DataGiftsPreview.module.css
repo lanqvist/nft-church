@@ -105,14 +105,15 @@
       display: flex;
       gap: 4px;
       flex-wrap: wrap;
-
+      
       .tokenWrapper {
         display: flex;
         box-sizing: border-box;
         aspect-ratio: 1/1;
         width: 100%;
-  
+        
         .token {
+          border-radius: 16px;
           aspect-ratio: 1/1;
           width: 100%;
         }

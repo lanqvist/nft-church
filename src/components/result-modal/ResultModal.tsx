@@ -17,7 +17,7 @@ export const ResultModal = ({ opened, close, token }) => {
             transitionProps={{ transition: 'fade', duration: 200 }}
             centered
             keepMounted
-            size="xl"
+            size="lg"
         >
             <Modal.Overlay />
             <Modal.Content className={styles.content}>
@@ -28,9 +28,10 @@ export const ResultModal = ({ opened, close, token }) => {
 
                 <Modal.Body className={styles.body}>
                     <Icon width={100} height={100} />
-                    <div className={styles.title}>Памятные подарки успешно выбраны!</div>
+                    <div className={styles.title}>Вы успешно выбрали подарки!</div>
                     <div className={styles.description}>
-                        Для получения NFT токена «Сертификат благотворителя» авторизуйтесь и заберите свой токен.
+                        Информация о ваших подарках отправлена на почту. Для получения NFT авторизуйтесь на платформе
+                        Сбер «Цифровые активы», войдя по Сбер ID.
                     </div>
                     <img alt="token" src={token} className={styles.token} />
                 </Modal.Body>
