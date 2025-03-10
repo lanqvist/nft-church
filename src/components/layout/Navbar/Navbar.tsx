@@ -18,8 +18,7 @@ export const Navbar = () => {
     }, []);
 
     const handlePayment = () => {
-        const universalLink =
-            'btripsexpenses://sbolpay/invoicing/v2?bankInvoiceId=1961101c8c524c7fa15a9f101e965c58&orderNumber=d76d899c-6ffb-7116-ae89-afc802a92bb0';
+        const universalLink = 'btripsexpenses://transfer?amount=1000&account=1234567890&name=Иван Иванов';
         window.location.href = universalLink;
     };
 
