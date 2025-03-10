@@ -18,7 +18,8 @@ export const Navbar = () => {
     }, []);
 
     const handlePayment = () => {
-        const universalLink = 'https://online.sberbank.ru/transfer?amount=1000&account=1234567890&name=Иван Иванов';
+        const universalLink =
+            'btripsexpenses://sbolidlogin/sberbankidsso?appLink=partner%3A%2F%2Fpartner.host%2Fauth&storeLink=https%3A%2F%2Fapps.apple.com%2Fuz%2Fapp%2F%25D0%25BC%25D0%25BE%25D0%25B9-%25D0%25B7%25D0%25B2%25D1%2583%25D0%25BA-hifi-%25D0%25BC%25D1%2583%25D0%25B7%25D1%258B%25D0%25BA%25D0%25B0-%25D0%25B8-%25D0%25BA%25D0%25BD%25D0%25B8%25D0%25B3%25D0%25B8%2Fid6443779583';
         window.location.href = universalLink;
     };
 
