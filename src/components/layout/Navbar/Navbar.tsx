@@ -31,7 +31,7 @@ export const Navbar = () => {
         <>
             <nav className={styles.root}>
                 <ul className={styles.list}>
-                    {NAVBAR_ITEMS.map(({ name, to }) => (
+                    {NAVBAR_ITEMS.map(({ name }) => (
                         <li key={name} className={styles.listItem}>
                             <Button onClick={handlePayment} className={styles.button} variant="outline" color="green">
                                 {name}
