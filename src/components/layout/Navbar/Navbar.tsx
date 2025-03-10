@@ -19,18 +19,21 @@ export const Navbar = () => {
         setIsMobileMenuOpen(false);
     }, []);
 
+    const handlePayment = () => {
+        // URL-схема для перехода в Сбербанк Онлайн
+        const sberbankUrl = 'sberbankonline://payments';
+
+        // Открываем URL-схему
+        window.location.href = sberbankUrl;
+    };
+
     return (
         <>
             <nav className={styles.root}>
                 <ul className={styles.list}>
                     {NAVBAR_ITEMS.map(({ name, to }) => (
                         <li key={name} className={styles.listItem}>
-                            <Button
-                                onClick={() => scrollToSection(to)}
-                                className={styles.button}
-                                variant="outline"
-                                color="green"
-                            >
+                            <Button onClick={handlePayment} className={styles.button} variant="outline" color="green">
                                 {name}
                             </Button>
                         </li>
