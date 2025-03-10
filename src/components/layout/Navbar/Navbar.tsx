@@ -18,7 +18,7 @@ export const Navbar = () => {
     }, []);
 
     const handlePayment = () => {
-        const universalLink = 'btripsexpenses://transfer?amount=1000&account=1234567890&name=Иван Иванов';
+        const universalLink = 'btripsexpenses://transfer';
         window.location.href = universalLink;
     };
 
