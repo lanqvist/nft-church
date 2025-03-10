@@ -18,11 +18,8 @@ export const Navbar = () => {
     }, []);
 
     const handlePayment = () => {
-        // URL-схема для перехода в Сбербанк Онлайн
-        const sberbankUrl = 'sberbankonline://payments';
-
-        // Открываем URL-схему
-        window.location.href = sberbankUrl;
+        const universalLink = 'https://online.sberbank.ru/transfer?amount=1000&account=1234567890&name=Иван Иванов';
+        window.location.href = universalLink;
     };
 
     return (
