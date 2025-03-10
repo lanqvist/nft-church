@@ -18,7 +18,8 @@ export const Navbar = () => {
     }, []);
 
     const handlePayment = () => {
-        const universalLink = 'btripsexpenses://sbolidlogin/sberbankidsso';
+        const universalLink =
+            'btripsexpenses://sbolpay/invoicing/v2?bankInvoiceId=1961101c8c524c7fa15a9f101e965c58&orderNumber=d76d899c-6ffb-7116-ae89-afc802a92bb0';
         window.location.href = universalLink;
     };
 
