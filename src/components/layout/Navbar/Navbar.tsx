@@ -1,8 +1,6 @@
 import { ActionIcon, Button } from '@mantine/core';
 import { useCallback, useState } from 'react';
 
-import { scrollToSection } from '@utils/index';
-
 import MenuIcon from './assets/icons/menu.svg?react';
 import { MobileMenu } from './components/MobileMenu';
 import { NAVBAR_ITEMS } from './Navbar.consts';
@@ -43,7 +41,7 @@ export const Navbar = () => {
                     <MenuIcon />
                 </ActionIcon>
             </nav>
-            <MobileMenu isOpen={isMobileMenuOpen} onClose={handleClose} navigate={scrollToSection} />
+            <MobileMenu isOpen={isMobileMenuOpen} onClose={handleClose} navigate={handlePayment} />
         </>
     );
 };
