@@ -5,7 +5,7 @@ import { FactButton } from '../FactButton';
 import styles from './FactObjectDisplay.module.css';
 import { FactObjectProps } from './FactObjectDisplay.types';
 
-export const FactObjectDisplay: FC<FactObjectProps> = ({ factObject, onFactClick }) => {
+export const FactObjectDisplay: FC<FactObjectProps> = ({ currentFactId, factObject, onFactClick }) => {
     const handleFactClick = useCallback(
         (factId: string) => {
             onFactClick(factId);
@@ -17,7 +17,7 @@ export const FactObjectDisplay: FC<FactObjectProps> = ({ factObject, onFactClick
         <div className={styles.root}>
             <img src={factObject.imageSrc} alt={factObject.name} className={styles.image} />
             {factObject.facts.map((fact) => (
-                <FactButton key={fact.id} fact={fact} onClick={handleFactClick} />
+                <FactButton isActive={currentFactId === fact.id} key={fact.id} fact={fact} onClick={handleFactClick} />
             ))}
         </div>
     );
