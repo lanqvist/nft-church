@@ -156,7 +156,6 @@ export const Facts = () => {
                         {factObject && (
                             <FactObjectDisplay
                                 currentFactId={currentFactId}
-                                currentFactObjectId={currentFactObjectId}
                                 factObject={factObject}
                                 onFactClick={handleFactClick}
                             />
