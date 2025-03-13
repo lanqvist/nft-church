@@ -153,7 +153,14 @@ export const Facts = () => {
                 </div>
                 <div className={styles.right}>
                     <div className={styles.factObjectDisplayWrapper}>
-                        {factObject && <FactObjectDisplay factObject={factObject} onFactClick={handleFactClick} />}
+                        {factObject && (
+                            <FactObjectDisplay
+                                currentFactId={currentFactId}
+                                currentFactObjectId={currentFactObjectId}
+                                factObject={factObject}
+                                onFactClick={handleFactClick}
+                            />
+                        )}
                     </div>
                     <FactObjectList
                         className={styles.factObjectList}
