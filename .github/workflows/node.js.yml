@@ -11,7 +11,7 @@ env:
   FRONTEND_IMAGE_NAME: frontend
   SSH_USER: admin
   SSH_HOST: 87.242.118.221
-  PROJECT_PATH: /home/nft
+  PROJECT_PATH: /home/nft/front
 
 jobs:
   deploy:
