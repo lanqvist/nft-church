@@ -1,33 +1,62 @@
-name: Build Docker Image and Push to Evolution Artifact Registry
+name: Deploy Frontend with Nginx
 
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+
 env:
   CR_URI: nft-church-dev.cr.cloud.ru
+  FRONTEND_IMAGE_NAME: frontend
+  SSH_USER: admin
+  SSH_HOST: 87.242.118.221
+  PROJECT_PATH: /home/nft
+
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout to the branch
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Log in to Evolution Artifact Registry
-        uses: docker/login-action@v1
-        with:
-          registry: ${{ env.CR_URI }}
-          username: ${{ secrets.EVO_CR_LOGIN_DEV }}
-          password: ${{ secrets.EVO_CR_PWD_DEV }}
-
-      - name: NodeJS - Build and push docker image to Evolution Aritfact Registry
+      - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: ${{ env.CR_URI }}/frontend:v${{ github.event.pull_request.number }}
-          file: ./Dockerfile
+          tags: ${{ env.CR_URI }}/${{ env.FRONTEND_IMAGE_NAME }}:v${{ github.event.pull_request.number }}
+          file: ./Dockerfile # Make sure this is the correct path to your frontend Dockerfile
           context: ./
+
+      - name: Set up SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          name: id_rsa
+          known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+
+      - name: Copy Dockerfile to VM
+        run: |
+          scp Dockerfile ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.PROJECT_PATH }}/Dockerfile.frontend
+
+      - name: Copy docker-compose.yml to VM
+        run: |
+          scp docker-compose.yml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.PROJECT_PATH }}/docker-compose.yml
+
+      - name: Copy setup_nginx.sh to VM
+        run: |
+          scp setup_nginx.sh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.PROJECT_PATH }}/setup_nginx.sh
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "chmod +x ${{ secrets.PROJECT_PATH }}/setup_nginx.sh"
+
+      - name: Deploy with Docker Compose
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
+            cd ${{ secrets.PROJECT_PATH }}
+            docker-compose -f docker-compose.yml up -d
+          "
+
+      - name: Configure Nginx
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
+            sudo ${{ secrets.PROJECT_PATH }}/setup_nginx.sh
+          "
