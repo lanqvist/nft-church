@@ -47,26 +47,26 @@ jobs:
 
       - name: Copy Dockerfile to VM
         run: |
-          scp Dockerfile ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.PROJECT_PATH }}/Dockerfile.frontend
+          scp Dockerfile ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.PROJECT_PATH }}/Dockerfile.frontend
 
       - name: Copy docker-compose.yml to VM
         run: |
-          scp docker-compose.yml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.PROJECT_PATH }}/docker-compose.yml
+          scp docker-compose.yml ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.PROJECT_PATH }}/docker-compose.yml
 
       - name: Copy setup_nginx.sh to VM
         run: |
-          scp setup_nginx.sh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.PROJECT_PATH }}/setup_nginx.sh
-          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "chmod +x ${{ secrets.PROJECT_PATH }}/setup_nginx.sh"
+          scp setup_nginx.sh ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.PROJECT_PATH }}/setup_nginx.sh
+          ssh ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "chmod +x ${{ env.PROJECT_PATH }}/setup_nginx.sh"
 
       - name: Deploy with Docker Compose
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
-            cd ${{ secrets.PROJECT_PATH }}
+          ssh -o StrictHostKeyChecking=no ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "
+            cd ${{ env.PROJECT_PATH }}
             docker-compose -f docker-compose.yml up -d
           "
 
       - name: Configure Nginx
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
-            sudo ${{ secrets.PROJECT_PATH }}/setup_nginx.sh
+          ssh -o StrictHostKeyChecking=no ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "
+            sudo ${{ env.PROJECT_PATH }}/setup_nginx.sh
           "
