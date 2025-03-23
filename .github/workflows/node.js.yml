@@ -63,7 +63,10 @@ jobs:
           IMAGE_NAME="${{ env.CR_URI }}/frontend:v${{ github.event.pull_request.number }}"
           ssh -o StrictHostKeyChecking=no ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "
             cd ${{ env.PROJECT_PATH }}
-            docker-compose -f docker-compose.yml up -d --force-recreate --build --no-deps -e IMAGE_NAME=$IMAGE_NAME
+            export IMAGE_NAME=\"$IMAGE_NAME\" # ЭКСПОРТ ПЕРЕМЕННОЙ!
+            ls -l
+            docker-compose down
+            docker-compose -f docker-compose.yml up -d --force-recreate --build --no-deps
           "
       - name: Configure Nginx
         run: |
