@@ -60,11 +60,11 @@ jobs:
 
       - name: Deploy with Docker Compose
         run: |
+          IMAGE_NAME="${{ env.CR_URI }}/frontend:v${{ github.event.pull_request.number }}"
           ssh -o StrictHostKeyChecking=no ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "
             cd ${{ env.PROJECT_PATH }}
-            docker-compose -f docker-compose.yml up -d
+            docker-compose -f docker-compose.yml up -d --force-recreate --build --no-deps -e IMAGE_NAME=$IMAGE_NAME
           "
-
       - name: Configure Nginx
         run: |
           ssh -o StrictHostKeyChecking=no ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "

@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   frontend:
-    image: ${CR_URI}/frontend:v${{ github.event.pull_request.number }} # Use the correct image name
+    image: ${IMAGE_NAME}
     ports:
-      - "80:80" #  Remove if Nginx is handling the port forwarding
+      - "80:80"
     restart: always
