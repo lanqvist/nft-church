@@ -1,15 +1,14 @@
 #!/bin/bash
 
 NGINX_CONF_FILE="/etc/nginx/conf.d/frontend.conf"
-SERVER_NAME="yourdomain.com"  # Замените на свой домен или оставьте IP ВМ
-VM_IP="87.242.118.221"      # Замените на IP своей ВМ
-FRONTEND_PORT="3000"           # Порт, который фронтенд "выставляет" из контейнера
+SERVER_NAME="87.242.118.221"  # Explicitly set the VM IP
+FRONTEND_PORT="80"           # VERY IMPORTANT: Port the app LISTENS ON inside the container
 
 echo "Creating Nginx configuration file: $NGINX_CONF_FILE"
 cat <<EOF | sudo tee "$NGINX_CONF_FILE"
 server {
     listen 80;
-    server_name $SERVER_NAME $VM_IP;
+    server_name $SERVER_NAME;
 
     location / {
         proxy_pass http://localhost:$FRONTEND_PORT;
@@ -29,8 +28,16 @@ EOF
 
 echo "Checking Nginx configuration..."
 sudo nginx -t
+if [ $? -ne 0 ]; then
+  echo "Nginx configuration test failed. Aborting."
+  exit 1
+fi
 
 echo "Reloading Nginx..."
 sudo systemctl reload nginx
+if [ $? -ne 0 ]; then
+  echo "Nginx reload failed. Check logs for errors."
+  exit 1
+fi
 
 echo "Nginx setup complete."
