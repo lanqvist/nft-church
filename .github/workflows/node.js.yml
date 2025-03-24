@@ -1,14 +1,21 @@
-name: Build Docker Image and Push to Evolution Artifact Registry
+name: Deploy Frontend with Nginx
 
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+
 env:
   CR_URI: nft-church-dev.cr.cloud.ru
+  FRONTEND_IMAGE_NAME: frontend
+  SSH_USER: admin
+  SSH_HOST: 87.242.118.221
+  PROJECT_PATH: /home/nft/front
+  FRONTEND_TAG: v${{ github.event.pull_request.number }}
+
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout to the branch
@@ -24,10 +31,53 @@ jobs:
           username: ${{ secrets.EVO_CR_LOGIN_DEV }}
           password: ${{ secrets.EVO_CR_PWD_DEV }}
 
-      - name: NodeJS - Build and push docker image to Evolution Aritfact Registry
+      - name: NodeJS - Build and push docker image to Evolution Aritfact Registry.
         uses: docker/build-push-action@v5
         with:
           push: true
           tags: ${{ env.CR_URI }}/frontend:v${{ github.event.pull_request.number }}
           file: ./Dockerfile
           context: ./
+
+      - name: Set up SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          name: id_rsa
+          known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+
+      - name: Install Nginx
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "
+            sudo apt update && sudo apt install nginx -y
+          "
+
+      - name: Copy files to VM
+        run: |
+          scp Dockerfile docker-compose.yml setup_nginx.sh nginx.conf ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.PROJECT_PATH }}/
+
+      - name: Deploy with Docker Compose and Configure Nginx
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "
+            cd ${{ env.PROJECT_PATH }}
+
+            # Setup environment variables
+            export CR_URI=\"${{ env.CR_URI }}\"
+            export FRONTEND_IMAGE_NAME=\"${{ env.FRONTEND_IMAGE_NAME }}\"
+            export FRONTEND_TAG=\"${{ env.FRONTEND_TAG }}\"
+
+            # Shutdown and update containers
+            docker-compose down
+
+            # Pull new images (чтобы убедиться, что используется последняя версия образа)
+            docker-compose pull
+
+            # Start the services
+            docker-compose up -d --force-recreate --build --no-deps
+
+            # Make the script executable
+            sudo chmod +x setup_nginx.sh
+
+            # Run the configuration script
+            sudo ./setup_nginx.sh
+          "
