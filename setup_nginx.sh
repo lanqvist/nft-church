@@ -34,7 +34,7 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Reloading Nginx..."
-sudo systemctl reload nginx
+sudo systemctl restart nginx
 if [ $? -ne 0 ]; then
   echo "Nginx reload failed. Check logs for errors."
   exit 1
