@@ -12,6 +12,7 @@ env:
   SSH_USER: admin
   SSH_HOST: 87.242.118.221
   PROJECT_PATH: /home/nft/front
+  FRONTEND_TAG: v${{ github.event.pull_request.number }}
 
 jobs:
   deploy:
@@ -45,31 +46,38 @@ jobs:
           name: id_rsa
           known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
 
-      - name: Copy Dockerfile to VM
+      - name: Install Nginx
         run: |
-          scp Dockerfile ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.PROJECT_PATH }}/Dockerfile.frontend
+          ssh -o StrictHostKeyChecking=no ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "
+            sudo apt update && sudo apt install nginx -y
+          "
 
-      - name: Copy docker-compose.yml to VM
+      - name: Copy files to VM
         run: |
-          scp docker-compose.yml ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.PROJECT_PATH }}/docker-compose.yml
+          scp Dockerfile docker-compose.yml setup_nginx.sh nginx.conf ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.PROJECT_PATH }}/
 
-      - name: Copy setup_nginx.sh to VM
+      - name: Deploy with Docker Compose and Configure Nginx
         run: |
-          scp setup_nginx.sh ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.PROJECT_PATH }}/setup_nginx.sh
-          ssh ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "chmod +x ${{ env.PROJECT_PATH }}/setup_nginx.sh"
-
-      - name: Deploy with Docker Compose
-        run: |
-          IMAGE_NAME="${{ env.CR_URI }}/frontend:v${{ github.event.pull_request.number }}"
           ssh -o StrictHostKeyChecking=no ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "
             cd ${{ env.PROJECT_PATH }}
-            export IMAGE_NAME=\"$IMAGE_NAME\" # ЭКСПОРТ ПЕРЕМЕННОЙ!
-            ls -l
+
+            # Setup environment variables
+            export CR_URI=\"${{ env.CR_URI }}\"
+            export FRONTEND_IMAGE_NAME=\"${{ env.FRONTEND_IMAGE_NAME }}\"
+            export FRONTEND_TAG=\"${{ env.FRONTEND_TAG }}\"
+
+            # Shutdown and update containers
             docker-compose down
-            docker-compose -f docker-compose.yml up -d --force-recreate --build --no-deps
-          "
-      - name: Configure Nginx
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "
-            sudo ${{ env.PROJECT_PATH }}/setup_nginx.sh
+
+            # Pull new images (чтобы убедиться, что используется последняя версия образа)
+            docker-compose pull
+
+            # Start the services
+            docker-compose up -d --force-recreate --build --no-deps
+
+            # Make the script executable
+            sudo chmod +x setup_nginx.sh
+
+            # Run the configuration script
+            sudo ./setup_nginx.sh
           "
