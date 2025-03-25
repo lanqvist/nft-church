@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Кэшируем зависимости
 COPY package.json package-lock.json ./
-RUN npm ci --silent
+RUN npm i --silent
 
 # Копируем исходники
 COPY . .
