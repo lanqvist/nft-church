@@ -1,33 +1,75 @@
-name: Build Docker Image and Push to Evolution Artifact Registry
+name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main, master ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ main, master ]
+
 env:
-  CR_URI: nft-church-dev.cr.cloud.ru
+  REGISTRY: nft-church-dev.cr.cloud.ru
+  IMAGE_NAME: ${{ github.repository }}
+
 jobs:
-  build:
+  build-test-deploy:
     runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 20
+
+    services:
+      node:
+        image: node:18
+        ports: ["3000:3000"]
+
     steps:
-      - name: Checkout to the branch
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+        cache: 'npm'
 
-      - name: Log in to Evolution Artifact Registry
-        uses: docker/login-action@v1
-        with:
-          registry: ${{ env.CR_URI }}
-          username: ${{ secrets.EVO_CR_LOGIN_DEV }}
-          password: ${{ secrets.EVO_CR_PWD_DEV }}
+    - name: Install dependencies
+      run: npm ci --audit=false
 
-      - name: NodeJS - Build and push docker image to Evolution Aritfact Registry
-        uses: docker/build-push-action@v5
-        with:
-          push: true
-          tags: ${{ env.CR_URI }}/frontend:v${{ github.event.pull_request.number }}
-          file: ./Dockerfile
-          context: ./
+    - name: Lint code
+      run: npm run lint
+
+    - name: Run tests
+      run: |
+        npm run test:ci
+        npx coverage-badges --output ./public/badges/
+
+    - name: Build application
+      run: npm run build
+      env:
+        REACT_APP_ENV: production
+        REACT_APP_VERSION: ${{ github.sha }}
+
+    - name: Security audit
+      uses: shiftleftsecurity/scan-action@main
+      with:
+        output: reports/
+        type: code
+
+    - name: Log in to Evolution Artifact Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ secrets.EVO_CR_LOGIN_DEV }}
+        password: ${{ secrets.EVO_CR_PWD_DEV }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        file: ./docker/Dockerfile
+        platforms: linux/amd64,linux/arm64s
+        push: ${{ github.event_name != 'pull_request' }}
+        tags: |
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
