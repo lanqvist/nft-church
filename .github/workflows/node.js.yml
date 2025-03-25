@@ -3,6 +3,8 @@ name: React Docker Deploy
 on:
   push:
     branches: [main]
+  pull_request:
+      branches: [ "main" ]
 
 env:
   REGISTRY: nft-church-dev.cr.cloud.ru
