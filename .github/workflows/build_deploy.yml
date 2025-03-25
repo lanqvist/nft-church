@@ -65,26 +65,30 @@ jobs:
 
     - name: Setup server structure
       run: |
-            ssh ${VM_USER}@${VM_IP} << 'EOL'
-            # Создаем структуру каталогов
-            sudo mkdir -p /opt/nft-church/{config,storage,logs}
-            
-            # Копируем docker-compose из репозитория
-            cat << EOF > /opt/nft-church/docker-compose.prod.yml
-            $(cat ./docker/prod/docker-compose.yml)
-            EOF
+        # Создаем временный файл
+        echo "$(cat ./docker/prod/docker-compose.yml)" > docker-compose.tmp
 
-            # Создаем .env файл с секретами
-            cat << EOF > /opt/nft-church/.env.prod
-            REGISTRY=${{ env.REGISTRY }}
-            IMAGE_NAME=${{ env.IMAGE_NAME }}
-            TAG=${{ github.sha }}
-            EOF
+        # Копируем файлы через SCP
+        scp -o StrictHostKeyChecking=no \
+        docker-compose.tmp \
+        ${VM_USER}@${VM_IP}:/opt/nft-church/docker-compose.prod.yml
 
-            # Настраиваем права
-            sudo chown -R 1000:1000 /opt/nft-church/storage
-            sudo chmod -R 775 /opt/nft-church
-            EOL
+        # Создаем директории и файлы через SSH
+        ssh -o StrictHostKeyChecking=no ${VM_USER}@${VM_IP} << 'EOL'
+        sudo mkdir -p /opt/nft-church/{config,storage,logs}
+        sudo touch /opt/nft-church/.env.prod
+        
+        # Права для пользователя Docker
+        sudo chown -R 1000:1000 /opt/nft-church/storage
+        sudo chmod -R 775 /opt/nft-church
+        
+        # Проверяем создание файлов
+        ls -la /opt/nft-church
+        test -f /opt/nft-church/docker-compose.prod.yml || exit 1
+        EOL
+        
+        # Очистка
+        rm docker-compose.tmp
 
     - name: Deploy
       run: |
