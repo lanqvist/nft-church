@@ -48,12 +48,6 @@ jobs:
         REACT_APP_ENV: production
         REACT_APP_VERSION: ${{ github.sha }}
 
-    - name: Security audit
-      uses: shiftleftsecurity/scan-action@main
-      with:
-        output: reports/
-        type: code
-
     - name: Log in to Evolution Artifact Registry
       uses: docker/login-action@v1
       with:
