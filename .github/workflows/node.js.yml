@@ -50,12 +50,19 @@ jobs:
         username: ${{ secrets.EVO_CR_LOGIN_DEV }}
         password: ${{ secrets.EVO_CR_PWD_DEV }}
 
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      with:
+        driver: docker-container
+        buildkitd-flags: --debug
+        install: true
+
     - name: Build and push Docker image
       uses: docker/build-push-action@v4
       with:
         context: .
         file: ./docker/Dockerfile
-        platforms: linux/amd64,linux/arm64s
+        platforms: linux/amd64,linux/arm64
         push: ${{ github.event_name != 'pull_request' }}
         tags: |
           ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
