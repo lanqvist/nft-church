@@ -1,0 +1,105 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [main]
+
+env:
+  REGISTRY: nft-church-dev.cr.cloud.ru
+  IMAGE_NAME: lanqvist/nft-church
+  VM_IP: 87.242.118.221
+  VM_USER: admin
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    outputs:
+      image-tag: ${{ steps.meta.outputs.tags }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Validate files
+      run: |
+        [ -f package-lock.json ] || (echo "package-lock.json missing" && exit 1)
+        [ -f docker/Dockerfile ] || (echo "Dockerfile missing" && exit 1)
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Login to Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ secrets.EVO_CR_LOGIN_DEV }}
+        password: ${{ secrets.EVO_CR_PWD_DEV }}
+
+    - name: Build and Push
+      id: build
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        file: docker/Dockerfile
+        push: true
+        tags: |
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+    - name: Extract metadata
+      id: meta
+      uses: docker/metadata-action@v4
+      with:
+        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+  deploy-to-vm:
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    timeout-minutes: 10
+
+    steps:
+    - name: Install SSH key
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+
+    - name: Setup server structure
+      run: |
+            ssh ${VM_USER}@${VM_IP} << 'EOL'
+            # Создаем структуру каталогов
+            sudo mkdir -p /opt/nft-church/{config,storage,logs}
+            
+            # Копируем docker-compose из репозитория
+            cat << EOF > /opt/nft-church/docker-compose.prod.yml
+            $(cat ./docker/prod/docker-compose.yml)
+            EOF
+
+            # Создаем .env файл с секретами
+            cat << EOF > /opt/nft-church/.env.prod
+            REGISTRY=${{ env.REGISTRY }}
+            IMAGE_NAME=${{ env.IMAGE_NAME }}
+            TAG=${{ github.sha }}
+            EOF
+
+            # Настраиваем права
+            sudo chown -R 1000:1000 /opt/nft-church/storage
+            sudo chmod -R 775 /opt/nft-church
+            EOL
+
+    - name: Deploy
+      run: |
+        ssh -o StrictHostKeyChecking=no ${VM_USER}@${VM_IP} << 'EOL'
+        # Pull and run new container
+        docker login -u ${{ secrets.EVO_CR_LOGIN_DEV }} -p ${{ secrets.EVO_CR_PWD_DEV }} ${{ env.REGISTRY }}
+        docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+        # Graceful update
+        docker compose -f /opt/nft-church/docker-compose.prod.yml down
+        docker compose -f /opt/nft-church/docker-compose.prod.yml up -d
+
+        # Cleanup
+        docker image prune -af
+        EOL
