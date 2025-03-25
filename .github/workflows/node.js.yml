@@ -1,9 +1,7 @@
-name: Secure Container Pipeline
+name: React Docker Deploy
 
 on:
   push:
-    branches: [main]
-  pull_request:
     branches: [main]
 
 env:
@@ -11,37 +9,40 @@ env:
   IMAGE_NAME: lanqvist/nft-church
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 15
 
     steps:
-    - name: Checkout with LFS
+    - name: Checkout code
       uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-        lfs: true
 
-    - name: Validate critical files
+    - name: Validate files
       run: |
-        required_files=("package.json" "package-lock.json" "docker/Dockerfile" "docker/nginx/nginx.conf")
-        for file in "${required_files[@]}"; do
-          if [ ! -f "$file" ]; then
-            echo "::error file=$file::Missing required file: $file"
-            exit 1
-          fi
-        done
+        if [ ! -f package-lock.json ]; then
+          echo "::error::package-lock.json not found!"
+          exit 1
+        fi
+        if [ ! -f docker/Dockerfile ]; then
+          echo "::error::Dockerfile missing!"
+          exit 1
+        fi
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
       with:
         driver: docker-container
-        buildkitd-config: |
-          [worker.oci]
-            gckeepstorage = 30
+        buildkitd-config-inline: |
           [registry."${REGISTRY}"]
             http = true
             insecure = true
+
+    - name: Login to Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ secrets.EVO_CR_LOGIN_DEV }}
+        password: ${{ secrets.EVO_CR_PWD_DEV }}
 
     - name: Build and Push
       uses: docker/build-push-action@v5
@@ -49,23 +50,9 @@ jobs:
         context: .
         file: docker/Dockerfile
         platforms: linux/amd64,linux/arm64
-        push: ${{ github.event_name == 'push' }}
+        push: true
         tags: |
-          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
           ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
-        secrets: |
-          "NPM_TOKEN=${{ secrets.NPM_TOKEN }}"
-      env:
-        NODE_ENV: production
-        BUILDKIT_PROGRESS: plain
-
-    - name: Scan image for vulnerabilities
-      if: always()
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
-        format: 'sarif'
-        output: trivy-results.sarif
-        severity: 'HIGH,CRITICAL'

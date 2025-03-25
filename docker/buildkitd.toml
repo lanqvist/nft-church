@@ -1,7 +1,0 @@
-[worker.oci]
-  max-parallelism = 4
-  snapshotter = "overlayfs"
-
-[registry."nft-church-dev.cr.cloud.ru"]
-  http = true
-  insecure = true
