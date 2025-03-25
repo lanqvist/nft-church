@@ -1,4 +1,4 @@
-name: React Docker Deploy
+name: CI
 
 on:
   push:

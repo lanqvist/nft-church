@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  app:
+    image: ${REGISTRY}/${IMAGE_NAME}:${TAG}
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - nft-data:/app/storage
+    env_file:
+      - .production.env
+
+volumes:
+  nft-data:

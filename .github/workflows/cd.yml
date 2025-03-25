@@ -1,0 +1,40 @@
+name: Production Deployment
+
+on:
+  push:
+    branches: [main]
+
+env:
+  REGISTRY: nft-church-dev.cr.cloud.ru
+  IMAGE_NAME: lanqvist/nft-church
+  VM_IP: 87.242.118.221
+  VM_USER: admin
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+    - name: Install SSH key
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+
+    - name: Deploy to Production
+      run: |
+        ssh -o StrictHostKeyChecking=no ${VM_USER}@${VM_IP} << EOF
+        # Команды выполняются на удаленной машине
+        docker login -u ${{ secrets.EVO_CR_LOGIN_DEV }} -p ${{ secrets.EVO_CR_PWD_DEV }} ${REGISTRY}
+        docker pull ${REGISTRY}/${IMAGE_NAME}:${{ github.sha }}
+        docker stop nft-church || true
+        docker rm nft-church || true
+        docker run -d \
+          --name nft-church \
+          --restart always \
+          -p 80:80 \
+          -v nft-data:/app/storage \
+          ${REGISTRY}/${IMAGE_NAME}:${{ github.sha }}
+        docker system prune -af
+        EOF
