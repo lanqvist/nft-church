@@ -1,43 +1,35 @@
-# Stage 1: Build with dependencies cache
+# Stage 1: Build with security checks
 FROM node:18-alpine as builder
 WORKDIR /app
 
-# Кэшируем зависимости
-COPY package.json package-lock.json ./
-RUN npm i --silent
+# Проверка наличия обязательных файлов
+RUN test -f package.json || (echo "FATAL: package.json not found!" && exit 1)
+RUN test -f package-lock.json || (echo "FATAL: package-lock.json not found!" && exit 1)
 
-# Копируем исходники
-COPY . .
+# Копируем с явным указанием прав
+COPY --chown=node:node package*.json ./
 
-# Аргументы сборки
-ARG REACT_APP_API_URL=https://api.example.com
-ARG REACT_APP_ENV=production
-ENV NODE_ENV=production
+# Установка зависимостей с кэшированием
+RUN npm i --no-audit --prefer-offline \
+    && mkdir -p /app/node_modules \
+    && chown -R node:node /app
 
-RUN npm run build && \
-    npm prune --production
+USER node
+COPY --chown=node:node . .
+RUN npm run build
 
-# Stage 2: Production image with security hardening
+# Stage 2: Optimized production image
 FROM nginx:1.25-alpine-slim
 
-# Устанавливаем зависимости безопасности
-RUN apk add --no-cache tini && \
-    rm -rf /var/cache/apk/*
-
-# Конфигурация безопасности
-RUN chown -R nginx:nginx /var/cache/nginx && \
-    chmod -R 755 /var/cache/nginx && \
-    touch /var/run/nginx.pid && \
-    chown -R nginx:nginx /var/run/nginx.pid
+# Проверка наличия конфигов
+RUN test -f /etc/nginx/conf.d/default.conf || (echo "Nginx config missing!" && exit 1)
 
 COPY --from=builder --chown=nginx:nginx /app/build /usr/share/nginx/html
 COPY docker/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
-# Защита от утечки информации
-RUN sed -i 's/# server_tokens off;/server_tokens off;/g' /etc/nginx/nginx.conf && \
-    echo "more_clear_headers Server;" >> /etc/nginx/conf.d/default.conf
+HEALTHCHECK --interval=30s --timeout=3s \
+  CMD curl -f http://localhost/healthz || exit 1
 
-USER nginx
 EXPOSE 8080
 ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["nginx", "-g", "daemon off;"]
