@@ -117,7 +117,7 @@ export const DataGifts = ({ prayerCheck, bookCheck, stoneCheck, selectedToken, s
                             </div>
                             <TextInput
                                 classNames={{ input: styles.input }}
-                                placeholder="Иванов Иван Иванович"
+                                placeholder="Иванов И.И."
                                 value={stoneData}
                                 onChange={(e) => handleData(e, stoneDataError, setStoneDataError, setStoneData)}
                                 error={stoneDataError}
