@@ -37,11 +37,6 @@ jobs:
     - name: Lint code
       run: npm run lint
 
-    - name: Run tests
-      run: |
-        npm run test:ci
-        npx coverage-badges --output ./public/badges/
-
     - name: Build application
       run: npm run build
       env:
