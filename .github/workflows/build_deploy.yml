@@ -9,8 +9,9 @@ on:
 env:
   REGISTRY: nft-church-dev.cr.cloud.ru
   IMAGE_NAME: frontend
-  VM_IP: 87.242.118.221
-  VM_USER: admin
+  SSH_HOST: ${{ secrets.SSH_HOST }}
+  SSH_USER: ${{ secrets.SSH_USER }}
+  PROJECT_PATH: /opt/nft-church
 
 jobs:
   build-and-push:
@@ -51,58 +52,58 @@ jobs:
       with:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
-  deploy-to-vm:
+  deploy:
     runs-on: ubuntu-latest
-    needs: build-and-push
-    timeout-minutes: 10
+    timeout-minutes: 20
 
     steps:
-    - name: Install SSH key
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Validate configs
+      run: |
+        required_files=("docker-compose.yml" "Dockerfile" "setup_nginx.sh")
+        for file in "${required_files[@]}"; do
+          if [ ! -f "$file" ]; then
+            echo "::error file=$file::Missing required file"
+            exit 1
+          fi
+        done
+
+    - name: Set up SSH
       uses: shimataro/ssh-key-action@v2
       with:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
 
-    - name: Deploy configuration
+    - name: Copy Dockerfile to VM
       run: |
-        # 1. Проверка существования файла локально
-        if [ ! -f "docker/prod/docker-compose.prod.yml" ]; then
-          echo "::error::docker-compose.prod.yml not found!"
-          exit 1
-        fi
-    
-        # 2. Создание временной директории
-        mkdir -p ./tmp_deploy
-    
-        # 3. Копирование с сохранением прав
+        scp Dockerfile ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.PROJECT_PATH }}/Dockerfile.frontend
+    - name: Copy docker-compose.yml to VM
+      run: |
+        scp docker-compose.yml ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.PROJECT_PATH }}/docker-compose.yml
+    - name: Copy setup_nginx.sh to VM
+      run: |
+        scp setup_nginx.sh ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.PROJECT_PATH }}/setup_nginx.sh
+        ssh ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "chmod +x ${{ env.PROJECT_PATH }}/setup_nginx.sh"
+
+    - name: Sync files
+      run: |
         rsync -avz -e "ssh -o StrictHostKeyChecking=no" \
           --rsync-path="sudo rsync" \
-          docker/prod/docker-compose.prod.yml \
-          ${VM_USER}@${VM_IP}:/opt/nft-church/
-    
-        # 4. Альтернативный вариант через SSH pipe
-        cat docker/prod/docker-compose.prod.yml | \
-          ssh -o StrictHostKeyChecking=no ${VM_USER}@${VM_IP} \
-          "sudo tee /opt/nft-church/docker-compose.prod.yml >/dev/null"
-    
-        # 5. Проверка на стороне сервера
-        ssh -o StrictHostKeyChecking=no ${VM_USER}@${VM_IP} << 'EOL'
-        echo "File contents:"
-        sudo ls -la /opt/nft-church/docker-compose.prod.yml
-        sudo cat /opt/nft-church/docker-compose.prod.yml | head -n 5
-        EOL
+          ./docker/ \
+          ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.PROJECT_PATH }}/
 
-    - name: Deploy
+    - name: Deploy stack
       run: |
-        ssh -o StrictHostKeyChecking=no ${VM_USER}@${VM_IP} << 'EOL'
-        # Pull and run new container
-        docker login -u ${{ secrets.EVO_CR_LOGIN_DEV }} -p ${{ secrets.EVO_CR_PWD_DEV }} ${{ env.REGISTRY }}
-        docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+        ssh ${{ env.SSH_USER }}@${{ env.SSH_HOST }} << 'EOF'
+        cd ${{ env.PROJECT_PATH }}
+        docker compose -f docker-compose.yml down
+        docker compose -f docker-compose.yml up -d --build
+        EOF
 
-        # Graceful update
-        docker compose -f /opt/nft-church/docker-compose.prod.yml down
-        docker compose -f /opt/nft-church/docker-compose.prod.yml up -d
-
-        # Cleanup
-        docker image prune -af
-        EOL
+    - name: Post-deploy check
+      run: |
+        ssh ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "
+          curl -I http://localhost || exit 1
+        "
