@@ -63,20 +63,33 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
 
-    - name: Setup server structure
+    - name: Deploy configuration
       run: |
-        # Создаем директории на сервере
-          ssh -o StrictHostKeyChecking=no ${VM_USER}@${VM_IP} << 'EOL'
-          sudo mkdir -p /opt/nft-church
-          sudo chown -R ${VM_USER}:${VM_USER} /opt/nft-church
-          sudo chmod -R 775 /opt/nft-church
-        EOL
-
-        # Копируем файлы с правами пользователя
-          scp -o StrictHostKeyChecking=no \
-          ls -a \
+        # 1. Проверка существования файла локально
+        if [ ! -f "docker/prod/docker-compose.prod.yml" ]; then
+          echo "::error::docker-compose.prod.yml not found!"
+          exit 1
+        fi
+    
+        # 2. Создание временной директории
+        mkdir -p ./tmp_deploy
+    
+        # 3. Копирование с сохранением прав
+        rsync -avz -e "ssh -o StrictHostKeyChecking=no" \
+          --rsync-path="sudo rsync" \
           docker/prod/docker-compose.prod.yml \
           ${VM_USER}@${VM_IP}:/opt/nft-church/
+    
+        # 4. Альтернативный вариант через SSH pipe
+        cat docker/prod/docker-compose.prod.yml | \
+          ssh -o StrictHostKeyChecking=no ${VM_USER}@${VM_IP} \
+          "sudo tee /opt/nft-church/docker-compose.prod.yml >/dev/null"
+    
+        # 5. Проверка на стороне сервера
+        ssh -o StrictHostKeyChecking=no ${VM_USER}@${VM_IP} << 'EOL'
+        echo "File contents:"
+        sudo ls -la /opt/nft-church/docker-compose.prod.yml
+        sudo cat /opt/nft-church/docker-compose.prod.yml | head -n 5
         EOL
 
     - name: Deploy
