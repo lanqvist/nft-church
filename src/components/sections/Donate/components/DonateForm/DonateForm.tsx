@@ -1,10 +1,6 @@
 import { Button, TextInput, NumberInput, RadioGroup, Title } from '@mantine/core';
 import { useInputState } from '@mantine/hooks';
 import { ChangeEvent, FC, FormEvent, useCallback, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-// import { v4 as uuidv4 } from 'uuid';
-
-// import { ky } from '@utils/ky';
 
 import { AmountRadioButton } from '../AmountRadioButton';
 
@@ -15,9 +11,7 @@ interface IProps {
     openPaymentModal: () => void;
     setPaymentFormData: (response: unknown) => void;
 }
-export const DonateForm: FC<IProps> = (/* { openPaymentModal, setPaymentFormData } */) => {
-    const navigate = useNavigate();
-
+export const DonateForm: FC<IProps> = ({ openPaymentModal, setPaymentFormData }) => {
     const [amount, setAmount] = useState(AMOUNTS[0]);
     const [additionalAmount, setAdditionalAmount] = useState('');
     const [mail, setMail] = useInputState<string>('');
@@ -31,48 +25,21 @@ export const DonateForm: FC<IProps> = (/* { openPaymentModal, setPaymentFormData
             return;
         }
 
-        navigate('/result/1');
+        const paymentData = {
+            amount: {
+                value: amount || additionalAmount,
+                currency: 'RUB',
+            },
+            email: mail,
+        };
 
-        // // TODO: Реализовать запрос на сервер
-        // // setLoading(true);
-        // // setError(null);
-        // const key = localStorage.getItem('yooKey') || '';
+        try {
+            await setPaymentFormData(paymentData);
 
-        // const paymentData = {
-        //     amount: {
-        //         value: amount || additionalAmount,
-        //         currency: 'RUB',
-        //     },
-        //     confirmation: {
-        //         type: 'embedded',
-        //         return_url: 'https://nft-church.netlify.app/',
-        //     },
-        //     // confirmation: {
-        //     //     type: 'redirect',
-        //     //     return_url: 'https://nft-church.netlify.app/',
-        //     // },
-        //     description: `Заказ #${Math.floor(Math.random() * 1000)}`,
-        // };
-
-        // try {
-        //     const response: any = await ky
-        //         .post('/payments', {
-        //             headers: {
-        //                 'Idempotence-Key': uuidv4(),
-        //                 'Content-Type': 'application/json',
-        //                 Authorization: `Basic ${btoa(key)}`,
-        //             },
-        //             json: paymentData,
-        //         })
-        //         .json();
-        //     console.log('DonateForm response', response);
-        //     setPaymentFormData(response);
-        //     openPaymentModal();
-        //     // window.location.href = response?.confirmation?.confirmation_url;
-        // } catch (error) {
-        //     console.error('Ошибка DonateForm', error);
-        //     // setError(err.message);
-        // }
+            openPaymentModal();
+        } catch (error) {
+            console.error('Ошибка DonateForm', error);
+        }
     };
 
     const handlePhoneAccept = useCallback((e: ChangeEvent<HTMLInputElement>, error: string) => {

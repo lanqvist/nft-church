@@ -2,7 +2,9 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import { Button, Checkbox } from '@mantine/core';
 import clsx from 'clsx';
-import { useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
+
+import { useTransactionData } from '@hooks/queries';
 
 import bookImg from '../assets/book.png';
 import CloseIcon from '../assets/icons/closePadding.svg?react';
@@ -138,8 +140,6 @@ const Book = ({ bookCheck, setBookCheck }) => {
     );
 };
 
-const amount = 15000;
-
 export const ChooseGift = ({
     prayerCheck,
     bookCheck,
@@ -150,24 +150,32 @@ export const ChooseGift = ({
     setBookCheck,
     setSelectedToken,
     setStep,
+    paymentId,
 }) => {
-    const getPrizes = useMemo(() => {
-        const prizes = [
-            <Prayer key="prayer" prayerCheck={prayerCheck} setPrayerCheck={setPrayerCheck} />,
-            <Stone key="stone" stoneCheck={stoneCheck} setStoneCheck={setStoneCheck} />,
-            <Book key="book" bookCheck={bookCheck} setBookCheck={setBookCheck} />,
-        ];
+    const { data: transactionData, isFetching: loadingTransaction } = useTransactionData(paymentId);
 
-        if (amount < 5000) {
-            prizes.splice(-2, 2);
-        }
+    const getPrizes = useCallback(
+        (amount: number) => {
+            const prizes = [
+                <Prayer key="prayer" prayerCheck={prayerCheck} setPrayerCheck={setPrayerCheck} />,
+                <Stone key="stone" stoneCheck={stoneCheck} setStoneCheck={setStoneCheck} />,
+                <Book key="book" bookCheck={bookCheck} setBookCheck={setBookCheck} />,
+            ];
 
-        if (amount > 5000 && amount < 10000) {
-            prizes.splice(-1, 1);
-        }
+            if (amount < 5000) {
+                prizes.splice(-2, 2);
+            }
 
-        return prizes;
-    }, [bookCheck, prayerCheck, stoneCheck, setPrayerCheck, setStoneCheck, setBookCheck]);
+            if (amount > 5000 && amount < 15000) {
+                prizes.splice(-1, 1);
+            }
+
+            return prizes;
+        },
+        [bookCheck, prayerCheck, stoneCheck, setPrayerCheck, setStoneCheck, setBookCheck]
+    );
+
+    if (loadingTransaction || !transactionData) return null;
 
     return (
         <>
@@ -181,7 +189,7 @@ export const ChooseGift = ({
                         Предлагаем выбрать памятные подарки. Сохраните приятные воспоминания о ваших добрых поступках!
                     </div>
                 </div>
-                {getPrizes.map((item) => item)}
+                {getPrizes(Number(transactionData.amount?.value)).map((item) => item)}
                 <div className={clsx(styles.giftIem, { [styles.columnsTokens]: getPrizes.length % 2 === 0 })}>
                     <div className={styles.tokensTitle}>Ваш «Сертификат благотворителя»</div>
                     <div className={styles.tokensWrapper}>

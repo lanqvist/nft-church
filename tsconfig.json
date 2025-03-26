@@ -6,7 +6,7 @@
         "module": "ESNext",
         "skipLibCheck": true,
         "types": ["yandex-maps"],
-        "typeRoots": ["./node_modules/@types"],
+        "typeRoots": ["./node_modules/@types", "./src/types"],
         // other compiler options...
         "baseUrl": ".",
         "paths": {
@@ -15,6 +15,8 @@
             "@consts/*": ["./src/consts/*"],
             "@utils/*": ["./src/helpers/utils/*"],
             "@hooks/*": ["./src/helpers/hooks/*"],
+            "@api/*": ["./src/api/*"],
+            "@types/*": ["./src/types/*"],
             "@services/*": ["./src/services/*"],
             "@lib/*": ["./src/lib/*"],
             "@/*": ["./src/*"]
@@ -35,5 +37,5 @@
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true
     },
-    "include": ["src", "./src/global.d.ts", "eslint.config.js", "postcss.config.js"]
+    "include": ["src", "src/types/index.ts", "eslint.config.js", "postcss.config.js"]
 }

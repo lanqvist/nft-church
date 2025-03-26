@@ -6,8 +6,16 @@ import { useMediaQuery } from '@mantine/hooks';
 import Icon from './assets/check.svg?react';
 import styles from './ResultModal.module.css';
 
-export const ResultModal = ({ opened, close, token }) => {
+export const ResultModal = ({ opened, close, token, url }) => {
     const isMobile = useMediaQuery('(max-width: 50em)');
+
+    const onCancel = () => {
+        close();
+    };
+
+    const onOk = () => {
+        window.location.href = url;
+    };
 
     return (
         <Modal.Root
@@ -36,8 +44,11 @@ export const ResultModal = ({ opened, close, token }) => {
                     <img alt="token" src={token} className={styles.token} />
                 </Modal.Body>
                 <div className={styles.footer}>
-                    <Button className={styles.button} variant="default" color="green" onClick={close}>
+                    <Button className={styles.button} variant="default" color="green" onClick={onCancel}>
                         Отмена
+                    </Button>
+                    <Button onClick={onOk} variant="filled" color="green">
+                        Войти по Сбер ID
                     </Button>
                 </div>
             </Modal.Content>

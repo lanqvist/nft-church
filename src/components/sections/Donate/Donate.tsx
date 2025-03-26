@@ -4,12 +4,13 @@ import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { useEffect, useRef, useState, FC } from 'react';
 
 import { Section } from '@components/layout/Section';
+import { usePayment } from '@hooks/queries';
 
 import churchImage from './assets/church.png';
 import { DonateForm } from './components/DonateForm';
 import styles from './Donate.module.css';
 
-const PaymentModal = ({ opened, close, paymenyFormData }) => {
+const PaymentModal = ({ opened, close, paymentFormData }) => {
     const isMobile = useMediaQuery('(max-width: 50em)');
     const checkoutWidgetRef = useRef(null);
 
@@ -20,10 +21,10 @@ const PaymentModal = ({ opened, close, paymenyFormData }) => {
     }, [checkoutWidgetRef, opened]);
 
     useEffect(() => {
-        if (opened && paymenyFormData && isWidgetReady) {
+        if (opened && paymentFormData && isWidgetReady) {
             const checkout = new (window as any).YooMoneyCheckoutWidget({
-                confirmation_token: paymenyFormData.confirmation.confirmation_token,
-                return_url: paymenyFormData.confirmation.return_url ?? 'https://nft-church.netlify.app/',
+                confirmation_token: paymentFormData.confirmation.confirmation_token,
+                return_url: paymentFormData.confirmation.return_url ?? 'https://nft-church.netlify.app/',
                 error_callback(error) {
                     console.error('Ошибка инициализации:', error);
                 },
@@ -37,7 +38,7 @@ const PaymentModal = ({ opened, close, paymenyFormData }) => {
                 checkout.destroy();
             };
         }
-    }, [opened, paymenyFormData, isWidgetReady]);
+    }, [opened, paymentFormData, isWidgetReady]);
 
     return (
         <Modal.Root
@@ -51,10 +52,10 @@ const PaymentModal = ({ opened, close, paymenyFormData }) => {
             size="xl"
 
             // onEnterTransitionEnd={() => {
-            //     if (opened && paymenyFormData && isWidgetReady) {
+            //     if (opened && paymentFormData && isWidgetReady) {
             //         const checkout = new window.YooMoneyCheckoutWidget({
-            //             confirmation_token: paymenyFormData.confirmation.confirmation_token,
-            //             return_url: paymenyFormData.confirmation.return_url ?? 'https://nft-church.netlify.app/',
+            //             confirmation_token: paymentFormData.confirmation.confirmation_token,
+            //             return_url: paymentFormData.confirmation.return_url ?? 'https://nft-church.netlify.app/',
             //             error_callback(error) {
             //                 console.error('Ошибка инициализации:', error);
             //             },
@@ -99,7 +100,9 @@ const PaymentModal = ({ opened, close, paymenyFormData }) => {
 
 export const Donate: FC = () => {
     const [opened, { open, close }] = useDisclosure(false);
-    const [paymenyFormData, setPaymentFormData] = useState(false);
+
+    const { mutate, data } = usePayment();
+
     return (
         <Section title="Пожертвование" key="donate" id="donate">
             <div className={styles.content}>
@@ -107,10 +110,10 @@ export const Donate: FC = () => {
                     <img className={styles.image} src={churchImage} alt="Храм" />
                 </div>
                 <div className={styles.right}>
-                    <DonateForm openPaymentModal={open} setPaymentFormData={setPaymentFormData} />
+                    <DonateForm openPaymentModal={open} setPaymentFormData={mutate} />
                 </div>
             </div>
-            <PaymentModal opened={opened} close={close} paymenyFormData={paymenyFormData} />
+            <PaymentModal opened={opened && data} close={close} paymentFormData={data} />
         </Section>
     );
 };
