@@ -5,3 +5,9 @@ services:
     ports:
       - "80:80"
     restart: always
+    networks:
+      - nft-network
+
+networks:
+  nft-network:
+    driver: bridge
