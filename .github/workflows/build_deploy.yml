@@ -8,7 +8,7 @@ on:
 
 env:
   REGISTRY: nft-church-dev.cr.cloud.ru
-  IMAGE_NAME: lanqvist/nft-church
+  IMAGE_NAME: frontend
   VM_IP: 87.242.118.221
   VM_USER: admin
 
@@ -65,26 +65,18 @@ jobs:
 
     - name: Setup server structure
       run: |
-          ssh ${VM_USER}@${VM_IP} << 'EOL'
-          # Создаем структуру каталогов
-          sudo mkdir -p /opt/nft-church/{config,storage,logs}
-          
-          # Копируем docker-compose из репозитория
-          cat << EOF > /opt/nft-church/docker-compose.prod.yml
-          $(cat ./docker/prod/docker-compose.yml)
-          EOF
-      
-          # Создаем .env файл с секретами
-          cat << EOF > /opt/nft-church/.env.prod
-          REGISTRY=${{ env.REGISTRY }}
-          IMAGE_NAME=${{ env.IMAGE_NAME }}
-          TAG=${{ github.sha }}
-          EOF
-      
-          # Настраиваем права
-          sudo chown -R 1000:1000 /opt/nft-church/storage
+        # Создаем директории на сервере
+          ssh -o StrictHostKeyChecking=no ${VM_USER}@${VM_IP} << 'EOL'
+          sudo mkdir -p /opt/nft-church
+          sudo chown -R ${VM_USER}:${VM_USER} /opt/nft-church
           sudo chmod -R 775 /opt/nft-church
-          EOL
+        EOL
+
+        # Копируем файлы с правами пользователя
+          scp -o StrictHostKeyChecking=no \
+          docker/prod/docker-compose.prod.yml \
+          ${VM_USER}@${VM_IP}:/opt/nft-church/
+        EOL
 
     - name: Deploy
       run: |
