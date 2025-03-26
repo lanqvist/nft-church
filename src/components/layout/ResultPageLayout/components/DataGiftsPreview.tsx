@@ -2,16 +2,60 @@ import { Button } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useMemo } from 'react';
 
+import { GiftType } from '@/types/gifts';
 import { ResultModal } from '@components/result-modal';
+import { useSendGifts } from '@hooks/queries';
 
 import InfoIcon from '../assets/icons/info.svg?react';
 import { TOKENS } from '../consts';
 
 import styles from './DataGiftsPreview.module.css';
 
-export const DataGiftsPreview = ({ setIsPreview, prayerData, stoneData, bookData, bookAddressData, selectedToken }) => {
+export const DataGiftsPreview = ({
+    setIsPreview,
+    prayerData,
+    stoneData,
+    bookData,
+    bookAddressData,
+    selectedToken,
+    paymentId,
+}) => {
     const token = useMemo(() => TOKENS.find(({ name }) => name === selectedToken), [selectedToken]);
     const [opened, { open, close }] = useDisclosure(false);
+
+    const platformUrl = `https://dfa.sber.ru/nft/church-token?donateid=${paymentId}&pictureId=${token?.id}`;
+
+    const { mutate, isSuccess } = useSendGifts(paymentId);
+
+    const handleFinish = async () => {
+        const gifts = [];
+
+        if (prayerData) {
+            gifts.push({
+                giftType: GiftType.Prayer,
+                name: prayerData,
+            });
+        }
+
+        if (stoneData) {
+            gifts.push({
+                giftType: GiftType.Engraving,
+                name: stoneData,
+            });
+        }
+
+        if (bookData && bookAddressData) {
+            gifts.push({
+                giftType: GiftType.Book,
+                name: bookData,
+                address: bookAddressData,
+            });
+        }
+
+        await mutate({ gifts, platform_url: platformUrl });
+
+        open();
+    };
 
     return (
         <>
@@ -83,13 +127,13 @@ export const DataGiftsPreview = ({ setIsPreview, prayerData, stoneData, bookData
                         >
                             Редактировать
                         </Button>
-                        <Button onClick={open} className={styles.button} variant="filled" color="green">
+                        <Button onClick={handleFinish} className={styles.button} variant="filled" color="green">
                             Подтвердить
                         </Button>
                     </div>
                 </div>
             </div>
-            <ResultModal opened={opened} close={close} token={token.image} />
+            <ResultModal opened={opened && isSuccess} close={close} token={token.image} url={platformUrl} />
         </>
     );
 };

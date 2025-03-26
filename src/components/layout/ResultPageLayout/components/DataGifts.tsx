@@ -10,7 +10,15 @@ import { TOKENS } from '../consts';
 import styles from './DataGifts.module.css';
 import { DataGiftsPreview } from './DataGiftsPreview';
 
-export const DataGifts = ({ prayerCheck, bookCheck, stoneCheck, selectedToken, setSelectedToken, setStep }) => {
+export const DataGifts = ({
+    prayerCheck,
+    bookCheck,
+    stoneCheck,
+    selectedToken,
+    setSelectedToken,
+    setStep,
+    paymentId,
+}) => {
     const [prayerData, setPrayerData] = useInputState('');
     const [prayerDataError, setPrayerDataError] = useState('');
 
@@ -67,6 +75,7 @@ export const DataGifts = ({ prayerCheck, bookCheck, stoneCheck, selectedToken, s
                 bookData={bookData}
                 bookAddressData={bookAddressData}
                 selectedToken={selectedToken}
+                paymentId={paymentId}
             />
         );
     }
