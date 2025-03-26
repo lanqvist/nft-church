@@ -30,6 +30,8 @@ export default defineConfig({
             '@services': path.resolve(__dirname, './src/services'),
             '@types': path.resolve(__dirname, './src/types'),
             '@lib': path.resolve(__dirname, './src/lib'),
+            '@api': path.resolve(__dirname, './src/api'),
+            '@queries': path.resolve(__dirname, './src/helpers/hooks/queries'),
         },
     },
     plugins: [

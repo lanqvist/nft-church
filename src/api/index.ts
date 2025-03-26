@@ -1,6 +1,6 @@
-import { TGiftsBody } from '@/types/gifts';
-import { TPaymnetBody, TPaymnetData, TTransactionData } from '@/types/payment';
 import client from '@utils/ky';
+
+import { TGiftsBody, TPaymnetBody, TPaymnetData, TTransactionData } from '../types';
 
 export async function sendGifts(uuid: string, data: TGiftsBody) {
     try {

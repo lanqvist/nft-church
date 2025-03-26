@@ -1,10 +1,6 @@
 import { Button, TextInput, NumberInput, RadioGroup, Title } from '@mantine/core';
 import { useInputState } from '@mantine/hooks';
 import { ChangeEvent, FC, FormEvent, useCallback, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-// import { v4 as uuidv4 } from 'uuid';
-
-// import { ky } from '@utils/ky';
 
 import { AmountRadioButton } from '../AmountRadioButton';
 
@@ -32,6 +28,7 @@ export const DonateForm: FC<IProps> = ({ openPaymentModal, setPaymentFormData })
         const paymentData = {
             amount: {
                 value: amount || additionalAmount,
+                currency: 'RUB',
             },
             email: mail,
         };

@@ -1,8 +1,8 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 
-import { getTransactionData, payment, sendGifts } from '@/api';
-import { TGiftsBody } from '@/types/gifts';
-import { TPaymnetBody } from '@/types/payment';
+import { getTransactionData, payment, sendGifts } from '@api/index';
+
+import { TGiftsBody, TPaymnetBody } from '../../../types';
 
 export function useTransactionData(uuid) {
     return useQuery({

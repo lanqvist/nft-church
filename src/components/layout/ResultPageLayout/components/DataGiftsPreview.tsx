@@ -2,10 +2,10 @@ import { Button } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useMemo } from 'react';
 
-import { GiftType } from '@/types/gifts';
 import { ResultModal } from '@components/result-modal';
 import { useSendGifts } from '@hooks/queries';
 
+import { GiftType } from '../../../../types';
 import InfoIcon from '../assets/icons/info.svg?react';
 import { TOKENS } from '../consts';
 

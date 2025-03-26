@@ -126,7 +126,7 @@ export const WorkStages = () => {
                     {cards.map((props) => {
                         const { title, ...restProps } = props;
                         return (
-                            <Carousel.Slide key={title} className={styles.slide}>
+                            <Carousel.Slide key={props.date} className={styles.slide}>
                                 <Card title={title} {...restProps} />
                             </Carousel.Slide>
                         );
