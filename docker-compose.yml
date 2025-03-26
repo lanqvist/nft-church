@@ -1,0 +1,13 @@
+services:
+  frontend:
+    image: ${IMAGE_NAME}
+    container_name: frontend
+    ports:
+      - "80:80"  # host:container
+    networks:
+      - frontend-net
+    restart: unless-stopped
+
+networks:
+  frontend-net:
+    driver: bridge
