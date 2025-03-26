@@ -53,11 +53,6 @@ jobs:
         run: |
           scp docker-compose.yml ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.PROJECT_PATH }}/docker-compose.yml
 
-      - name: Copy setup_nginx.sh to VM
-        run: |
-          scp setup_nginx.sh ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.PROJECT_PATH }}/setup_nginx.sh
-          ssh ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "chmod +x ${{ env.PROJECT_PATH }}/setup_nginx.sh"
-
       - name: Deploy with Docker Compose.
         run: |
           IMAGE_NAME="${{ env.CR_URI }}/frontend:v${{ github.event.pull_request.number }}"
@@ -67,9 +62,4 @@ jobs:
             ls -l
             docker-compose down
             docker-compose -f docker-compose.yml up -d --force-recreate --build --no-deps
-          "
-      - name: Configure Nginx
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "
-            sudo ${{ env.PROJECT_PATH }}/setup_nginx.sh
           "
