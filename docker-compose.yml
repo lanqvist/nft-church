@@ -1,13 +1,13 @@
-version: "3.8"
 services:
   frontend:
     image: ${IMAGE_NAME}
+    container_name: frontend
     ports:
-      - "80:80"
-    restart: always
+      - "80:80"  # host:container
     networks:
-      - nft-network
+      - frontend-net
+    restart: unless-stopped
 
 networks:
-  nft-network:
+  frontend-net:
     driver: bridge
