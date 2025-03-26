@@ -74,7 +74,8 @@ jobs:
 
         # Копируем файлы с правами пользователя
           scp -o StrictHostKeyChecking=no \
-          app/docker/prod/docker-compose.prod.yml \
+          ls -a \
+          docker/prod/docker-compose.prod.yml \
           ${VM_USER}@${VM_IP}:/opt/nft-church/
         EOL
 
