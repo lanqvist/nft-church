@@ -7,7 +7,7 @@ import uvicorn
 app = FastAPI()
 
 
-@app.get("/payments")
+@app.post("/payments")
 def get_items():
     items = [
         {
