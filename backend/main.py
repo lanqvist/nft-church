@@ -9,11 +9,10 @@ app = FastAPI()
 
 @app.post("/payments")
 def payments():
-    items = [
-        {
+    items = {
             "confirmation_token": 1,
-        }
-    ]
+        };
+
     random.shuffle(items)
     return items
 
