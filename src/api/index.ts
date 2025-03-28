@@ -5,7 +5,7 @@ import { TGiftsBody, TPaymnetBody, TPaymnetData, TTransactionData } from '../typ
 export async function sendGifts(uuid: string, data: TGiftsBody) {
     try {
         const response = await client
-            .post(`/gifts/${uuid}`, {
+            .post(`/api/gifts/${uuid}`, {
                 json: data,
             })
             .json();
@@ -20,7 +20,7 @@ export async function sendGifts(uuid: string, data: TGiftsBody) {
 export async function payment(data: TPaymnetBody): Promise<TPaymnetData> {
     try {
         const response = await client
-            .post(`/payments`, {
+            .post(`/api/payments`, {
                 json: data,
             })
             .json<TPaymnetData>();
@@ -34,7 +34,7 @@ export async function payment(data: TPaymnetBody): Promise<TPaymnetData> {
 
 export async function getTransactionData(uuid): Promise<TTransactionData> {
     try {
-        const response = await client.get(`/payments/${uuid}`).json<TTransactionData>();
+        const response = await client.get(`/api/payments/${uuid}`).json<TTransactionData>();
 
         return response;
     } catch (error) {
