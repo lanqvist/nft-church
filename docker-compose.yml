@@ -22,8 +22,10 @@ services:
       POSTGRES_USER: dbadmin
       POSTGRES_PASSWORD: dbadmin
       POSTGRES_DB: church_db
+    ports:
+      - "5432:5432"
     volumes:
-      - /var/lib/postgresql/data
+      - db_data:/var/lib/postgresql/data
     restart: always
     networks:
       - dev  # Ссылка на сеть dev
@@ -39,6 +41,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: dbadmin
     depends_on:
       - db
+    restart: always
     networks:
       - dev
 
@@ -52,7 +55,8 @@ services:
       LIQUIBASE_USERNAME: dbadmin
       LIQUIBASE_PASSWORD: dbadmin
       LIQUIBASE_URL: jdbc:postgresql://db:5432/church_db
-      LIQUIBASE_CHANGELOG_FILE: /liquibase/db.changelog/db.changelog-1.0.xml
+      LIQUIBASE_CHANGELOG_FILE: /db/changelog/db.changelog-1.0.xml
+      LIQUIBASE_COMMAND_VERBOSITY: quiet
     restart: 'no'
     networks:
       - dev # Ссылка на сеть dev
@@ -62,3 +66,6 @@ services:
       context: ./frontend
     networks:
       - dev
+
+volumes:
+  db_data:
