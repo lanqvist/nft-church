@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: dbadmin
+      POSTGRES_PASSWORD: dbadmin
+      POSTGRES_DB: church_db
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - dev  # Ссылка на сеть dev
+
+  nft-church-back:
+    image: ${CR_URI}/backend:v${IMAGE_TAG}
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/church_db
+      SPRING_DATASOURCE_USERNAME: dbadmin
+      SPRING_DATASOURCE_PASSWORD: dbadmin
+    depends_on:
+      - db
+    restart: always
+    networks:
+      - dev  # Ссылка на сеть dev
+
+  liquibase:
+    build:
+      context: .
+      dockerfile: Dockerfile.liquibase # Указываем Dockerfile
+    depends_on:
+      - db
+    environment:
+      LIQUIBASE_USERNAME: ${DB_USER}
+      LIQUIBASE_PASSWORD: ${DB_PASS}
+      LIQUIBASE_URL: jdbc:postgresql://db:5432/${DB_NAME}
+      LIQUIBASE_CHANGELOG_FILE: /liquibase/db.changelog/db.changelog-1.0.xml
+    restart: 'no'
+    networks:
+      - dev # Ссылка на сеть dev
+
+volumes:
+  db_data:
+
+#  <----- ОПРЕДЕЛЕНИЕ СЕТИ В КОРНЕ (вне сервисов)!
+networks:
+  dev:
+    driver: bridge
