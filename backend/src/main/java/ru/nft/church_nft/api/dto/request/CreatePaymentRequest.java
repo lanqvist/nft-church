@@ -12,6 +12,6 @@ public class CreatePaymentRequest {
     @Data
     public static class Amount {
         private String value;
+        private String currency;
     }
-
 }
