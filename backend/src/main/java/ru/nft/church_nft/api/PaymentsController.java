@@ -23,7 +23,7 @@ public class PaymentsController {
 
     @PostMapping()
     public ResponseEntity<CreatePaymentResponse> createPayment(@RequestBody CreatePaymentRequest paymentRequest) {
-        return yookassaService.createPayment(paymentRequest.getAmount().getValue(), paymentRequest.getEmail());
+        return yookassaService.createPayment(paymentRequest.getAmount().getValue(), paymentRequest.getAmount().getCurrency(), paymentRequest.getEmail());
     }
 
     @GetMapping("/{paymentId}")
