@@ -17,6 +17,7 @@ public class StatusPaymentResponse {
     @Builder
     public static class Amount {
         private String value;
+        private String currency;
     }
 
 }

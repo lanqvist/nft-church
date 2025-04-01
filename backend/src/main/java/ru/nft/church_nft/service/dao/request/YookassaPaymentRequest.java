@@ -26,6 +26,8 @@ public class YookassaPaymentRequest {
     @NotNull(message = "Confirmation is required")
     private Confirmation confirmation;
 
+    private String capture;
+
     private String description;
 
     @Data
@@ -47,19 +49,8 @@ public class YookassaPaymentRequest {
     @NoArgsConstructor
     @AllArgsConstructor
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public static class PaymentMethodData {
-        @NotBlank(message = "Type is required")
-        private String type;
-    }
-
-    @Data
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class Confirmation {
         @NotBlank(message = "Type is required")
         private String type;
-        private String return_url;
     }
 }

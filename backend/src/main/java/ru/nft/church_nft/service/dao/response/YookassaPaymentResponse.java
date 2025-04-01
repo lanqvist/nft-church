@@ -1,8 +1,8 @@
 package ru.nft.church_nft.service.dao.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -11,10 +11,8 @@ import java.util.Map;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class YookassaPaymentResponse {
-
     private String id;
     private String status;
-    private boolean paid;
     private Amount amount;
     private Confirmation confirmation;
 
@@ -26,9 +24,11 @@ public class YookassaPaymentResponse {
 
     @JsonProperty("payment_method")
     private PaymentMethod paymentMethod;
+
     private Recipient recipient;
     private boolean refundable;
     private boolean test;
+    private boolean paid;
 
     @Data
     @JsonInclude(JsonInclude.Include.NON_NULL)
