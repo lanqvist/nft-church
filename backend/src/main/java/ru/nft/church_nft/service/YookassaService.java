@@ -75,7 +75,7 @@ public class YookassaService {
                 .build();
 
         YookassaPaymentRequest.Confirmation confirmation = YookassaPaymentRequest.Confirmation.builder()
-                .type("redirect")
+                .type("embedded")
                 .build();
 
         int orderNumber = orderNumberCounter.incrementAndGet();
