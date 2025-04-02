@@ -52,7 +52,7 @@ export const DataGiftsPreview = ({
             });
         }
 
-        await mutate({ gifts, platform_url: platformUrl });
+        await mutate({ gifts, platformUrl });
 
         open();
     };

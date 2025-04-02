@@ -5,7 +5,7 @@ import { TGiftsBody, TPaymnetBody, TPaymnetData, TTransactionData } from '../typ
 export async function sendGifts(uuid: string, data: TGiftsBody) {
     try {
         const response = await client
-            .post(`/api/gifts/${uuid}`, {
+            .post(`/api/payments/${uuid}`, {
                 json: data,
             })
             .json();
