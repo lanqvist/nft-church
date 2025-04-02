@@ -76,7 +76,6 @@ public class YookassaService {
 
         YookassaPaymentRequest.Confirmation confirmation = YookassaPaymentRequest.Confirmation.builder()
                 .type("redirect")
-                .return_url("http://testURL")
                 .build();
 
         int orderNumber = orderNumberCounter.incrementAndGet();
