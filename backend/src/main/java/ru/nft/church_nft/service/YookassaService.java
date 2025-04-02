@@ -60,7 +60,7 @@ public class YookassaService {
         this.emailService = emailService;
     }
 
-    public ResponseEntity<CreatePaymentResponse> createPayment(String amountValue, String email) {
+    public ResponseEntity<CreatePaymentResponse> createPayment(String amountValue, String amountCurrency, String email) {
         HttpHeaders headersPayment = new HttpHeaders();
         headersPayment.setContentType(MediaType.APPLICATION_JSON);
         headersPayment.setBasicAuth(shopId, secretKey);
@@ -71,12 +71,11 @@ public class YookassaService {
 
         YookassaPaymentRequest.Amount amount = YookassaPaymentRequest.Amount.builder()
                 .value(amountValue)
-                .currency("RUB")
+                .currency(amountCurrency)
                 .build();
 
         YookassaPaymentRequest.Confirmation confirmation = YookassaPaymentRequest.Confirmation.builder()
-                .type("redirect")
-                .return_url("http://testURL")
+                .type("embedded")
                 .build();
 
         int orderNumber = orderNumberCounter.incrementAndGet();
@@ -100,7 +99,7 @@ public class YookassaService {
                         .donate_id(response.getBody().getDescription())
                         .paymentId(response.getBody().getId())
                         .amount(response.getBody().getAmount().getValue().toString())
-                        .currency(response.getBody().getConfirmation().getType())
+                        .currency(response.getBody().getAmount().getCurrency())
                         .status(response.getBody().getStatus())
                         .created_at(response.getBody().getCreatedAt())
                         .idempotence_key(idempotence)
@@ -112,8 +111,10 @@ public class YookassaService {
                         .paid(response.getBody().isPaid())
                         .amount(CreatePaymentResponse.Amount.builder()
                                 .value(String.valueOf(response.getBody().getAmount().getValue()))
+                                .currency(response.getBody().getAmount().getCurrency())
                                 .build())
-                        .confirmation(new Confirmation(response.getBody().getConfirmation().getConfirmationToken(), "url-example"))
+                        .confirmation(new Confirmation(response.getBody().getConfirmation().getConfirmationToken(),
+                                "http://87.242.118.221/result/" + response.getBody().getId()))
                         .description(response.getBody().getDescription())
                         .build());
             } else {

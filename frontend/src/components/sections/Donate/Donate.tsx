@@ -23,8 +23,8 @@ const PaymentModal = ({ opened, close, paymentFormData }) => {
     useEffect(() => {
         if (opened && paymentFormData && isWidgetReady) {
             const checkout = new (window as any).YooMoneyCheckoutWidget({
-                confirmation_token: paymentFormData.confirmation.confirmation_token,
-                return_url: paymentFormData.confirmation.return_url ?? 'https://nft-church.netlify.app/',
+                confirmation_token: paymentFormData?.confirmation?.confirmation_token,
+                return_url: paymentFormData?.confirmation?.return_url,
                 error_callback(error) {
                     console.error('Ошибка инициализации:', error);
                 },

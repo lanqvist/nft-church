@@ -12,7 +12,7 @@ export type TGiftsBody = {
         name: string;
         address?: string;
     }>;
-    platform_url: string;
+    platformUrl: string;
 };
 
 export type TPaymnetBody = {
