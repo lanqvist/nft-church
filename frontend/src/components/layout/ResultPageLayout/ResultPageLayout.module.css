@@ -108,16 +108,15 @@
     line-height: 26px;
   }
 
-  &:hover {
+  & > .background:hover {
     border: 1px solid rgb(43, 138, 62);
   }
 
   @media (min-width: 961px) {
-
-
-    &:hover .overlay {
+    .background:hover ~ .overlay {
       transform: translateY(0);
       opacity: 1;
+      pointer-events: none;
     }
 
     .toggleBtn {
@@ -423,4 +422,8 @@
       letter-spacing: 0%;   
     }
   }
+}
+
+.fullWidth {
+  max-width: 100% !important;
 }

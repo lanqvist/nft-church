@@ -19,7 +19,7 @@ export const Contacts = () => (
                     Чебоксары г, ул. Калинина 62
                 </Text>
 
-                <Text className={styles.phone}>Телефон: +7&nbsp;(8352)58&#8209;414&#8209;0</Text>
+                <Text className={styles.phone}>Телефон: +7&nbsp;(8352) 58&#8209;41&#8209;40</Text>
             </div>
         </div>
     </Section>

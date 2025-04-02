@@ -11,6 +11,9 @@ interface IProps {
     openPaymentModal: () => void;
     setPaymentFormData: (response: unknown) => void;
 }
+
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export const DonateForm: FC<IProps> = ({ openPaymentModal, setPaymentFormData }) => {
     const [amount, setAmount] = useState(AMOUNTS[0]);
     const [additionalAmount, setAdditionalAmount] = useState('');
@@ -23,6 +26,11 @@ export const DonateForm: FC<IProps> = ({ openPaymentModal, setPaymentFormData })
         if (!mail) {
             setMailError('Поле обязательно для заполнения');
             return;
+        }
+
+        if (!emailRegex.test(mail)) {
+          setMailError('Введите корректный адрес электронной почты');
+          return;
         }
 
         const paymentData = {
@@ -56,7 +64,10 @@ export const DonateForm: FC<IProps> = ({ openPaymentModal, setPaymentFormData })
                 Сделать пожертвование Храму преподобного Сергия Радонежского
             </Title>
 
-            <RadioGroup value={amount} onChange={setAmount}>
+            <RadioGroup value={amount} onChange={(amount) => {
+                setAdditionalAmount('');
+                setAmount(amount);
+            }}>
                 <div className={styles.radioButtonsWrapper}>
                     {AMOUNTS.map((amount) => (
                         <AmountRadioButton key={amount} value={amount} className={styles.radioButton} />
