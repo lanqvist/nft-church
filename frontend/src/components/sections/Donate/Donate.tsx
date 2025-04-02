@@ -24,7 +24,7 @@ const PaymentModal = ({ opened, close, paymentFormData }) => {
         if (opened && paymentFormData && isWidgetReady) {
             const checkout = new (window as any).YooMoneyCheckoutWidget({
                 confirmation_token: paymentFormData?.confirmation?.confirmation_token,
-                return_url: "http://87.242.118.221/",
+                return_url: paymentFormData?.confirmation?.return_url,
                 error_callback(error) {
                     console.error('Ошибка инициализации:', error);
                 },
