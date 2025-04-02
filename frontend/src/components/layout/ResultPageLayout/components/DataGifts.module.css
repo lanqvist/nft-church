@@ -125,3 +125,13 @@
     }
   }
 }
+
+.agreement {
+  display: flex;
+  gap: 8px;
+
+  span {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}

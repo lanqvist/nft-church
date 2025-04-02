@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import { Button, TextInput } from '@mantine/core';
-import { useInputState } from '@mantine/hooks';
+import { Button, Checkbox, TextInput } from '@mantine/core';
+import { useDisclosure, useInputState } from '@mantine/hooks';
 import clsx from 'clsx';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -9,6 +9,7 @@ import { TOKENS } from '../consts';
 
 import styles from './DataGifts.module.css';
 import { DataGiftsPreview } from './DataGiftsPreview';
+import { PDFModal } from '@components/pdf-modal';
 
 export const DataGifts = ({
     prayerCheck,
@@ -19,6 +20,11 @@ export const DataGifts = ({
     setStep,
     paymentId,
 }) => {
+    const [opened, { open, close }] = useDisclosure(false);
+
+    const [modalType, setModaltype] = useState('politika');
+    const [agreementChecked, setAgreementChecked] = useState(false);
+
     const [prayerData, setPrayerData] = useInputState('');
     const [prayerDataError, setPrayerDataError] = useState('');
 
@@ -65,6 +71,11 @@ export const DataGifts = ({
         }
         setData(e.target.value);
     }, []);
+
+    const onOpenModal = (type) => {
+        setModaltype(type);
+        open();
+    };
 
     if (isPreview) {
         return (
@@ -188,6 +199,17 @@ export const DataGifts = ({
                             </div>
                         ))}
                     </div>
+                        
+                  <div className={styles.agreement}>
+                    <Checkbox
+                        color="green"
+                        checked={agreementChecked}
+                        onChange={(e) => setAgreementChecked(e.target.checked)}
+                    />
+                    <div className={styles.giftDescription}>
+                      Я принимаю условия <span onClick={() => onOpenModal('soglasie')}>Обработки персональных данных</span> в соответствии с <span onClick={() => onOpenModal('politika')}>Политикой обработки персональных данных</span>
+                    </div>
+                  </div>
                 </div>
 
                 <div className={styles.buttonsWrapper}>
@@ -208,6 +230,7 @@ export const DataGifts = ({
                             }
                         }}
                         className={styles.button}
+                        disabled={!agreementChecked}
                         variant="filled"
                         color="green"
                     >
@@ -215,6 +238,7 @@ export const DataGifts = ({
                     </Button>
                 </div>
             </div>
+            <PDFModal opened={opened} close={close} type={modalType} />
         </div>
     );
 };
