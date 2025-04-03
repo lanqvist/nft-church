@@ -143,12 +143,6 @@ const Book = ({ bookCheck, setBookCheck }) => {
     );
 };
 
-const transactionData = {
-  amount: {
-    value: 20000
-  }
-}
-
 export const ChooseGift = ({
     prayerCheck,
     bookCheck,
@@ -161,7 +155,7 @@ export const ChooseGift = ({
     setStep,
     paymentId,
 }) => {
-    // const { data: transactionData, isFetching: loadingTransaction } = useTransactionData(paymentId);
+    const { data: transactionData, isFetching: loadingTransaction } = useTransactionData(paymentId);
 
     const getPrizes = useCallback(
         (amount: number) => {
@@ -184,7 +178,7 @@ export const ChooseGift = ({
         [bookCheck, prayerCheck, stoneCheck, setPrayerCheck, setStoneCheck, setBookCheck]
     );
 
-    // if (loadingTransaction || !transactionData) return null;
+    if (loadingTransaction || !transactionData) return null;
 
     const prizes = getPrizes(Number(transactionData.amount?.value));
 

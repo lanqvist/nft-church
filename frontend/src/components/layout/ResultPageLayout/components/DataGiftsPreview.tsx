@@ -133,7 +133,7 @@ export const DataGiftsPreview = ({
                     </div>
                 </div>
             </div>
-            <ResultModal opened={true} close={close} token={token.image} url={platformUrl} />
+            <ResultModal opened={opened && isSuccess} close={close} token={token.image} url={platformUrl} />
         </>
     );
 };
