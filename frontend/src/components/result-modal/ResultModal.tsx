@@ -47,7 +47,7 @@ export const ResultModal = ({ opened, close, token, url }) => {
                     <Button className={styles.button} variant="default" color="green" onClick={onCancel}>
                         Отмена
                     </Button>
-                    <Button onClick={onOk} variant="filled" color="green">
+                    <Button className={styles.succesButton} onClick={onOk} variant="filled" color="green">
                         Войти по Сбер ID
                     </Button>
                 </div>
