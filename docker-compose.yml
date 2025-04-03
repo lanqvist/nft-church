@@ -11,59 +11,62 @@ services:
     volumes:
       - './nginx.conf:/etc/nginx/nginx.conf'
       - '/etc/letsencrypt:/etc/letsencrypt'
+    depends_on:
+      - backend
+      - frontend
     networks:
       - dev
 
-  # db:
-  #   image: postgres:14
-  #   environment:
-  #     POSTGRES_USER: dbadmin
-  #     POSTGRES_PASSWORD: dbadmin
-  #     POSTGRES_DB: church_db
-  #   ports:
-  #     - "5432:5432"
-  #   volumes:
-  #     - db_data:/var/lib/postgresql/data
-  #   restart: always
-  #   networks:
-  #     - dev  # Ссылка на сеть dev
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: dbadmin
+      POSTGRES_PASSWORD: dbadmin
+      POSTGRES_DB: church_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - dev  # Ссылка на сеть dev
 
-  # backend:
-  #   build:
-  #     context: ./backend
-  #   ports:
-  #     - "8080:8080"
-  #   environment:
-  #     SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/church_db
-  #     SPRING_DATASOURCE_USERNAME: dbadmin
-  #     SPRING_DATASOURCE_PASSWORD: dbadmin
-  #   depends_on:
-  #     - db
-  #   restart: always
-  #   networks:
-  #     - dev
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/church_db
+      SPRING_DATASOURCE_USERNAME: dbadmin
+      SPRING_DATASOURCE_PASSWORD: dbadmin
+    depends_on:
+      - db
+    restart: always
+    networks:
+      - dev
 
-  # liquibase:
-  #   build:
-  #     context: ./backend
-  #     dockerfile: Dockerfile.liquibase
-  #   depends_on:
-  #     - db
-  #   environment:
-  #     LIQUIBASE_USERNAME: dbadmin
-  #     LIQUIBASE_PASSWORD: dbadmin
-  #     LIQUIBASE_URL: jdbc:postgresql://db:5432/church_db
-  #     LIQUIBASE_CHANGELOG_FILE: /db/changelog/db.changelog-1.0.xml
-  #     LIQUIBASE_COMMAND_VERBOSITY: quiet
-  #   restart: 'no'
-  #   networks:
-  #     - dev # Ссылка на сеть dev
+  liquibase:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.liquibase
+    depends_on:
+      - db
+    environment:
+      LIQUIBASE_USERNAME: dbadmin
+      LIQUIBASE_PASSWORD: dbadmin
+      LIQUIBASE_URL: jdbc:postgresql://db:5432/church_db
+      LIQUIBASE_CHANGELOG_FILE: /db/changelog/db.changelog-1.0.xml
+      LIQUIBASE_COMMAND_VERBOSITY: quiet
+    restart: 'no'
+    networks:
+      - dev # Ссылка на сеть dev
 
-  # frontend:
-  #   build:
-  #     context: ./frontend
-  #   networks:
-  #     - dev
+  frontend:
+    build:
+      context: ./frontend
+    networks:
+      - dev
 
 volumes:
   db_data:
