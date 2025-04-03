@@ -15,7 +15,7 @@ export const Footer = () => {
                 <div className={styles.link} onClick={open}>
                     <Text component="span">Политика обработки персональных данных</Text>
                 </div>
-                <a href="google.com" className={styles.link}>
+                <a href="https://voskresfond.ru/" className={styles.link}>
                     <Text component="span">Подробнее о фонде</Text>
                 </a>
             </div>
