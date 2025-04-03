@@ -114,7 +114,7 @@ public class YookassaService {
                                 .currency(response.getBody().getAmount().getCurrency())
                                 .build())
                         .confirmation(new Confirmation(response.getBody().getConfirmation().getConfirmationToken(),
-                                "http://87.242.118.221/result/" + response.getBody().getId()))
+                                "http://194.113.34.117/result/" + response.getBody().getId()))
                         .description(response.getBody().getDescription())
                         .build());
             } else {
