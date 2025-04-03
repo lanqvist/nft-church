@@ -74,6 +74,18 @@
     font-weight: 400;
     line-height: 24px;
   }
+
+  .succesButton {
+    border-radius: 16px;
+    padding: 8px 32px 8px 32px;
+    font-weight: 400;
+  }
+
+  @media screen and (max-width: 800px) {
+    .button, .succesButton {
+      padding: 8px 16px;
+    }
+  }
 }
 
 .header {

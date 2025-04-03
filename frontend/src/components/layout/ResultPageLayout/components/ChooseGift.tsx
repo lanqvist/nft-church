@@ -18,7 +18,8 @@ import styles from '../ResultPageLayout.module.css';
 const Prayer = ({ prayerCheck, setPrayerCheck }) => {
     const [isOverlayVisible, setOverlayVisible] = useState(false);
 
-    const toggleOverlay = () => {
+    const toggleOverlay = (e) => {
+        e.stopPropagation();
         setOverlayVisible((prev) => !prev);
     };
 
@@ -35,6 +36,9 @@ const Prayer = ({ prayerCheck, setPrayerCheck }) => {
                     средств.
                 </p>
             </div>
+            <Button variant="subtle" className={styles.toggleBtn} onClick={toggleOverlay}>
+                <InfoIcon />
+            </Button>
             <Checkbox
                 className={styles.checkbox}
                 size="xxl"
@@ -49,9 +53,6 @@ const Prayer = ({ prayerCheck, setPrayerCheck }) => {
                 checked={prayerCheck}
                 onChange={(e) => setPrayerCheck(e.target.checked)}
             />
-            <Button variant="subtle" className={styles.toggleBtn} onClick={toggleOverlay}>
-                <InfoIcon />
-            </Button>
         </div>
     );
 };
@@ -59,7 +60,8 @@ const Prayer = ({ prayerCheck, setPrayerCheck }) => {
 const Stone = ({ stoneCheck, setStoneCheck }) => {
     const [isOverlayVisible, setOverlayVisible] = useState(false);
 
-    const toggleOverlay = () => {
+    const toggleOverlay = (e) => {
+        e.stopPropagation();
         setOverlayVisible(!isOverlayVisible);
     };
 
@@ -79,6 +81,9 @@ const Stone = ({ stoneCheck, setStoneCheck }) => {
                     благотворителей. Выберете данный подарок и увековечьте память о своем добром деле.
                 </p>
             </div>
+            <Button variant="subtle" className={styles.toggleBtn} onClick={toggleOverlay}>
+                <InfoIcon />
+            </Button>
             <Checkbox
                 className={styles.checkbox}
                 size="xxl"
@@ -93,9 +98,6 @@ const Stone = ({ stoneCheck, setStoneCheck }) => {
                 checked={stoneCheck}
                 onChange={(e) => setStoneCheck(e.target.checked)}
             />
-            <Button variant="subtle" className={styles.toggleBtn} onClick={toggleOverlay}>
-                <InfoIcon />
-            </Button>
         </div>
     );
 };
@@ -103,7 +105,8 @@ const Stone = ({ stoneCheck, setStoneCheck }) => {
 const Book = ({ bookCheck, setBookCheck }) => {
     const [isOverlayVisible, setOverlayVisible] = useState(false);
 
-    const toggleOverlay = () => {
+    const toggleOverlay = (e) => {
+        e.stopPropagation();
         setOverlayVisible(!isOverlayVisible);
     };
 
@@ -119,6 +122,9 @@ const Book = ({ bookCheck, setBookCheck }) => {
                     Чувашского. Книга содержит уникальные материалы: фото, записи, высказывания Владыки.
                 </p>
             </div>
+            <Button variant="subtle" className={styles.toggleBtn} onClick={toggleOverlay}>
+                <InfoIcon />
+            </Button>
             <Checkbox
                 className={styles.checkbox}
                 size="xxl"
@@ -133,12 +139,15 @@ const Book = ({ bookCheck, setBookCheck }) => {
                 checked={bookCheck}
                 onChange={(e) => setBookCheck(e.target.checked)}
             />
-            <Button variant="subtle" className={styles.toggleBtn} onClick={toggleOverlay}>
-                <InfoIcon />
-            </Button>
         </div>
     );
 };
+
+const transactionData = {
+  amount: {
+    value: 20000
+  }
+}
 
 export const ChooseGift = ({
     prayerCheck,
@@ -152,7 +161,7 @@ export const ChooseGift = ({
     setStep,
     paymentId,
 }) => {
-    const { data: transactionData, isFetching: loadingTransaction } = useTransactionData(paymentId);
+    // const { data: transactionData, isFetching: loadingTransaction } = useTransactionData(paymentId);
 
     const getPrizes = useCallback(
         (amount: number) => {
@@ -175,7 +184,7 @@ export const ChooseGift = ({
         [bookCheck, prayerCheck, stoneCheck, setPrayerCheck, setStoneCheck, setBookCheck]
     );
 
-    if (loadingTransaction || !transactionData) return null;
+    // if (loadingTransaction || !transactionData) return null;
 
     const prizes = getPrizes(Number(transactionData.amount?.value));
 
