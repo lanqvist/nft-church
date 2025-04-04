@@ -61,7 +61,7 @@ export const DonateForm: FC<IProps> = ({ openPaymentModal, setPaymentFormData })
     return (
         <form className={styles.root} onSubmit={handleSubmit} data-netlify="true">
             <Title order={3} className={styles.title}>
-                Сделать пожертвование Храму преподобного Сергия Радонежского
+                Сделать пожертвование храму преподобного Сергия Радонежского
             </Title>
 
             <RadioGroup value={amount} onChange={(amount) => {
