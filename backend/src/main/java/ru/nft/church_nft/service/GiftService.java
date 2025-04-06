@@ -10,6 +10,8 @@ import ru.nft.church_nft.repository.DonatesRepo;
 import ru.nft.church_nft.repository.GiftsRepo;
 
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 @Service
 @Slf4j
