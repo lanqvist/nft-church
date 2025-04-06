@@ -154,7 +154,7 @@ public class YookassaService {
 
                Map<String, Object> templateVariables = new HashMap<>();
                templateVariables.put("benefactorName", "благотворитель!");
-               emailService.sendMessageWithHTMLTemplate(donates.getMail(), "Пожертвование", returnUrl + response.getBody().getId(), templateVariables);
+               emailService.sendMessageWithHTMLTemplate(donates.getMail(), "Пожертвование", "email_template", templateVariables);
                return ResponseEntity.ok( StatusPaymentResponse.builder()
                        .status(response.getBody().getStatus())
                        .paid(response.getBody().getPaid())
