@@ -3,9 +3,11 @@ package ru.nft.church_nft;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 @Configuration
-public class AppConfiguration { // Or any appropriate name for your configuration class
+@EnableAsync
+public class AppConfiguration {
 
     @Bean
     public RestTemplate restTemplate() {
