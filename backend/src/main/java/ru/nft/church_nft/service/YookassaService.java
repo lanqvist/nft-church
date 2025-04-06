@@ -17,6 +17,8 @@ import ru.nft.church_nft.repository.DonatesRepo;
 import ru.nft.church_nft.service.dao.request.YookassaPaymentRequest;
 import ru.nft.church_nft.service.dao.response.YookassaPaymentResponse;
 import ru.nft.church_nft.service.dao.response.YookassaStatusPaymentResponse;
+import java.util.Map;
+import java.util.HashMap;
 
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -147,9 +149,14 @@ public class YookassaService {
 
            if (response.getStatusCode().is2xxSuccessful()) {
                Donates donates = donatesRepo.findByPaymentId(response.getBody().getId());
-               donates.setStatus(response.getBody().getStatus());
+               if(response.getBody().getStatus()) {
+                   donates.setStatus("success");
+               }
+               donates.setStatus();
 
-               emailService.sendSimpleMessage(donates.getMail(), "Пожертвование", returnUrl + response.getBody().getId());
+               Map<String, Object> templateVariables = new HashMap<>();
+               templateVariables.put("benefactorName", "благотворитель!");
+               emailService.sendMessageWithHTMLTemplate(donates.getMail(), "Пожертвование", returnUrl + response.getBody().getId(), templateVariables);
                return ResponseEntity.ok( StatusPaymentResponse.builder()
                        .status(response.getBody().getStatus())
                        .paid(response.getBody().getPaid())
