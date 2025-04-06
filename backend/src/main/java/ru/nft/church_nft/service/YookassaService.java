@@ -152,7 +152,6 @@ public class YookassaService {
                if(response.getBody().getStatus()) {
                    donates.setStatus("success");
                }
-               donates.setStatus();
 
                Map<String, Object> templateVariables = new HashMap<>();
                templateVariables.put("benefactorName", "благотворитель!");
