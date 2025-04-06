@@ -33,7 +33,9 @@ public class GiftService {
 
             }
             Donates donates = donatesRepo.findByPaymentId(paymentId);
-            emailService.sendSimpleMessage(donates.getMail(), "Получение токена за пожертвование", platformUrl);
+            Map<String, Object> templateVariables = new HashMap<>();
+            templateVariables.put("benefactorName", "благотворитель!");
+            emailService.sendMessageWithHTMLTemplate(donates.getMail(), "Пожертвование", "email_template", templateVariables);
 
         }
     }
