@@ -149,9 +149,8 @@ public class YookassaService {
 
            if (response.getStatusCode().is2xxSuccessful()) {
                Donates donates = donatesRepo.findByPaymentId(response.getBody().getId());
-               if(response.getBody().getStatus()) {
-                   donates.setStatus("success");
-               }
+               donates.setStatus(response.getBody().getStatus());
+
 
                Map<String, Object> templateVariables = new HashMap<>();
                templateVariables.put("benefactorName", "благотворитель!");
