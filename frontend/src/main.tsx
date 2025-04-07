@@ -22,10 +22,46 @@ import ScrollToTop from '@utils/ScrollToTop';
 import App from './App';
 import { theme } from './theme';
 
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  'pdfjs-dist/build/pdf.worker.min.mjs',
-  import.meta.url,
-).toString();
+function shouldUseLegacyBuild() {
+  try {
+    if (typeof window === 'undefined') return false;
+
+    const ua = window.navigator.userAgent;
+    const isSafari = /^((?!chrome|android).)*safari/i.test(ua);
+
+    if (!isSafari) return false;
+
+    // Extract Safari version - matches "Version/18" format
+    const match = ua.match(/Version\/(\d+)/i);
+
+    if (!match || !match[1]) return true; // If we can't determine version, use legacy to be safe
+
+    const version = parseInt(match[1]);
+    return version < 18; // Use legacy build for Safari versions equal or below 18
+  } catch (e) {
+    console.error('Error detecting Safari version:', e);
+    return false;
+  }
+}
+
+function initPDFWorker() {
+  try {
+    if (typeof window !== 'undefined') {
+      const useLegacy = shouldUseLegacyBuild();
+      // Use local worker file instead of unpkg
+      const workerSrc = useLegacy 
+        ? new URL('pdfjs-dist/legacy/build/pdf.worker.min.mjs', import.meta.url).href
+        : new URL('pdfjs-dist/build/pdf.worker.min.mjs', import.meta.url).href;
+
+      pdfjs.GlobalWorkerOptions.workerSrc = workerSrc;
+      pdfjs.GlobalWorkerOptions.workerPort = null;
+    }
+  } catch (e) {
+    console.error('Error setting PDF worker:', e);
+  }
+}
+
+initPDFWorker();
 
 export const router = createBrowserRouter([
     {
