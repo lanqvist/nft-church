@@ -10,11 +10,12 @@ import styles from './DonateForm.module.css';
 interface IProps {
     openPaymentModal: () => void;
     setPaymentFormData: (response: unknown) => void;
+    loading?: boolean;
 }
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export const DonateForm: FC<IProps> = ({ openPaymentModal, setPaymentFormData }) => {
+export const DonateForm: FC<IProps> = ({ openPaymentModal, setPaymentFormData, loading }) => {
     const [amount, setAmount] = useState(AMOUNTS[0]);
     const [additionalAmount, setAdditionalAmount] = useState('');
     const [mail, setMail] = useInputState<string>('');
@@ -98,6 +99,8 @@ export const DonateForm: FC<IProps> = ({ openPaymentModal, setPaymentFormData })
             <Button
                 color="green"
                 variant="filled"
+                loading={loading}
+                disabled={loading}
                 className={styles.submitButton}
                 type="submit"
                 onClick={() => handleSubmit}
