@@ -23,7 +23,7 @@ export const DataGiftsPreview = ({
     const token = useMemo(() => TOKENS.find(({ name }) => name === selectedToken), [selectedToken]);
     const [opened, { open, close }] = useDisclosure(false);
 
-    const platformUrl = `https://dfa.sber.ru/nft/church-token?donateid=${paymentId}&pictureId=${token?.id}`;
+    const platformUrl = `https://dfa.sber.ru/nft/church-token?donateId=${paymentId}&pictureId=${token?.id}`;
 
     const { mutate, isSuccess } = useSendGifts(paymentId);
 

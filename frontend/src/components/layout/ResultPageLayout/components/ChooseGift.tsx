@@ -18,13 +18,27 @@ import styles from '../ResultPageLayout.module.css';
 const Prayer = ({ prayerCheck, setPrayerCheck }) => {
     const [isOverlayVisible, setOverlayVisible] = useState(false);
 
-    const toggleOverlay = () => {
+    const toggleOverlay = (e) => {
+        e.stopPropagation();
         setOverlayVisible((prev) => !prev);
     };
 
     return (
         <div className={styles.giftIem} onClick={() => setPrayerCheck(!prayerCheck)}>
             <img className={clsx(styles.background, { [styles.unchecked]: !prayerCheck })} src={molImg} alt="Молитва" />
+            <div className={clsx(styles.overlay, { [styles.showOverlay]: isOverlayVisible })}>
+                <Button variant="subtle" className={styles.closeBtn} onClick={toggleOverlay}>
+                    <CloseIcon />
+                </Button>
+                <p>
+                    Мы передаем имена благотворителей и тех, о ком они просят помолиться, в храм для молитвенного
+                    поминовения. Ежедневно служители храма будут совершать молебен за всех кто принял участие в сборе
+                    средств.
+                </p>
+            </div>
+            <Button variant="subtle" className={styles.toggleBtn} onClick={toggleOverlay}>
+                <InfoIcon />
+            </Button>
             <Checkbox
                 className={styles.checkbox}
                 size="xxl"
@@ -39,19 +53,6 @@ const Prayer = ({ prayerCheck, setPrayerCheck }) => {
                 checked={prayerCheck}
                 onChange={(e) => setPrayerCheck(e.target.checked)}
             />
-            <div className={clsx(styles.overlay, { [styles.showOverlay]: isOverlayVisible })}>
-                <Button variant="subtle" className={styles.closeBtn} onClick={toggleOverlay}>
-                    <CloseIcon />
-                </Button>
-                <p>
-                    Мы передаем имена благотворителей и тех, о ком они просят помолиться, в храм для молитвенного
-                    поминовения. Ежедневно служители храма будут совершать молебен за всех кто принял участие в сборе
-                    средств.
-                </p>
-            </div>
-            <Button variant="subtle" className={styles.toggleBtn} onClick={toggleOverlay}>
-                <InfoIcon />
-            </Button>
         </div>
     );
 };
@@ -59,7 +60,8 @@ const Prayer = ({ prayerCheck, setPrayerCheck }) => {
 const Stone = ({ stoneCheck, setStoneCheck }) => {
     const [isOverlayVisible, setOverlayVisible] = useState(false);
 
-    const toggleOverlay = () => {
+    const toggleOverlay = (e) => {
+        e.stopPropagation();
         setOverlayVisible(!isOverlayVisible);
     };
 
@@ -70,6 +72,18 @@ const Stone = ({ stoneCheck, setStoneCheck }) => {
                 src={stoneImg}
                 alt="Именой камень"
             />
+            <div className={clsx(styles.overlay, { [styles.showOverlay]: isOverlayVisible })}>
+                <Button variant="subtle" className={styles.closeBtn} onClick={toggleOverlay}>
+                    <CloseIcon />
+                </Button>
+                <p>
+                    На гранитном поясе, выложенном в основании внешней части храма, будут выгравированы имена
+                    благотворителей. Выберете данный подарок и увековечьте память о своем добром деле.
+                </p>
+            </div>
+            <Button variant="subtle" className={styles.toggleBtn} onClick={toggleOverlay}>
+                <InfoIcon />
+            </Button>
             <Checkbox
                 className={styles.checkbox}
                 size="xxl"
@@ -84,18 +98,6 @@ const Stone = ({ stoneCheck, setStoneCheck }) => {
                 checked={stoneCheck}
                 onChange={(e) => setStoneCheck(e.target.checked)}
             />
-            <div className={clsx(styles.overlay, { [styles.showOverlay]: isOverlayVisible })}>
-                <Button variant="subtle" className={styles.closeBtn} onClick={toggleOverlay}>
-                    <CloseIcon />
-                </Button>
-                <p>
-                    На гранитном поясе, выложенном в основании внешней части храма, будут выгравированы имена
-                    благотворителей. Выберете данный подарок и увековечьте память о своем добром деле.
-                </p>
-            </div>
-            <Button variant="subtle" className={styles.toggleBtn} onClick={toggleOverlay}>
-                <InfoIcon />
-            </Button>
         </div>
     );
 };
@@ -103,13 +105,26 @@ const Stone = ({ stoneCheck, setStoneCheck }) => {
 const Book = ({ bookCheck, setBookCheck }) => {
     const [isOverlayVisible, setOverlayVisible] = useState(false);
 
-    const toggleOverlay = () => {
+    const toggleOverlay = (e) => {
+        e.stopPropagation();
         setOverlayVisible(!isOverlayVisible);
     };
 
     return (
         <div className={styles.giftIem} onClick={() => setBookCheck(!bookCheck)}>
             <img className={clsx(styles.background, { [styles.unchecked]: !bookCheck })} src={bookImg} alt="Книга" />
+            <div className={clsx(styles.overlay, { [styles.showOverlay]: isOverlayVisible })}>
+                <Button variant="subtle" className={styles.closeBtn} onClick={toggleOverlay}>
+                    <CloseIcon />
+                </Button>
+                <p>
+                    Вы получите лимитированное издание книги о жизни Владыки Варнавы — митрополита Чебоксарского и
+                    Чувашского. Книга содержит уникальные материалы: фото, записи, высказывания Владыки.
+                </p>
+            </div>
+            <Button variant="subtle" className={styles.toggleBtn} onClick={toggleOverlay}>
+                <InfoIcon />
+            </Button>
             <Checkbox
                 className={styles.checkbox}
                 size="xxl"
@@ -124,18 +139,6 @@ const Book = ({ bookCheck, setBookCheck }) => {
                 checked={bookCheck}
                 onChange={(e) => setBookCheck(e.target.checked)}
             />
-            <div className={clsx(styles.overlay, { [styles.showOverlay]: isOverlayVisible })}>
-                <Button variant="subtle" className={styles.closeBtn} onClick={toggleOverlay}>
-                    <CloseIcon />
-                </Button>
-                <p>
-                    Вы получите лимитированное издание книги о жизни Владыки Варнавы — митрополита Чебоксарского и
-                    Чувашского. Книга содержит уникальные материалы: фото, записи, высказывания Владыки.
-                </p>
-            </div>
-            <Button variant="subtle" className={styles.toggleBtn} onClick={toggleOverlay}>
-                <InfoIcon />
-            </Button>
         </div>
     );
 };
@@ -166,7 +169,7 @@ export const ChooseGift = ({
                 prizes.splice(-2, 2);
             }
 
-            if (amount > 5000 && amount < 15000) {
+            if (amount >= 5000 && amount < 15000) {
                 prizes.splice(-1, 1);
             }
 
@@ -176,6 +179,8 @@ export const ChooseGift = ({
     );
 
     if (loadingTransaction || !transactionData) return null;
+
+    const prizes = getPrizes(Number(transactionData.amount?.value));
 
     return (
         <>
@@ -189,8 +194,15 @@ export const ChooseGift = ({
                         Предлагаем выбрать памятные подарки. Сохраните приятные воспоминания о ваших добрых поступках!
                     </div>
                 </div>
-                {getPrizes(Number(transactionData.amount?.value)).map((item) => item)}
-                <div className={clsx(styles.giftIem, { [styles.columnsTokens]: getPrizes.length % 2 === 0 })}>
+                {prizes.map((item) => item)}
+                <div
+                    className={
+                        clsx(styles.giftIem, {
+                            [styles.columnsTokens]: prizes.length % 2 === 0,
+                            [styles.fullWidth]: prizes.length === 1
+                        })
+                    }
+                >
                     <div className={styles.tokensTitle}>Ваш «Сертификат благотворителя»</div>
                     <div className={styles.tokensWrapper}>
                         {TOKENS.map((token) => (

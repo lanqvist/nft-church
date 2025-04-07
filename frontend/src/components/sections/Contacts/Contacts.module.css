@@ -90,4 +90,8 @@
     font-style: normal;
     font-size: var(--mantine-font-size-lg);
     white-space: break-spaces;
+
+    @media screen and ($mantine-breakpoint-sm) {
+      font-size: var(--mantine-font-size-xs);
+  }
 }

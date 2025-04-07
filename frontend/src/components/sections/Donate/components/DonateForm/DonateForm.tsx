@@ -10,8 +10,12 @@ import styles from './DonateForm.module.css';
 interface IProps {
     openPaymentModal: () => void;
     setPaymentFormData: (response: unknown) => void;
+    loading?: boolean;
 }
-export const DonateForm: FC<IProps> = ({ openPaymentModal, setPaymentFormData }) => {
+
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+export const DonateForm: FC<IProps> = ({ openPaymentModal, setPaymentFormData, loading }) => {
     const [amount, setAmount] = useState(AMOUNTS[0]);
     const [additionalAmount, setAdditionalAmount] = useState('');
     const [mail, setMail] = useInputState<string>('');
@@ -23,6 +27,11 @@ export const DonateForm: FC<IProps> = ({ openPaymentModal, setPaymentFormData })
         if (!mail) {
             setMailError('Поле обязательно для заполнения');
             return;
+        }
+
+        if (!emailRegex.test(mail)) {
+          setMailError('Введите корректный адрес электронной почты');
+          return;
         }
 
         const paymentData = {
@@ -49,14 +58,17 @@ export const DonateForm: FC<IProps> = ({ openPaymentModal, setPaymentFormData })
 
         setMail(e.target.value);
     }, []);
-
+    console.log(loading);
     return (
         <form className={styles.root} onSubmit={handleSubmit} data-netlify="true">
             <Title order={3} className={styles.title}>
-                Сделать пожертвование Храму преподобного Сергия Радонежского
+                Сделать пожертвование храму преподобного Сергия Радонежского
             </Title>
 
-            <RadioGroup value={amount} onChange={setAmount}>
+            <RadioGroup value={amount} onChange={(amount) => {
+                setAdditionalAmount('');
+                setAmount(amount);
+            }}>
                 <div className={styles.radioButtonsWrapper}>
                     {AMOUNTS.map((amount) => (
                         <AmountRadioButton key={amount} value={amount} className={styles.radioButton} />
@@ -87,6 +99,7 @@ export const DonateForm: FC<IProps> = ({ openPaymentModal, setPaymentFormData })
             <Button
                 color="green"
                 variant="filled"
+                disabled={loading}
                 className={styles.submitButton}
                 type="submit"
                 onClick={() => handleSubmit}

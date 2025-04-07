@@ -44,34 +44,11 @@ const PaymentModal = ({ opened, close, paymentFormData }) => {
         <Modal.Root
             opened={opened}
             onClose={close}
-            // title="Modal title"
             fullScreen={isMobile}
             transitionProps={{ transition: 'fade', duration: 200 }}
             centered
             keepMounted
             size="xl"
-
-            // onEnterTransitionEnd={() => {
-            //     if (opened && paymentFormData && isWidgetReady) {
-            //         const checkout = new window.YooMoneyCheckoutWidget({
-            //             confirmation_token: paymentFormData.confirmation.confirmation_token,
-            //             return_url: paymentFormData.confirmation.return_url ?? 'https://nft-church.netlify.app/',
-            //             error_callback(error) {
-            //                 console.error('Ошибка инициализации:', error);
-            //             },
-            //         });
-
-            //         console.log('Платежная форма checkout', checkout);
-            //         checkout.render('checkout-widget').then(() => {
-            //             console.log('Платежная форма загружена');
-            //         });
-
-            //         return () => {
-            //             checkout.destroy();
-            //         };
-            //     }
-            // }}
-            // keepMounted={}
         >
             <Modal.Overlay />
             <Modal.Content>
@@ -84,7 +61,7 @@ const PaymentModal = ({ opened, close, paymentFormData }) => {
                     <div
                         style={{
                             width: '100%',
-                            height: '468px',
+                            minHeight: '468px',
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
@@ -101,7 +78,7 @@ const PaymentModal = ({ opened, close, paymentFormData }) => {
 export const Donate: FC = () => {
     const [opened, { open, close }] = useDisclosure(false);
 
-    const { mutate, data } = usePayment();
+    const { mutate, data, isPending } = usePayment();
 
     return (
         <Section title="Пожертвование" key="donate" id="donate">
@@ -110,7 +87,7 @@ export const Donate: FC = () => {
                     <img className={styles.image} src={churchImage} alt="Храм" />
                 </div>
                 <div className={styles.right}>
-                    <DonateForm openPaymentModal={open} setPaymentFormData={mutate} />
+                    <DonateForm openPaymentModal={open} setPaymentFormData={mutate} loading={isPending} />
                 </div>
             </div>
             <PaymentModal opened={opened && data} close={close} paymentFormData={data} />

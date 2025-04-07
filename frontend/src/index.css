@@ -156,6 +156,15 @@ a {
             color: var(--button-active-color);
         }
     }
+
+
+    &:disabled {
+      &[data-variant='filled'] {
+        color: var(--mantine-color-gray-5);
+        background: var(--mantine-color-gray-1);
+        border-color: var(--mantine-color-gray-1);
+      }
+    }
 }
 
 .checkbox {
