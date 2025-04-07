@@ -47,7 +47,7 @@ export default defineConfig({
             template: 'index.html',
             inject: {
                 data: {
-                    title: 'Храм',
+                    title: 'Благотворительный сбор на храм прп. Сергия Радонежского в Чувашии',
                     ymapsScript: `<script src="https://api-maps.yandex.ru/2.1?apikey=${process.env.YMAPS_API_KEY}&lang=ru_RU"></script>`,
                 },
             },
