@@ -11,7 +11,6 @@ services:
     volumes:
       - './nginx.conf:/etc/nginx/nginx.conf'
       - '/etc/letsencrypt:/etc/letsencrypt'
-      - static_files:/usr/share/nginx/html
     depends_on:
       - backend
       - frontend
@@ -66,11 +65,8 @@ services:
   frontend:
     build:
       context: ./frontend
-    volumes:
-      - static_files:/usr/share/nginx/html
     networks:
       - dev
 
 volumes:
   db_data:
-  static_files:
