@@ -78,7 +78,7 @@ const PaymentModal = ({ opened, close, paymentFormData }) => {
 export const Donate: FC = () => {
     const [opened, { open, close }] = useDisclosure(false);
 
-    const { mutate, data, isIdle, isPending, } = usePayment();
+    const { mutate, data, isPending } = usePayment();
 
     return (
         <Section title="Пожертвование" key="donate" id="donate">
@@ -87,7 +87,7 @@ export const Donate: FC = () => {
                     <img className={styles.image} src={churchImage} alt="Храм" />
                 </div>
                 <div className={styles.right}>
-                    <DonateForm openPaymentModal={open} setPaymentFormData={mutate} loading={isPending || isIdle} />
+                    <DonateForm openPaymentModal={open} setPaymentFormData={mutate} loading={isPending} />
                 </div>
             </div>
             <PaymentModal opened={opened && data} close={close} paymentFormData={data} />

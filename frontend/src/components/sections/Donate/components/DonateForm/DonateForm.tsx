@@ -58,7 +58,7 @@ export const DonateForm: FC<IProps> = ({ openPaymentModal, setPaymentFormData, l
 
         setMail(e.target.value);
     }, []);
-
+    console.log(loading);
     return (
         <form className={styles.root} onSubmit={handleSubmit} data-netlify="true">
             <Title order={3} className={styles.title}>
@@ -99,7 +99,6 @@ export const DonateForm: FC<IProps> = ({ openPaymentModal, setPaymentFormData, l
             <Button
                 color="green"
                 variant="filled"
-                loading={loading}
                 disabled={loading}
                 className={styles.submitButton}
                 type="submit"
