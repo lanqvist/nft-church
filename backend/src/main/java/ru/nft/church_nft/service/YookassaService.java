@@ -151,10 +151,12 @@ public class YookassaService {
                Donates donates = donatesRepo.findByPaymentId(response.getBody().getId());
                donates.setStatus(response.getBody().getStatus());
 
+               donatesRepo.save(donates);
 
                Map<String, Object> templateVariables = new HashMap<>();
-               templateVariables.put("benefactorName", "благотворитель!");
-               emailService.sendMessageWithHTMLTemplate(donates.getMail(), "Пожертвование", "email_template", templateVariables);
+               templateVariables.put("benefactorName", "http://87.242.118.221/result/" + response.getBody().getId());
+               emailService.sendMessageWithHTMLTemplate(donates.getMail(), "Благодарим за Ваш вклад в строительство храма преподобного Сергия Радонежского!", "pay_email_template", templateVariables);
+
                return ResponseEntity.ok( StatusPaymentResponse.builder()
                        .status(response.getBody().getStatus())
                        .paid(response.getBody().getPaid())
