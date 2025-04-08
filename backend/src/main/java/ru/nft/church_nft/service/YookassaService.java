@@ -69,15 +69,14 @@ public class YookassaService {
         String idempotence = UUID.randomUUID().toString();
         headersPayment.set("Idempotence-Key", idempotence);
 
-        Integer number = 0;
-
         YookassaPaymentRequest.Amount amount = YookassaPaymentRequest.Amount.builder()
                 .value(amountValue)
                 .currency(amountCurrency)
                 .build();
 
         YookassaPaymentRequest.Confirmation confirmation = YookassaPaymentRequest.Confirmation.builder()
-                .type("embedded")
+                .type("redirect")
+                .returnUrl(returnUrl)
                 .build();
 
         int orderNumber = orderNumberCounter.incrementAndGet();
@@ -115,15 +114,16 @@ public class YookassaService {
                                 .value(String.valueOf(response.getBody().getAmount().getValue()))
                                 .currency(response.getBody().getAmount().getCurrency())
                                 .build())
-                        .confirmation(new Confirmation(response.getBody().getConfirmation().getConfirmationToken(),
-                                "https://sbornahram.ru/result/" + response.getBody().getId()))
+                        .confirmation(new Confirmation(
+                                null,
+                                response.getBody().getConfirmation().getConfirmationUrl()))
                         .description(response.getBody().getDescription())
                         .build());
             } else {
                 throw new ResponseStatusException(HttpStatus.valueOf(response.getStatusCodeValue()), "Yookassa API Error: " + response.getStatusCodeValue());
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Error creating payment", e);
             throw new RuntimeException("Error creating payment: " + e.getMessage(), e);
         }
     }
