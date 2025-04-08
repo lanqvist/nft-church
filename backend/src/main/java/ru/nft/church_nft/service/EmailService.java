@@ -28,6 +28,9 @@ public class EmailService {
     @Value("${mail.from}")
     private String mailFrom;
 
+    @Value("${mail.from.name}")
+    private String mailFromName;
+
     private final JavaMailSender mailSender;
     private final TemplateEngine templateEngine;
 
@@ -35,7 +38,7 @@ public class EmailService {
     public void sendSimpleMessage(String to, String subject, String text) {
         try {
             SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom(mailFrom);
+            message.setFrom(mailFrom, mailFromName);
             message.setTo(to);
             message.setSubject(subject);
             message.setText(text);
