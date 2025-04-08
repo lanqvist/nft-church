@@ -14,6 +14,7 @@ import molImg from '../assets/mol.png';
 import stoneImg from '../assets/stone.png';
 import { TOKENS } from '../consts';
 import styles from '../ResultPageLayout.module.css';
+import { useMediaQuery } from '@mantine/hooks';
 
 const Prayer = ({ prayerCheck, setPrayerCheck }) => {
     const [isOverlayVisible, setOverlayVisible] = useState(false);
@@ -155,7 +156,8 @@ export const ChooseGift = ({
     setStep,
     paymentId,
 }) => {
-    const { data: transactionData, isFetching: loadingTransaction } = useTransactionData(paymentId);
+      const isMobile = useMediaQuery('(max-width: 50em)');
+      const { data: transactionData, isFetching: loadingTransaction } = useTransactionData(paymentId);
 
     const getPrizes = useCallback(
         (amount: number) => {
@@ -198,7 +200,7 @@ export const ChooseGift = ({
                 <div
                     className={
                         clsx(styles.giftIem, {
-                            [styles.columnsTokens]: prizes.length % 2 === 0,
+                            [styles.columnsTokens]: prizes.length % 2 === 0 && !isMobile,
                             [styles.fullWidth]: prizes.length === 1
                         })
                     }
