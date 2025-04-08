@@ -36,8 +36,8 @@ public class GiftService {
             }
             Donates donates = donatesRepo.findByPaymentId(paymentId);
             Map<String, Object> templateVariables = new HashMap<>();
-            templateVariables.put("benefactorName", "благотворитель!");
-            emailService.sendMessageWithHTMLTemplate(donates.getMail(), "Пожертвование", "email_template", templateVariables);
+            templateVariables.put("benefactorName", platformUrl);
+            emailService.sendMessageWithHTMLTemplate(donates.getMail(), "Выбранные подарки за участие в сборе на храм преподобного Сергия Радонежского", "get_token_email_template", templateVariables);
 
         }
     }
