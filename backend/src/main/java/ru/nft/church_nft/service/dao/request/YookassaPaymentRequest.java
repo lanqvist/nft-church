@@ -26,7 +26,7 @@ public class YookassaPaymentRequest {
     @NotNull(message = "Confirmation is required")
     private Confirmation confirmation;
 
-    private String capture;
+    private Boolean capture;
 
     private String description;
 
@@ -52,5 +52,8 @@ public class YookassaPaymentRequest {
     public static class Confirmation {
         @NotBlank(message = "Type is required")
         private String type;
+
+        @NotBlank(message = "Return url is required")
+        private String return_url;
     }
 }

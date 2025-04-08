@@ -84,6 +84,7 @@ public class YookassaService {
         YookassaPaymentRequest paymentRequest = YookassaPaymentRequest.builder()
                 .amount(amount)
                 .confirmation(confirmation)
+                .capture(true)
                 .description(String.valueOf(orderNumber))
                 .build();
 
