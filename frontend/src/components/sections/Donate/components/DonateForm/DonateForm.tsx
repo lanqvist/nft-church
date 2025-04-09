@@ -8,14 +8,13 @@ import { AMOUNTS } from './DonateForm.consts';
 import styles from './DonateForm.module.css';
 
 interface IProps {
-    openPaymentModal: () => void;
     setPaymentFormData: (response: unknown) => void;
     loading?: boolean;
 }
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export const DonateForm: FC<IProps> = ({ openPaymentModal, setPaymentFormData, loading }) => {
+export const DonateForm: FC<IProps> = ({ setPaymentFormData, loading }) => {
     const [amount, setAmount] = useState(AMOUNTS[0]);
     const [additionalAmount, setAdditionalAmount] = useState('');
     const [mail, setMail] = useInputState<string>('');
@@ -44,8 +43,6 @@ export const DonateForm: FC<IProps> = ({ openPaymentModal, setPaymentFormData, l
 
         try {
             await setPaymentFormData(paymentData);
-
-            openPaymentModal();
         } catch (error) {
             console.error('Ошибка DonateForm', error);
         }
