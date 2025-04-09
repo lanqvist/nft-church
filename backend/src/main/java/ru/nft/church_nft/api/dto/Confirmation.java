@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @AllArgsConstructor
 public class Confirmation {
 
-    private String confirmation_token;
+    private String type;
 
-    @JsonProperty("return_url")
-    private String returnUrl;
+    @JsonProperty("confirmation_url")
+    private String confirmationUrl;
 }

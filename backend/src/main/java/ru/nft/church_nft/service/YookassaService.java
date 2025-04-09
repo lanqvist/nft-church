@@ -47,16 +47,6 @@ public class YookassaService {
 
     private final EmailService emailService;
 
-    private AtomicInteger orderNumberCounter = new AtomicInteger(0);
-
-    @PostConstruct
-    public void init() {
-        Integer lastOrderNumber = donatesRepo.findMaxDonateId();
-        if (lastOrderNumber != null) {
-            orderNumberCounter.set(lastOrderNumber);
-        }
-    }
-
     public static String generateUUID() {
         return UUID.randomUUID().toString();
     }
@@ -87,7 +77,6 @@ public class YookassaService {
                 .returnUrl(returnUrl + donateUUID)
                 .build();
 
-        int orderNumber = orderNumberCounter.incrementAndGet();
         YookassaPaymentRequest paymentRequest = YookassaPaymentRequest.builder()
                 .amount(amount)
                 .confirmation(confirmation)
@@ -124,7 +113,7 @@ public class YookassaService {
                                 .currency(response.getBody().getAmount().getCurrency())
                                 .build())
                         .confirmation(new Confirmation(response.getBody().getConfirmation().getType(),
-                                response.getBody().getConfirmation().getReturnUrl()))
+                                response.getBody().getConfirmation().getConfirmationUrl()))
                         .description(response.getBody().getDescription())
                         .build());
             } else {

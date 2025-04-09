@@ -43,8 +43,8 @@ public class YookassaPaymentResponse {
         @JsonProperty("type")
         private String type;
 
-        @JsonProperty("return_url")
-        private String returnUrl;
+        @JsonProperty("confirmation_url")
+        private String confirmationUrl;
     }
 
     @Data
