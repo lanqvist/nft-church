@@ -26,12 +26,12 @@ public class PaymentsController {
         return yookassaService.createPayment(paymentRequest.getAmount().getValue(), paymentRequest.getAmount().getCurrency(), paymentRequest.getEmail());
     }
 
-    @GetMapping("/{paymentId}")
+    @GetMapping("/{donateId}")
     public ResponseEntity<StatusPaymentResponse> getPaymentStatus(@PathVariable String paymentId) {
         return yookassaService.getPaymentStatus(paymentId);
     }
 
-    @PostMapping("/{payment_id}")
+    @PostMapping("/{donate_id}")
     public ResponseEntity<Void> processGifts(
             @PathVariable String payment_id,
             @RequestBody GiftsRequest giftsRequest) {
