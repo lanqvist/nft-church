@@ -20,7 +20,7 @@ public class Donates {
     private Long id;
 
     @Column(name = "donate_id")
-    private String donateId;
+    private String donate_id;
 
     @Column(name = "payment_id")
     private String paymentId;
