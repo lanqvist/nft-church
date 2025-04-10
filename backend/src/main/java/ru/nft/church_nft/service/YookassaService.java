@@ -95,7 +95,7 @@ public class YookassaService {
 
             if (response.getStatusCode().is2xxSuccessful()) {
                 donatesRepo.save(Donates.builder()
-                        .donate_id(response.getBody().getDescription())
+                        .donateId(response.getBody().getDescription())
                         .paymentId(response.getBody().getId())
                         .amount(response.getBody().getAmount().getValue().toString())
                         .currency(response.getBody().getAmount().getCurrency())
@@ -136,7 +136,8 @@ public class YookassaService {
        HttpEntity<?> entity = new HttpEntity<>(headersCheck);
 
        try {
-           String url = yookassaUrl + "/" + donateId;
+           String paymentId = donatesRepo.findByDonateId(donateId).getPaymentId();
+           String url = yookassaUrl + "/" + paymentId;
            System.out.println("Url for check: "+ url);
            ResponseEntity<YookassaStatusPaymentResponse> response = restTemplate.exchange(
                    url,

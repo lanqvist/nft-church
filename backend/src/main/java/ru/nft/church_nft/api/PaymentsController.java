@@ -27,17 +27,17 @@ public class PaymentsController {
     }
 
     @GetMapping("/{donateId}")
-    public ResponseEntity<StatusPaymentResponse> getPaymentStatus(@PathVariable String paymentId) {
-        return yookassaService.getPaymentStatus(paymentId);
+    public ResponseEntity<StatusPaymentResponse> getPaymentStatus(@PathVariable String donateId) {
+        return yookassaService.getPaymentStatus(donateId);
     }
 
     @PostMapping("/{donate_id}")
     public ResponseEntity<Void> processGifts(
-            @PathVariable String payment_id,
+            @PathVariable String donate_id,
             @RequestBody GiftsRequest giftsRequest) {
 
         try {
-            giftService.processGifts(payment_id, giftsRequest.getGifts(), giftsRequest.getPlatformUrl());
+            giftService.processGifts(donate_id, giftsRequest.getGifts(), giftsRequest.getPlatformUrl());
             return ResponseEntity.ok().build();
 
         } catch (Exception e) {

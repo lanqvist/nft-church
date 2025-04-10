@@ -11,11 +11,11 @@ import org.springframework.context.annotation.Primary;
 public class JacksonConfig {
 
     @Bean
-    @Primary  // Убедитесь, что этот ObjectMapper является предпочтительным
+    @Primary
     public ObjectMapper objectMapper() {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
-        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS); //Рекомендуется для OffsetDateTime
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         return mapper;
     }
 }
