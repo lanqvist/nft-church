@@ -40,10 +40,11 @@ public class YookassaPaymentResponse {
     @Data
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class Confirmation {
+        @JsonProperty("type")
         private String type;
 
-        @JsonProperty("confirmation_token")
-        private String confirmationToken;
+        @JsonProperty("confirmation_url")
+        private String confirmationUrl;
     }
 
     @Data

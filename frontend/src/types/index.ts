@@ -30,8 +30,7 @@ export type TPaymnetData = {
         value: string;
     };
     confirmation: {
-        confirmation_token: string;
-        return_url: string;
+        confirmation_url: string;
     };
     description: string;
 };

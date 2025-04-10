@@ -54,6 +54,7 @@ public class YookassaPaymentRequest {
         private String type;
 
         @NotBlank(message = "Return url is required")
-        private String return_url;
+        @JsonProperty("return_url")
+        private String returnUrl;
     }
 }

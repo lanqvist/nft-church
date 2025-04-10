@@ -19,6 +19,8 @@ import ru.nft.church_nft.service.dao.response.YookassaPaymentResponse;
 import ru.nft.church_nft.service.dao.response.YookassaStatusPaymentResponse;
 import java.util.Map;
 import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -45,14 +47,8 @@ public class YookassaService {
 
     private final EmailService emailService;
 
-    private AtomicInteger orderNumberCounter = new AtomicInteger(0);
-
-    @PostConstruct
-    public void init() {
-        Integer lastOrderNumber = donatesRepo.findMaxDonateId();
-        if (lastOrderNumber != null) {
-            orderNumberCounter.set(lastOrderNumber);
-        }
+    public static String generateUUID() {
+        return UUID.randomUUID().toString();
     }
 
     public YookassaService(RestTemplate restTemplate, DonatesRepo donatesRepo, EmailService emailService) {
@@ -69,23 +65,23 @@ public class YookassaService {
         String idempotence = UUID.randomUUID().toString();
         headersPayment.set("Idempotence-Key", idempotence);
 
-        Integer number = 0;
-
         YookassaPaymentRequest.Amount amount = YookassaPaymentRequest.Amount.builder()
                 .value(amountValue)
                 .currency(amountCurrency)
                 .build();
 
+        String donateUUID = generateUUID();
+
         YookassaPaymentRequest.Confirmation confirmation = YookassaPaymentRequest.Confirmation.builder()
-                .type("embedded")
+                .type("redirect")
+                .returnUrl(returnUrl + donateUUID)
                 .build();
 
-        int orderNumber = orderNumberCounter.incrementAndGet();
         YookassaPaymentRequest paymentRequest = YookassaPaymentRequest.builder()
                 .amount(amount)
                 .confirmation(confirmation)
                 .capture(true)
-                .description(String.valueOf(orderNumber))
+                .description(donateUUID)
                 .build();
 
         HttpEntity<YookassaPaymentRequest> entity = new HttpEntity<>(paymentRequest, headersPayment);
@@ -99,7 +95,7 @@ public class YookassaService {
 
             if (response.getStatusCode().is2xxSuccessful()) {
                 donatesRepo.save(Donates.builder()
-                        .donate_id(response.getBody().getDescription())
+                        .donateId(response.getBody().getDescription())
                         .paymentId(response.getBody().getId())
                         .amount(response.getBody().getAmount().getValue().toString())
                         .currency(response.getBody().getAmount().getCurrency())
@@ -116,8 +112,8 @@ public class YookassaService {
                                 .value(String.valueOf(response.getBody().getAmount().getValue()))
                                 .currency(response.getBody().getAmount().getCurrency())
                                 .build())
-                        .confirmation(new Confirmation(response.getBody().getConfirmation().getConfirmationToken(),
-                                "https://sbornahram.ru/result/" + response.getBody().getId()))
+                        .confirmation(new Confirmation(response.getBody().getConfirmation().getType(),
+                                response.getBody().getConfirmation().getConfirmationUrl()))
                         .description(response.getBody().getDescription())
                         .build());
             } else {
@@ -129,7 +125,7 @@ public class YookassaService {
         }
     }
 
-   public ResponseEntity<StatusPaymentResponse> getPaymentStatus(String paymentId) {
+   public ResponseEntity<StatusPaymentResponse> getPaymentStatus(String donateId) {
 
        HttpHeaders headersCheck = new HttpHeaders();
        headersCheck.setContentType(MediaType.APPLICATION_JSON);
@@ -140,6 +136,7 @@ public class YookassaService {
        HttpEntity<?> entity = new HttpEntity<>(headersCheck);
 
        try {
+           String paymentId = donatesRepo.findByDonateId(donateId).getPaymentId();
            String url = yookassaUrl + "/" + paymentId;
            System.out.println("Url for check: "+ url);
            ResponseEntity<YookassaStatusPaymentResponse> response = restTemplate.exchange(
@@ -155,7 +152,7 @@ public class YookassaService {
                donatesRepo.save(donates);
 
                Map<String, Object> templateVariables = new HashMap<>();
-               templateVariables.put("benefactorName", "https://sbornahram.ru/result/" + response.getBody().getId());
+               templateVariables.put("benefactorName", "https://sbornahram.ru/result/" + donateId);
                emailService.sendMessageWithHTMLTemplate(donates.getMail(), "Выбранные подарки за участие в сборе на храм преподобного Сергия Радонежского", "pay_email_template", templateVariables);
 
                return ResponseEntity.ok( StatusPaymentResponse.builder()
@@ -170,7 +167,7 @@ public class YookassaService {
            }
 
        } catch (Exception e) {
-           throw new RuntimeException("Error getting payment status for payment ID: " + paymentId + ", " + e.getMessage(), e);
+           throw new RuntimeException("Error getting payment status for payment ID: " + donateId + ", " + e.getMessage(), e);
        }
    }
 }
