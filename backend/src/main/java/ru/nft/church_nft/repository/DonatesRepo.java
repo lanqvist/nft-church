@@ -12,6 +12,4 @@ public interface DonatesRepo extends JpaRepository<Donates, Long> {
 
     @Query(value = "SELECT MAX(CAST(donate_id AS INTEGER)) FROM donates", nativeQuery = true)
     Integer findMaxDonateId();
-
-    Donates findByDonateId(String donateId);
 }

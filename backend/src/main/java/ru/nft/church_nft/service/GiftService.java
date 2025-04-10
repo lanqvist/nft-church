@@ -22,19 +22,19 @@ public class GiftService {
     private final DonatesRepo donatesRepo;
     private final EmailService emailService;
 
-    public void processGifts(String donateId, List<GiftsRequest.Gift> gifts, String platformUrl) {
+    public void processGifts(String paymentId, List<GiftsRequest.Gift> gifts, String platformUrl) {
 
-        if(!giftsRepo.existsByDonates(donatesRepo.findByDonateId(donateId))){
+        if(!giftsRepo.existsByDonates(donatesRepo.findByPaymentId(paymentId))){
             for (GiftsRequest.Gift gift : gifts) {
                 giftsRepo.save(Gifts.builder()
                         .name(gift.getName())
                         .type(gift.getGiftType())
                         .address(gift.getAddress())
-                        .donates(donatesRepo.findByDonateId(donateId))
+                        .donates(donatesRepo.findByPaymentId(paymentId))
                         .build());
 
             }
-            Donates donates = donatesRepo.findByDonateId(donateId);
+            Donates donates = donatesRepo.findByPaymentId(paymentId);
             Map<String, Object> templateVariables = new HashMap<>();
             templateVariables.put("benefactorName", platformUrl);
             emailService.sendMessageWithHTMLTemplate(donates.getMail(), "Благодарим за Ваш вклад в строительство храма преподобного Сергия Радонежского!", "get_token_email_template", templateVariables);
