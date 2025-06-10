@@ -25,7 +25,8 @@ export const DataGiftsPreview = ({
 
     const platformUrl = `https://dfa.sber.ru/nft/church-token?donateId=${paymentId}&pictureId=${token?.id}`;
 
-    const { mutate, isSuccess } = useSendGifts(paymentId);
+    const { mutate, isSuccess, data } = useSendGifts(paymentId);
+    const platformUrlWithEngraving = data?.url;
 
     const handleFinish = async () => {
         const gifts = [];
@@ -133,7 +134,7 @@ export const DataGiftsPreview = ({
                     </div>
                 </div>
             </div>
-            <ResultModal opened={opened && isSuccess} close={close} token={token.image} url={platformUrl} />
+            <ResultModal opened={opened && isSuccess} close={close} token={token.image} url={platformUrlWithEngraving} />
         </>
     );
 };

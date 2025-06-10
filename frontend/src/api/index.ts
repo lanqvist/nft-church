@@ -10,7 +10,7 @@ export async function sendGifts(uuid: string, data: TGiftsBody) {
             })
             .json();
 
-        return response;
+        return response as { url: string; };
     } catch (error) {
         console.error("Can't fetch gift data", error);
         throw error;
