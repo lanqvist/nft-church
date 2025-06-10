@@ -45,7 +45,7 @@ public class GiftService {
         boolean hasEngraving = gifts.stream().anyMatch(gift -> "Engraving".equals(gift.getGiftType()));
 
 
-        long countOfEngraving = hasEngraving ? giftsRepo.countByName("Engraving") : -1;
+        long countOfEngraving = hasEngraving ? giftsRepo.countByType("Engraving") : -1;
 
         String url = (countOfEngraving != -1) ? platformUrl + "&engravingId=" + countOfEngraving : platformUrl;
         return ResponseEntity.ok(ProcessGiftResponse.builder()
