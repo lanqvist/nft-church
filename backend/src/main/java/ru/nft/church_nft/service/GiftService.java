@@ -42,8 +42,10 @@ public class GiftService {
             emailService.sendMessageWithHTMLTemplate(donates.getMail(), "Благодарим за Ваш вклад в строительство храма преподобного Сергия Радонежского!", "get_token_email_template", templateVariables);
 
         }
-        long countOfEngraving = gifts.stream()
-                .anyMatch(gift -> gift.getName().contains("Engraving")) ? giftsRepo.countByName("Engraving") : -1;
+        boolean hasEngraving = gifts.stream().anyMatch(gift -> "Engraving".equals(gift.getGiftType()));
+
+
+        long countOfEngraving = hasEngraving ? giftsRepo.countByName("Engraving") : -1;
 
         String url = (countOfEngraving != -1) ? platformUrl + "&engravingId=" + countOfEngraving : platformUrl;
         return ResponseEntity.ok(ProcessGiftResponse.builder()
