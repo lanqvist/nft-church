@@ -2,8 +2,10 @@ package ru.nft.church_nft.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.nft.church_nft.api.dto.request.GiftsRequest;
+import ru.nft.church_nft.api.dto.response.ProcessGiftResponse;
 import ru.nft.church_nft.domain.Donates;
 import ru.nft.church_nft.domain.Gifts;
 import ru.nft.church_nft.repository.DonatesRepo;
@@ -22,7 +24,7 @@ public class GiftService {
     private final DonatesRepo donatesRepo;
     private final EmailService emailService;
 
-    public void processGifts(String donateId, List<GiftsRequest.Gift> gifts, String platformUrl) {
+    public ResponseEntity<ProcessGiftResponse> processGifts(String donateId, List<GiftsRequest.Gift> gifts, String platformUrl) {
 
         if(!giftsRepo.existsByDonates(donatesRepo.findByDonateId(donateId))){
             for (GiftsRequest.Gift gift : gifts) {
@@ -40,5 +42,12 @@ public class GiftService {
             emailService.sendMessageWithHTMLTemplate(donates.getMail(), "Благодарим за Ваш вклад в строительство храма преподобного Сергия Радонежского!", "get_token_email_template", templateVariables);
 
         }
+        long countOfEngraving = gifts.stream()
+                .anyMatch(gift -> gift.getName().contains("Engraving")) ? giftsRepo.countByName("Engraving") : -1;
+
+        String url = (countOfEngraving != -1) ? platformUrl + "&engravingId=" + countOfEngraving : platformUrl;
+        return ResponseEntity.ok(ProcessGiftResponse.builder()
+                .url(url)
+                .build());
     }
 }
