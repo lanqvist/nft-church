@@ -8,4 +8,6 @@ import ru.nft.church_nft.domain.Gifts;
 @Repository
 public interface GiftsRepo extends JpaRepository<Gifts, Long> {
     boolean existsByDonates(Donates donates);
+
+    long countByType(String type);
 }

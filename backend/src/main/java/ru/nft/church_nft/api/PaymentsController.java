@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.nft.church_nft.api.dto.request.CreatePaymentRequest;
 import ru.nft.church_nft.api.dto.request.GiftsRequest;
 import ru.nft.church_nft.api.dto.response.CreatePaymentResponse;
+import ru.nft.church_nft.api.dto.response.ProcessGiftResponse;
 import ru.nft.church_nft.api.dto.response.StatusPaymentResponse;
 import ru.nft.church_nft.service.GiftService;
 import ru.nft.church_nft.service.YookassaService;
@@ -32,13 +33,12 @@ public class PaymentsController {
     }
 
     @PostMapping("/{donate_id}")
-    public ResponseEntity<Void> processGifts(
+    public ResponseEntity<ProcessGiftResponse> processGifts(
             @PathVariable String donate_id,
             @RequestBody GiftsRequest giftsRequest) {
 
         try {
-            giftService.processGifts(donate_id, giftsRequest.getGifts(), giftsRequest.getPlatformUrl());
-            return ResponseEntity.ok().build();
+            return giftService.processGifts(donate_id, giftsRequest.getGifts(), giftsRequest.getPlatformUrl());
 
         } catch (Exception e) {
             System.err.println("Error processing gifts: " + e.getMessage());
