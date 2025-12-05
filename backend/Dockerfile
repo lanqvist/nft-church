@@ -11,7 +11,7 @@ COPY src ./src
 RUN mvn package -DskipTests
 
 # Этап запуска приложения
-FROM openjdk:17-jdk-slim
+FROM openjdk:17-jdk
 WORKDIR /app
 
 # Копируем собранный JAR-файл из этапа сборки
