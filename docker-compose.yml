@@ -10,7 +10,7 @@ services:
       - dev
     healthcheck:
       # Проверяем, отвечает ли сервер по HTTP
-      test: ["CMD-SHELL", "curl -s http://localhost:8080/ | grep -q . || exit 1"]
+      test: ["CMD", "curl", "-f", "http://localhost:3000/"]
       interval: 10s      # Как часто проверять
       timeout: 5s       # Сколько ждать ответа
       retries: 5        # Сколько попыток, прежде чем считать сервис "нездоровым"
@@ -45,7 +45,7 @@ services:
     networks:
       - dev
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/"] 
+      test: ["CMD-SHELL", "curl -s http://localhost:8080/ | grep -q . || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 5
