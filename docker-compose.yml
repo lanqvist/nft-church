@@ -8,6 +8,12 @@ services:
       context: ./frontend
     networks:
       - dev
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/"]
+      interval: 10s     # Как часто проверять
+      timeout: 5s       # Сколько ждать ответа
+      retries: 5        # Сколько попыток, прежде чем считать сервис "нездоровым"
+      start_period: 20s # Сколько времени дать на запуск (важно для тяжелых сборок)
 
   db:
     image: postgres:14
@@ -37,6 +43,12 @@ services:
     restart: always
     networks:
       - dev
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s http://localhost:8080/ | grep -q . || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
   liquibase:
     build:
@@ -63,8 +75,10 @@ services:
       - './nginx.conf:/etc/nginx/nginx.conf'
       - '/etc/letsencrypt:/etc/letsencrypt'
     depends_on:
-      - frontend
-      - backend
+      - frontend:
+        condition: service_healthy
+      - backend:
+        condition: service_healthy
     networks:
       - dev
 
