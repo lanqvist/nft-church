@@ -47,6 +47,13 @@ services:
     restart: always
     networks:
       - dev
+    healthcheck:
+      # Проверяем эндпоинт актуатора. Порт должен совпадать с server.port приложения.
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 15s      # Интервал проверок
+      timeout: 10s       # Время ожидания ответа
+      retries: 5         # Кол-во попыток до статуса 'unhealthy'
+      start_period: 40s  # Время на прогрев JVM и запуск Spring (важно!)
 
   liquibase:
     build:
