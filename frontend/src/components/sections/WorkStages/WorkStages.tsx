@@ -88,7 +88,7 @@ const cards: CardProps[] = [
     {
         date: '16.11.2025',
         title: '',
-        description: 'Постепенно снимаются внешние строительные леса',
+        description: 'Постепенно снимаются внешние строительные леса.',
         imageUrl: CARD_IMAGES[12],
     },
     {
